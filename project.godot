@@ -17,6 +17,7 @@ _global_script_class_icons={
 
 config/name="Not A CoD Zombies Copy"
 run/main_scene="res://Main Scene.tscn"
+config/icon="res://icon.png"
 
 [autoload]
 
