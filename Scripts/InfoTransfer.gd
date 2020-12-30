@@ -13,7 +13,7 @@ var ammo_box_collected : bool = false
 var gun_state = "unarmed"
 #[unarmed, shotgun, pistol, rifle, rpg, smg, knife]
 
-var pistol_activated = false
+var pistol_activated = true
 var rifle_activated = false
 var shotgun_activated = false
 
