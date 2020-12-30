@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/Material.003_Normal_OpenGL.png-b0aa78870db0cf23930f2875e98bc71c.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://3D Model Imports/Guns/Shoptgnu/Material.003_Normal_OpenGL.png"
+dest_files=[ "res://.import/Material.003_Normal_OpenGL.png-b0aa78870db0cf23930f2875e98bc71c.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=true
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0

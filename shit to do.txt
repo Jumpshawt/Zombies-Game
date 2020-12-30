@@ -1,0 +1,6 @@
+amo powrup
+hordes
+zombie animations (attack, death, stagger, crawl)
+muzzle flash
+camera shake
+ammo box

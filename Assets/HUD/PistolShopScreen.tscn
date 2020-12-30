@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/HUD/PistolShopScreen.gd" type="Script" id=1]
+
+[node name="PistolShopScreen" type="CanvasLayer"]
+pause_mode = 2
+script = ExtResource( 1 )
+
+[node name="Popup" type="Popup" parent="."]
+visible = true
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Popup"]
+margin_left = 2.27209
+margin_right = 1926.27
+margin_bottom = 1082.0
+color = Color( 1, 1, 1, 0.0784314 )
+
+[node name="Label" type="Label" parent="Popup"]
+margin_left = 794.749
+margin_top = 248.229
+margin_right = 1192.75
+margin_bottom = 295.229
+text = "Pistol Shop"
+
+[node name="AmmoBuy" type="Button" parent="Popup"]
+margin_left = 1282.13
+margin_top = 621.639
+margin_right = 1534.13
+margin_bottom = 848.639
+text = "Ammo"
+
+[node name="PistolBuy" type="Button" parent="Popup"]
+margin_left = 395.0
+margin_top = 645.382
+margin_right = 703.0
+margin_bottom = 846.382
+text = "Buy Pistol"
+
+[node name="Quit" type="Button" parent="Popup"]
+margin_left = 1554.1
+margin_top = 56.8018
+margin_right = 1834.1
+margin_bottom = 172.802
+[connection signal="pressed" from="Popup/AmmoBuy" to="." method="_on_AmmoBuy_pressed"]
+[connection signal="pressed" from="Popup/PistolBuy" to="." method="_on_PistolBuy_pressed"]
+[connection signal="pressed" from="Popup/Quit" to="." method="_on_Quit_pressed"]

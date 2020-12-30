@@ -1,0 +1,309 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Guns/GoodShotgun.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Guns/GoodPistol.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Guns/GoodRifle.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Guns/Knife.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ui/Control.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Sounds/Hit_Marker.wav" type="AudioStream" id=14]
+[ext_resource path="res://Assets/HUD/cash.png" type="Texture" id=15]
+[ext_resource path="res://Assets/HUD/health.png" type="Texture" id=16]
+[ext_resource path="res://Assets/HUD/Weapons/Ak.png" type="Texture" id=22]
+[ext_resource path="res://Assets/HUD/Weapons/Axe.png" type="Texture" id=23]
+[ext_resource path="res://Assets/HUD/Weapons/Pistol.png" type="Texture" id=24]
+[ext_resource path="res://Assets/HUD/Weapons/Shotgun.png" type="Texture" id=25]
+
+[sub_resource type="CapsuleShape" id=1]
+height = 1.5
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 1, 0.182031, 1 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 1.18136, 1.76853, 1.2487 )
+
+[sub_resource type="Animation" id=4]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("CollisionShape:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, -0.748096, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Rotation_Helper:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, -1.5, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CollisionShape:shape:height")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 3.0, 1.5 ]
+}
+
+[sub_resource type="Animation" id=5]
+
+[sub_resource type="Animation" id=6]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("CollisionShape:shape:height")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.5, 3.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CollisionShape:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -0.748096, 0 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Rotation_Helper:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.497534 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -1.5, 0 ), Vector3( 0, 0, 0 ) ]
+}
+
+[node name="Player" type="KinematicBody" groups=[
+"Player",
+]]
+script = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.748096, 0 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.78392, 0 )
+shape = SubResource( 2 )
+
+[node name="HeadBonker" type="RayCast" parent="."]
+enabled = true
+cast_to = Vector3( 0, 2.5, 0 )
+collision_mask = 2
+collide_with_areas = true
+
+[node name="Rotation_Helper" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0 )
+
+[node name="InteractRaycast" type="RayCast" parent="Rotation_Helper"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.860374, -0.0766677 )
+enabled = true
+cast_to = Vector3( 0, 0, -10 )
+collision_mask = 4
+collide_with_areas = true
+
+[node name="RayCast" type="RayCast" parent="Rotation_Helper"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.867804, -0.793105 )
+enabled = true
+cast_to = Vector3( 0, 0, -1000 )
+collision_mask = 6
+collide_with_areas = true
+
+[node name="Shotgun" parent="Rotation_Helper" instance=ExtResource( 2 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.00341, 0.250038, -1.00281 )
+
+[node name="Pistol" parent="Rotation_Helper" instance=ExtResource( 3 )]
+transform = Transform( -1.1119e-08, -8.27808e-09, 0.25, 0.0056849, 0.249935, 8.52878e-09, -0.249935, 0.0056849, -1.09278e-08, 0.762, -0.316, -1 )
+
+[node name="Rifle" parent="Rotation_Helper" instance=ExtResource( 4 )]
+transform = Transform( -2.27131e-08, 1.31134e-08, 0.6, 0.3, 0.519615, 3.59401e-14, -0.519615, 0.3, -2.62268e-08, 2.00103, 0.357414, -1.50739 )
+
+[node name="Camera" type="Camera" parent="Rotation_Helper"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.841964, 0 )
+current = true
+fov = 90.0
+far = 500.0
+
+[node name="RifleRayCast" type="RayCast" parent="Rotation_Helper/Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0182799, 0 )
+enabled = true
+cast_to = Vector3( 0, 0, -100 )
+collision_mask = 6
+collide_with_areas = true
+
+[node name="ShotgunRayCastHolder" type="Spatial" parent="Rotation_Helper"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.861074, 0.00352693 )
+
+[node name="ShotgunRaycast1" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast2" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast3" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast4" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast5" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast6" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast7" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast8" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast9" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast10" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="Knife" parent="Rotation_Helper" instance=ExtResource( 5 )]
+transform = Transform( -0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, -0.25, 0.621872, 0.522834, -1.07371 )
+
+[node name="KnifeRaycast" type="RayCast" parent="Rotation_Helper"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.843074, 0 )
+enabled = true
+cast_to = Vector3( 0, 0, -6 )
+collision_mask = 6
+collide_with_areas = true
+
+[node name="PickupArea" type="Area" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape" type="CollisionShape" parent="PickupArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.701089, 0 )
+shape = SubResource( 3 )
+
+[node name="Control" parent="." instance=ExtResource( 6 )]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Crouch = SubResource( 4 )
+anims/Idle = SubResource( 5 )
+anims/UnCrouch = SubResource( 6 )
+
+[node name="PistolReloadTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="RifleReloadTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="ShotgunShootTimer" type="Timer" parent="."]
+wait_time = 0.55
+
+[node name="RifleSpreadTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="KnifeStabTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+
+[node name="HalfSecond Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="cash" type="Sprite" parent="."]
+position = Vector2( 133.526, 941.166 )
+scale = Vector2( 0.558923, 0.558923 )
+z_index = -1
+texture = ExtResource( 15 )
+
+[node name="health" type="Sprite" parent="."]
+position = Vector2( 158.84, 1014.28 )
+scale = Vector2( 0.13652, 0.13652 )
+texture = ExtResource( 16 )
+
+[node name="Ak" type="Sprite" parent="."]
+position = Vector2( 1756.81, 811.537 )
+scale = Vector2( 0.239475, 0.239475 )
+texture = ExtResource( 22 )
+
+[node name="Axe" type="Sprite" parent="."]
+position = Vector2( 1290.14, 1515.84 )
+texture = ExtResource( 23 )
+
+[node name="Pistol" type="Sprite" parent="."]
+position = Vector2( 1732.78, 887.35 )
+scale = Vector2( 0.218152, 0.218152 )
+texture = ExtResource( 24 )
+
+[node name="Shotgun" type="Sprite" parent="."]
+position = Vector2( 1751.64, 946.853 )
+scale = Vector2( 0.194135, 0.194135 )
+texture = ExtResource( 25 )
+[connection signal="body_entered" from="PickupArea" to="." method="_on_PickupArea_body_entered"]
+[connection signal="timeout" from="PistolReloadTimer" to="." method="_on_PistolReloadTimer_timeout"]
+[connection signal="timeout" from="RifleReloadTimer" to="." method="_on_RifleReloadTimer_timeout"]
+[connection signal="timeout" from="ShotgunShootTimer" to="." method="_on_ShotgunShootTimer_timeout"]
+[connection signal="timeout" from="RifleSpreadTimer" to="." method="_on_RifleSpreadTimer_timeout"]
+[connection signal="timeout" from="KnifeStabTimer" to="." method="_on_KnifeStabTimer_timeout"]

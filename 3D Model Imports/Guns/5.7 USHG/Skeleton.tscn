@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://3D Model Imports/Guns/5.7 USHG/pistol.tres" type="ArrayMesh" id=1]
+
+[sub_resource type="Skin" id=2]
+resource_name = "Skin"
+bind_count = 4
+bind/0/name = "root"
+bind/0/bone = -1
+bind/0/pose = Transform( -5.80773e-07, 1.60364e-07, 3.11027, 0.388955, -3.08585, 5.42456e-08, 3.08585, 0.388955, 5.66484e-07, -3.11491, 1.77615, -5.4334 )
+bind/1/name = "slide"
+bind/1/bone = -1
+bind/1/pose = Transform( 9.91679e-09, -4.70735e-07, 3.11027, -1.47342, -2.73913, -5.60421e-07, 2.73913, -1.47342, -3.26292e-07, -3.11491, 4.63955, -3.94418 )
+bind/2/name = "mag"
+bind/2/bone = -1
+bind/2/pose = Transform( -1.88859e-06, 6.49713e-07, 3.11027, 1.86813, 2.48674, 7.49528e-07, -2.48674, 1.86813, -1.78411e-06, -3.11491, -3.28837, 3.24852 )
+bind/3/name = "trigger"
+bind/3/bone = -1
+bind/3/pose = Transform( 2.87854e-06, 1.80344e-06, 3.11027, 2.91812, -1.07626, -2.14925e-06, 1.07626, 2.91812, -2.52581e-06, -3.11492, -5.17848, -3.40427 )
+
+[node name="Skeleton" type="Skeleton"]
+bones/0/name = "root"
+bones/0/parent = -1
+bones/0/rest = Transform( -3.57628e-07, 0.866025, 0.5, -1.78814e-07, -0.5, 0.866026, 1, 1.78814e-07, 2.38419e-07, 1.9853, -1.13218, -9.74626e-08 )
+bones/0/enabled = true
+bones/0/bound_children = [  ]
+bones/1/name = "slide"
+bones/1/parent = 0
+bones/1/rest = Transform( 1, -8.87269e-08, -2.63377e-07, 2.25065e-07, 0.814517, 0.580141, 1.6305e-07, -0.580141, 0.814517, -2.07938e-08, 0.285337, 0.470786 )
+bones/1/enabled = true
+bones/1/bound_children = [  ]
+bones/2/name = "mag"
+bones/2/parent = 0
+bones/2/rest = Transform( 1, 1.26763e-07, -4.30686e-07, -2.08681e-07, -0.718138, -0.695901, -3.97506e-07, 0.695901, -0.718138, -5.01364e-09, 1.67529, -0.812142 )
+bones/2/enabled = true
+bones/2/bound_children = [  ]
+bones/3/name = "trigger"
+bones/3/parent = 0
+bones/3/rest = Transform( 1, -8.6071e-07, -8.80507e-07, -3.85039e-07, 0.460648, -0.887583, 1.16956e-06, 0.887583, 0.460648, 3.83124e-09, 1.14003, 0.731097 )
+bones/3/enabled = true
+bones/3/bound_children = [  ]
+
+[node name="Cube_Cube002" type="MeshInstance" parent="."]
+mesh = ExtResource( 1 )
+skin = SubResource( 2 )
+material/0 = null
+material/1 = null

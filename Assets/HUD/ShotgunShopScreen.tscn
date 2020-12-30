@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/HUD/ShotgunShopScreen.gd" type="Script" id=1]
+
+[node name="ShotgunShopScreen" type="CanvasLayer"]
+pause_mode = 2
+script = ExtResource( 1 )
+
+[node name="Popup" type="Popup" parent="."]
+visible = true
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Popup"]
+margin_right = 1925.0
+margin_bottom = 1082.0
+color = Color( 1, 1, 1, 0.0784314 )
+
+[node name="Label" type="Label" parent="Popup"]
+margin_left = 526.164
+margin_top = 236.648
+margin_right = 921.164
+margin_bottom = 426.648
+text = "Shotugn ShoP!!!!"
+
+[node name="Buy Shotgun" type="Button" parent="Popup"]
+margin_left = 452.0
+margin_top = 661.0
+margin_right = 662.0
+margin_bottom = 758.0
+text = "Buy Shotgun! Price: 2500"
+
+[node name="Quit" type="Button" parent="Popup"]
+margin_left = 1688.15
+margin_top = 38.6252
+margin_right = 1843.15
+margin_bottom = 149.625
+text = "Quit"
+
+[node name="Buy Ammo" type="Button" parent="Popup"]
+margin_left = 1147.75
+margin_top = 656.809
+margin_right = 1313.75
+margin_bottom = 739.809
+text = "Buy 28 Ammo! Price : 1250"
+[connection signal="pressed" from="Popup/Buy Shotgun" to="." method="_on_Buy_Shotgun_pressed"]
+[connection signal="pressed" from="Popup/Quit" to="." method="_on_Quit_pressed"]
+[connection signal="pressed" from="Popup/Buy Ammo" to="." method="_on_Buy_Ammo_pressed"]

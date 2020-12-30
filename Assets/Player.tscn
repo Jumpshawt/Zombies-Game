@@ -1,0 +1,556 @@
+[gd_scene load_steps=34 format=2]
+
+[ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Guns/GoodShotgun.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Guns/GoodPistol.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Guns/GoodRifle.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/Guns/Knife.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scripts/HUD/HUD Control.gd" type="Script" id=6]
+[ext_resource path="res://Sprites/quickcrosshair.png" type="Texture" id=7]
+[ext_resource path="res://Scripts/HUD/PistolAmmo.gd" type="Script" id=8]
+[ext_resource path="res://Scripts/HUD/RifleAmmo.gd" type="Script" id=9]
+[ext_resource path="res://Sounds/AK-1.wav" type="AudioStream" id=10]
+[ext_resource path="res://Sounds/AK-2.wav" type="AudioStream" id=11]
+[ext_resource path="res://Scripts/HUD/ShotgunAmmo.gd" type="Script" id=12]
+[ext_resource path="res://Sounds/shogun_load.wav" type="AudioStream" id=13]
+[ext_resource path="res://Sounds/Hit_Marker.wav" type="AudioStream" id=14]
+[ext_resource path="res://Assets/HUD/cash.png" type="Texture" id=15]
+[ext_resource path="res://Assets/HUD/health.png" type="Texture" id=16]
+[ext_resource path="res://Assets/HUD/3thing.png" type="Texture" id=17]
+[ext_resource path="res://Assets/Fonts/Smaller black ops.tres" type="Theme" id=18]
+[ext_resource path="res://Assets/Fonts/Black Ops One.theme" type="Theme" id=19]
+[ext_resource path="res://Assets/HUD/Ammo.png" type="Texture" id=20]
+[ext_resource path="res://Assets/HUD/thing.png" type="Texture" id=21]
+[ext_resource path="res://Assets/HUD/Weapons/Ak.png" type="Texture" id=22]
+[ext_resource path="res://Assets/HUD/Weapons/Pistol.png" type="Texture" id=24]
+[ext_resource path="res://Assets/HUD/Weapons/Shotgun.png" type="Texture" id=25]
+
+[sub_resource type="CapsuleShape" id=1]
+height = 3.0
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 1, 0.182031, 1 )
+
+[sub_resource type="Shader" id=3]
+code = "shader_type spatial;
+render_mode depth_test_disable, depth_draw_never, unshaded, cull_disabled;
+
+uniform float light : hint_range(0, 1);
+uniform float extend : hint_range(0, 1);
+uniform float offset : hint_range(0, 10);
+
+void fragment() {
+    vec2 uv = UV;
+    vec3 chroma;
+    float amount = offset * 0.0005;
+
+    // cache screen
+    vec3 og_color = textureLod( SCREEN_TEXTURE, SCREEN_UV, 0.0).rgb;
+
+    // cache screen witch chroma (r/b shifted by ammount)
+    chroma.r = textureLod( SCREEN_TEXTURE, SCREEN_UV + vec2(amount, 0.), 0.0).r;
+    chroma.g = og_color.g;
+    chroma.b = textureLod( SCREEN_TEXTURE, SCREEN_UV - vec2(amount, 0.), 0.0).b;
+    
+    // generate gradient from center to the corners
+    uv *=  1.0 - uv.yx;
+    float vig = uv.x*uv.y * 15.;
+    vig = pow(vig, extend);
+    vig = 1.0 - vig;
+
+    // mix chroma with original image by the gradient (more on corners, less in center)
+    chroma = mix(og_color, chroma, vig * 2.);
+    
+	// mix chroma with vignette (darker version of chroma image)
+    ALBEDO = mix(chroma, chroma * vec3(light), vig);
+}"
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
+shader_param/light = 0.135
+shader_param/extend = 0.409
+shader_param/offset = 1.641
+
+[sub_resource type="QuadMesh" id=5]
+material = SubResource( 4 )
+size = Vector2( 1.783, 1 )
+
+[sub_resource type="BoxShape" id=6]
+extents = Vector3( 1.779, 1.945, 1.742 )
+
+[sub_resource type="Animation" id=7]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("CollisionShape:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, -0.748096, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Rotation_Helper:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, -1.5, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CollisionShape:shape:height")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 3.0, 1.5 ]
+}
+
+[sub_resource type="Animation" id=8]
+
+[sub_resource type="Animation" id=9]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("CollisionShape:shape:height")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.5, 3.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CollisionShape:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -0.748096, 0 ), Vector3( 0, 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Rotation_Helper:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.497534 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -1.5, 0 ), Vector3( 0, 0, 0 ) ]
+}
+
+[node name="Player" type="KinematicBody" groups=[
+"Player",
+]]
+script = ExtResource( 1 )
+pistol_spread = 0
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.78392, 0 )
+shape = SubResource( 2 )
+
+[node name="HeadBonker" type="RayCast" parent="."]
+enabled = true
+cast_to = Vector3( 0, 2.5, 0 )
+collision_mask = 2
+collide_with_areas = true
+
+[node name="Rotation_Helper" type="Spatial" parent="."]
+
+[node name="InteractRaycast" type="RayCast" parent="Rotation_Helper"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.860374, -0.0766677 )
+enabled = true
+cast_to = Vector3( 0, 0, -10 )
+collision_mask = 4
+collide_with_areas = true
+
+[node name="RayCast" type="RayCast" parent="Rotation_Helper"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.867804, -0.793105 )
+enabled = true
+cast_to = Vector3( 0, 0, -1000 )
+collision_mask = 6
+collide_with_areas = true
+
+[node name="Shotgun" parent="Rotation_Helper" instance=ExtResource( 2 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.00341, 0.250038, -1.00281 )
+
+[node name="Pistol" parent="Rotation_Helper" instance=ExtResource( 3 )]
+transform = Transform( -3.78364e-08, -3.53163e-08, 1, -0.184809, 0.982774, 2.77154e-08, -0.982774, -0.184809, -4.37114e-08, -0.389, -0.519, 1.05 )
+
+[node name="Rifle" parent="Rotation_Helper" instance=ExtResource( 4 )]
+transform = Transform( -2.27131e-08, 1.31134e-08, 0.6, 0.3, 0.519615, 3.59401e-14, -0.519615, 0.3, -2.62268e-08, 2.00103, 0.357414, -1.50739 )
+
+[node name="Camera" type="Camera" parent="Rotation_Helper"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.841964, 0 )
+current = true
+fov = 90.0
+far = 500.0
+
+[node name="RifleRayCast" type="RayCast" parent="Rotation_Helper/Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0182799, 0 )
+enabled = true
+cast_to = Vector3( 0, 0, -100 )
+collision_mask = 6
+collide_with_areas = true
+
+[node name="PostProcessing" type="CSGMesh" parent="Rotation_Helper/Camera"]
+transform = Transform( 1.0025, 0, 0, 0, 1.0025, 0, 0, 0, 1.0025, -0.00563608, -5.96046e-08, -0.497982 )
+mesh = SubResource( 5 )
+
+[node name="ShotgunRayCastHolder" type="Spatial" parent="Rotation_Helper"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.861074, 0.00352693 )
+
+[node name="ShotgunRaycast1" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast2" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast3" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast4" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast5" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast6" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast7" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast8" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast9" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast10" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="Knife" parent="Rotation_Helper" instance=ExtResource( 5 )]
+transform = Transform( -0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, -0.25, 0.621872, 0.522834, -1.07371 )
+
+[node name="KnifeRaycast" type="RayCast" parent="Rotation_Helper"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.843074, 0 )
+enabled = true
+cast_to = Vector3( 0, 0, -6 )
+collision_mask = 6
+collide_with_areas = true
+
+[node name="PickupArea" type="Area" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="PickupArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.701089, 0 )
+shape = SubResource( 6 )
+
+[node name="Control" type="Control" parent="."]
+pause_mode = 2
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="3thing" type="Sprite" parent="Control"]
+modulate = Color( 0, 0, 0, 0.878431 )
+position = Vector2( 1008.54, 76.4408 )
+z_index = -1
+texture = ExtResource( 17 )
+
+[node name="thing" type="Sprite" parent="Control"]
+modulate = Color( 0, 0, 0, 0.819608 )
+position = Vector2( 214.883, 968.865 )
+scale = Vector2( 0.820165, 0.590514 )
+z_index = -2
+texture = ExtResource( 21 )
+
+[node name="thing2" type="Sprite" parent="Control"]
+modulate = Color( 0, 0, 0, 0.831373 )
+position = Vector2( 1764.94, 903.218 )
+scale = Vector2( 0.452677, 0.928503 )
+z_index = -4
+texture = ExtResource( 21 )
+
+[node name="Ammo" type="Sprite" parent="Control"]
+position = Vector2( 1691.95, 995.805 )
+scale = Vector2( 0.0232251, 0.0232251 )
+texture = ExtResource( 20 )
+
+[node name="Sprite" type="Sprite" parent="Control"]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 7 )
+offset = Vector2( 1920, 1080 )
+
+[node name="Pistol2" type="Sprite" parent="Control"]
+modulate = Color( 0.4, 0.4, 0.4, 1 )
+position = Vector2( 1740, 881.204 )
+scale = Vector2( 0.249012, 0.249012 )
+z_index = -1
+texture = ExtResource( 24 )
+
+[node name="Ak2" type="Sprite" parent="Control"]
+modulate = Color( 0.4, 0.4, 0.4, 1 )
+position = Vector2( 1759.35, 815.204 )
+scale = Vector2( 0.22449, 0.22449 )
+z_index = -1
+texture = ExtResource( 22 )
+
+[node name="Shotgun2" type="Sprite" parent="Control"]
+modulate = Color( 0.4, 0.4, 0.4, 1 )
+position = Vector2( 1757.06, 940.95 )
+scale = Vector2( 0.22905, 0.22905 )
+z_index = -1
+texture = ExtResource( 25 )
+
+[node name="ReloadPopup" type="Popup" parent="Control"]
+visible = true
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Label2" type="Label" parent="Control/ReloadPopup"]
+pause_mode = 2
+margin_left = 862.557
+margin_top = 331.142
+margin_right = 1079.56
+margin_bottom = 412.142
+theme = ExtResource( 19 )
+text = "R to Reload"
+
+[node name="PistolAmmo" type="Popup" parent="Control"]
+visible = true
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control/PistolAmmo"]
+pause_mode = 2
+margin_left = 1726.59
+margin_top = 983.765
+margin_right = 1895.59
+margin_bottom = 1069.77
+theme = ExtResource( 18 )
+script = ExtResource( 8 )
+
+[node name="Pistol" type="Sprite" parent="Control/PistolAmmo"]
+position = Vector2( 1740, 881.204 )
+scale = Vector2( 0.249012, 0.249012 )
+texture = ExtResource( 24 )
+
+[node name="RifleAmmo" type="Popup" parent="Control"]
+visible = true
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="Control/RifleAmmo"]
+pause_mode = 2
+margin_left = 1726.59
+margin_top = 983.765
+margin_right = 1884.59
+margin_bottom = 1057.77
+theme = ExtResource( 18 )
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ak-1" type="AudioStreamPlayer" parent="Control/RifleAmmo"]
+stream = ExtResource( 10 )
+
+[node name="Ak-2" type="AudioStreamPlayer" parent="Control/RifleAmmo"]
+stream = ExtResource( 11 )
+
+[node name="Ak" type="Sprite" parent="Control/RifleAmmo"]
+position = Vector2( 1759.35, 815.204 )
+scale = Vector2( 0.22449, 0.22449 )
+texture = ExtResource( 22 )
+
+[node name="ShotgunAmmo" type="Popup" parent="Control"]
+visible = true
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Label4" type="Label" parent="Control/ShotgunAmmo"]
+pause_mode = 2
+margin_left = 1726.59
+margin_top = 983.765
+margin_right = 1766.59
+margin_bottom = 997.765
+theme = ExtResource( 18 )
+script = ExtResource( 12 )
+
+[node name="Shotgun_reload" type="AudioStreamPlayer" parent="Control/ShotgunAmmo"]
+stream = ExtResource( 13 )
+
+[node name="Shotgun" type="Sprite" parent="Control/ShotgunAmmo"]
+position = Vector2( 1757.06, 940.95 )
+scale = Vector2( 0.22905, 0.22905 )
+texture = ExtResource( 25 )
+
+[node name="Money" type="Label" parent="Control"]
+margin_left = 35.0
+margin_top = 920.0
+margin_right = 535.0
+margin_bottom = 1060.0
+theme = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Money2" type="Label" parent="Control"]
+margin_left = 30.7621
+margin_top = 979.33
+margin_right = 530.762
+margin_bottom = 1119.33
+theme = ExtResource( 18 )
+text = "Health:  100"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="health" type="Sprite" parent="Control/Money2"]
+position = Vector2( 287.336, 24.7231 )
+scale = Vector2( 0.217083, 0.217083 )
+texture = ExtResource( 16 )
+
+[node name="cash" type="Sprite" parent="Control/Money2/health"]
+position = Vector2( 72.8176, -354.189 )
+scale = Vector2( 2.4388, 2.4388 )
+texture = ExtResource( 15 )
+
+[node name="Round" type="Label" parent="Control"]
+margin_left = 928.831
+margin_top = 53.1673
+margin_right = 1112.83
+margin_bottom = 154.167
+theme = ExtResource( 19 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Debug" type="Label" parent="Control"]
+margin_left = 336.711
+margin_top = 913.592
+margin_right = 434.711
+margin_bottom = 985.592
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Crouch = SubResource( 7 )
+anims/Idle = SubResource( 8 )
+anims/UnCrouch = SubResource( 9 )
+
+[node name="PistolReloadTimer" type="Timer" parent="."]
+wait_time = 1.542
+one_shot = true
+
+[node name="RifleReloadTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="ShotgunShootTimer" type="Timer" parent="."]
+wait_time = 0.65
+
+[node name="RifleSpreadTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="KnifeStabTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+
+[node name="HalfSecond Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="GroundCast" type="RayCast" parent="."]
+[connection signal="pistol_ammo" from="." to="Control/PistolAmmo/Label" method="_on_Player_pistol_ammo"]
+[connection signal="reloading" from="." to="Control/PistolAmmo/Label" method="_on_Player_reloading"]
+[connection signal="rifle_ammo" from="." to="Control/RifleAmmo/Label3" method="_on_Player_rifle_ammo"]
+[connection signal="shotgun_ammo" from="." to="Control/ShotgunAmmo/Label4" method="_on_Player_shotgun_ammo"]
+[connection signal="body_entered" from="PickupArea" to="." method="_on_PickupArea_body_entered"]
+[connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="." method="_on_Label_need_to_reload"]
+[connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/Pistol" method="_on_Label_need_to_reload"]
+[connection signal="no_ammo" from="Control/PistolAmmo/Label" to="." method="_on_Label_no_ammo"]
+[connection signal="no_ammo" from="Control/PistolAmmo/Label" to="Rotation_Helper/Pistol" method="_on_Label_no_ammo"]
+[connection signal="no_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/Pistol" method="_on_Label_no_reload"]
+[connection signal="dont_need_to_reload_no_more" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Rifle" method="_on_Label3_dont_need_to_reload_no_more"]
+[connection signal="need_to_reload" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Rifle" method="_on_Label3_need_to_reload"]
+[connection signal="need_to_reload" from="Control/RifleAmmo/Label3" to="." method="_on_Label3_need_to_reload"]
+[connection signal="no_ammo" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Rifle" method="_on_Label3_no_ammo"]
+[connection signal="out_of_reserve_ammo" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Shotgun" method="_on_Label4_out_of_reserve_ammo"]
+[connection signal="shoot" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Shotgun" method="_on_Label4_shoot"]
+[connection signal="spin" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Shotgun" method="_on_Label4_spin"]
+[connection signal="timeout" from="PistolReloadTimer" to="Control/PistolAmmo/Label" method="_on_PistolReloadTimer_timeout"]
+[connection signal="timeout" from="PistolReloadTimer" to="." method="_on_PistolReloadTimer_timeout"]
+[connection signal="timeout" from="RifleReloadTimer" to="Control/RifleAmmo/Label3" method="_on_RifleReloadTimer_timeout"]
+[connection signal="timeout" from="RifleReloadTimer" to="." method="_on_RifleReloadTimer_timeout"]
+[connection signal="timeout" from="ShotgunShootTimer" to="Control/ShotgunAmmo/Label4" method="_on_ShotgunShootTimer_timeout"]
+[connection signal="timeout" from="ShotgunShootTimer" to="." method="_on_ShotgunShootTimer_timeout"]
+[connection signal="timeout" from="RifleSpreadTimer" to="Control/RifleAmmo/Label3" method="_on_RifleSpreadTimer_timeout"]
+[connection signal="timeout" from="RifleSpreadTimer" to="." method="_on_RifleSpreadTimer_timeout"]
+[connection signal="timeout" from="KnifeStabTimer" to="." method="_on_KnifeStabTimer_timeout"]
+[connection signal="timeout" from="HalfSecond Timer" to="Control/ShotgunAmmo/Label4" method="_on_HalfSecond_Timer_timeout"]

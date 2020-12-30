@@ -1,0 +1,186 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Sprites/quickcrosshair.png" type="Texture" id=1]
+[ext_resource path="res://Sounds/AK-1.wav" type="AudioStream" id=2]
+[ext_resource path="res://Sounds/AK-2.wav" type="AudioStream" id=3]
+[ext_resource path="res://Sounds/shogun_load.wav" type="AudioStream" id=4]
+[ext_resource path="res://Scripts/HUD/HUD Control.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/HUD/RifleAmmo.gd" type="Script" id=6]
+[ext_resource path="res://Scripts/HUD/PistolAmmo.gd" type="Script" id=7]
+[ext_resource path="res://Scripts/HUD/ShotgunAmmo.gd" type="Script" id=8]
+[ext_resource path="res://Assets/HUD/Ammo.png" type="Texture" id=9]
+[ext_resource path="res://Assets/HUD/thing.png" type="Texture" id=10]
+[ext_resource path="res://Assets/HUD/3thing.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Fonts/Black Ops One.theme" type="Theme" id=12]
+[ext_resource path="res://Assets/HUD/BlackOpsOne-Regular.ttf" type="DynamicFontData" id=13]
+
+[sub_resource type="DynamicFont" id=1]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 13 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[node name="Control" type="Control"]
+pause_mode = 2
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 1 )
+offset = Vector2( 1920, 1080 )
+
+[node name="ReloadPopup" type="Popup" parent="."]
+visible = true
+margin_left = -823.754
+margin_top = -309.049
+margin_right = -783.754
+margin_bottom = -269.049
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="ReloadPopup"]
+pause_mode = 2
+margin_left = 1653.9
+margin_top = 892.234
+margin_right = 1870.9
+margin_bottom = 973.234
+theme = ExtResource( 12 )
+text = "R to Reload"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PistolAmmo" type="Popup" parent="."]
+visible = true
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PistolAmmo"]
+pause_mode = 2
+margin_left = 1726.59
+margin_top = 983.765
+margin_right = 1895.59
+margin_bottom = 1069.77
+theme = ExtResource( 12 )
+text = "16/48"
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RifleAmmo" type="Popup" parent="."]
+visible = true
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="RifleAmmo"]
+pause_mode = 2
+margin_left = 1726.0
+margin_top = 984.0
+margin_right = 1884.0
+margin_bottom = 1058.0
+theme = ExtResource( 12 )
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ak-1" type="AudioStreamPlayer" parent="RifleAmmo"]
+stream = ExtResource( 2 )
+
+[node name="Ak-2" type="AudioStreamPlayer" parent="RifleAmmo"]
+stream = ExtResource( 3 )
+
+[node name="ShotgunAmmo" type="Popup" parent="."]
+visible = true
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="ShotgunAmmo"]
+pause_mode = 2
+margin_left = 1726.59
+margin_top = 983.765
+margin_right = 1766.59
+margin_bottom = 997.765
+theme = ExtResource( 12 )
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shotgun_reload" type="AudioStreamPlayer" parent="ShotgunAmmo"]
+stream = ExtResource( 4 )
+
+[node name="Money" type="Label" parent="."]
+margin_left = 74.3777
+margin_top = 917.98
+margin_right = 574.378
+margin_bottom = 1057.98
+theme = SubResource( 2 )
+text = "Money: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="thing" type="Sprite" parent="Money"]
+modulate = Color( 0.423529, 0.423529, 0.423529, 0.364706 )
+position = Vector2( 140.505, 50.8847 )
+scale = Vector2( 0.820165, 0.590514 )
+z_index = -2
+texture = ExtResource( 10 )
+
+[node name="thing2" type="Sprite" parent="Money"]
+modulate = Color( 0.423529, 0.423529, 0.423529, 0.364706 )
+position = Vector2( 1689.44, -14.7623 )
+scale = Vector2( 0.452677, 0.928503 )
+z_index = -4
+texture = ExtResource( 10 )
+
+[node name="3thing" type="Sprite" parent="."]
+position = Vector2( 1008.54, 76.4408 )
+z_index = -1
+texture = ExtResource( 11 )
+
+[node name="Round" type="Label" parent="."]
+margin_left = 932.082
+margin_top = 42.2599
+margin_right = 1116.08
+margin_bottom = 143.26
+rect_pivot_offset = Vector2( 709.06, 196.362 )
+theme = ExtResource( 12 )
+text = "Round: 1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Debug" type="Label" parent="."]
+margin_left = 336.711
+margin_top = 914.714
+margin_right = 434.711
+margin_bottom = 986.714
+text = "debug"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ammo" type="Sprite" parent="."]
+position = Vector2( 1691.95, 995.805 )
+scale = Vector2( 0.0232251, 0.0232251 )
+texture = ExtResource( 9 )

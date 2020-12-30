@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/shogun_load.wav-cd10919948075298b199994056ccf39e.sample"
+
+[deps]
+
+source_file="res://Sounds/shogun_load.wav"
+dest_files=[ "res://.import/shogun_load.wav-cd10919948075298b199994056ccf39e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

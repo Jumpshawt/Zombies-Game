@@ -1,0 +1,9 @@
+Despite you being Modular on discord almost non of your code is modular. please for the love of fucking god use some exports ;)
+BasicZombieSpawner.Gd: 
+- Commented out Line 31, even if the line worked it would literally accomplish nothing and just causes errors as it is right now.
+
+player.gd 
+- commented out line 89 - 90
+
+ShotgunAmmo.gd
+- commented out 62 - 67

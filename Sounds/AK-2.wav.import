@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/AK-2.wav-b8e9b7afdff1fa5074d0e829a9438054.sample"
+
+[deps]
+
+source_file="res://Sounds/AK-2.wav"
+dest_files=[ "res://.import/AK-2.wav-b8e9b7afdff1fa5074d0e829a9438054.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

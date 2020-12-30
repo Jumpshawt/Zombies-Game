@@ -1,0 +1,118 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Sprites/quickcrosshair.png" type="Texture" id=1]
+[ext_resource path="res://Sounds/AK-1.wav" type="AudioStream" id=2]
+[ext_resource path="res://Sounds/AK-2.wav" type="AudioStream" id=3]
+[ext_resource path="res://Sounds/shogun_load.wav" type="AudioStream" id=4]
+[ext_resource path="res://Scripts/HUD/HUD Control.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/HUD/RifleAmmo.gd" type="Script" id=6]
+[ext_resource path="res://Scripts/HUD/PistolAmmo.gd" type="Script" id=7]
+[ext_resource path="res://Scripts/HUD/ShotgunAmmo.gd" type="Script" id=8]
+
+[node name="Control" type="Control"]
+pause_mode = 2
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 1 )
+offset = Vector2( 1920, 1080 )
+
+[node name="ReloadPopup" type="Popup" parent="."]
+visible = true
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="ReloadPopup"]
+pause_mode = 2
+margin_left = 1723.82
+margin_top = 899.65
+margin_right = 1896.82
+margin_bottom = 980.65
+text = "R to Reload"
+
+[node name="PistolAmmo" type="Popup" parent="."]
+visible = true
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="PistolAmmo"]
+pause_mode = 2
+margin_left = 1726.59
+margin_top = 983.765
+margin_right = 1895.59
+margin_bottom = 1069.77
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RifleAmmo" type="Popup" parent="."]
+visible = true
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Label3" type="Label" parent="RifleAmmo"]
+pause_mode = 2
+margin_left = 1726.59
+margin_top = 983.765
+margin_right = 1884.59
+margin_bottom = 1057.77
+script = ExtResource( 6 )
+
+[node name="Ak-1" type="AudioStreamPlayer" parent="RifleAmmo"]
+stream = ExtResource( 2 )
+
+[node name="Ak-2" type="AudioStreamPlayer" parent="RifleAmmo"]
+stream = ExtResource( 3 )
+
+[node name="ShotgunAmmo" type="Popup" parent="."]
+visible = true
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Label4" type="Label" parent="ShotgunAmmo"]
+pause_mode = 2
+margin_left = 1726.59
+margin_top = 983.765
+margin_right = 1766.59
+margin_bottom = 997.765
+script = ExtResource( 8 )
+
+[node name="Shotgun_reload" type="AudioStreamPlayer" parent="ShotgunAmmo"]
+stream = ExtResource( 4 )
+
+[node name="Money" type="Label" parent="."]
+margin_left = 95.7352
+margin_top = 937.186
+margin_right = 595.735
+margin_bottom = 1077.19
+
+[node name="Round" type="Label" parent="."]
+margin_left = 33.0548
+margin_top = 817.871
+margin_right = 217.055
+margin_bottom = 918.871
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Debug" type="Label" parent="."]
+margin_left = 336.711
+margin_top = 914.714
+margin_right = 434.711
+margin_bottom = 986.714
+__meta__ = {
+"_edit_use_anchors_": false
+}

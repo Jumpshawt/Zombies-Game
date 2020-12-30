@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Parker Solar Probe - Langmuir Waves.wav-9bcb7eb087b93f2d9f5adfce67c089e8.sample"
+
+[deps]
+
+source_file="res://Assets/Audio/Parker Solar Probe - Langmuir Waves.wav"
+dest_files=[ "res://.import/Parker Solar Probe - Langmuir Waves.wav-9bcb7eb087b93f2d9f5adfce67c089e8.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

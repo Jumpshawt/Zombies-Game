@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/HUD/RifleShopScreen.gd" type="Script" id=1]
+
+[node name="RifleShopScreen" type="CanvasLayer"]
+pause_mode = 2
+script = ExtResource( 1 )
+
+[node name="Popup" type="Popup" parent="."]
+visible = true
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Popup"]
+margin_right = 1924.0
+margin_bottom = 1083.0
+color = Color( 1, 1, 1, 0.0784314 )
+
+[node name="Title" type="Label" parent="Popup"]
+margin_left = 559.044
+margin_top = 246.066
+margin_right = 1011.04
+margin_bottom = 424.066
+text = "Rifle Shop Come gGe t ur firles!"
+
+[node name="RifleBuy" type="Button" parent="Popup"]
+margin_left = 500.765
+margin_top = 589.262
+margin_right = 663.765
+margin_bottom = 706.262
+text = "Buy Rifle! Cost : 2000"
+
+[node name="AmmoBuy" type="Button" parent="Popup"]
+margin_left = 1098.66
+margin_top = 591.421
+margin_right = 1238.66
+margin_bottom = 700.421
+text = "Buy 90 Ammo! Cost : 1250"
+
+[node name="Quit" type="Button" parent="Popup"]
+pause_mode = 2
+margin_left = 1642.6
+margin_top = 45.3279
+margin_right = 1827.6
+margin_bottom = 147.328
+text = "Exit"
+[connection signal="pressed" from="Popup/RifleBuy" to="." method="_on_RifleBuy_pressed"]
+[connection signal="pressed" from="Popup/AmmoBuy" to="." method="_on_AmmoBuy_pressed"]
+[connection signal="pressed" from="Popup/Quit" to="." method="_on_Quit_pressed"]

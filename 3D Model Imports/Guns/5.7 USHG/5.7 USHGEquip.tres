@@ -1,0 +1,33 @@
+[gd_resource type="Animation" format=2]
+
+[resource]
+resource_name = "equip"
+length = 0.5
+tracks/0/type = "transform"
+tracks/0/path = NodePath("Armature/Skeleton:slide")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = true
+tracks/0/enabled = true
+tracks/0/keys = PoolRealArray( 0, 1, 0, 0, 0, 1.49012e-08, 2.13163e-14, -3.17637e-22, 1, 1, 1, 1, 0.5, 1, 4.26326e-14, -1.19209e-07, -5.96046e-08, -1.49012e-08, 2.13163e-14, 4.23517e-22, 1, 1, 1, 1 )
+tracks/1/type = "transform"
+tracks/1/path = NodePath("Armature/Skeleton:mag")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = true
+tracks/1/enabled = true
+tracks/1/keys = PoolRealArray( 0, 1, 0, 0, 0, 2.01948e-27, -2.84217e-14, 9.9476e-14, 1, 1, 1, 1, 0.5, 1, 8.52651e-14, 1.19209e-07, 1.19209e-07, -5.96047e-08, -1.42109e-14, 1.27898e-13, 1, 1, 1, 1 )
+tracks/2/type = "transform"
+tracks/2/path = NodePath("Armature/Skeleton:trigger")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = true
+tracks/2/enabled = true
+tracks/2/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0.5, 1, -2.84217e-14, 1.19209e-07, -3.57628e-07, -4.47035e-08, 8.52651e-14, 5.68434e-14, 1, 1, 1, 1 )
+tracks/3/type = "transform"
+tracks/3/path = NodePath("Armature/Skeleton:root")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = true
+tracks/3/enabled = true
+tracks/3/keys = PoolRealArray( 0, 1, 0, 0, 0, -1.49011e-08, -1.29048e-08, -7.45057e-09, 1, 1, 1, 1, 0.0666667, 1, 2.99043e-08, -0.329995, -5.96046e-08, -1.49011e-08, -1.29048e-08, -7.45057e-09, 1, 1, 1, 1, 0.2, 1, 1.5226e-07, -1.75257, 5.96046e-08, -1.49011e-08, -1.29048e-08, -7.45057e-09, 1, 1, 1, 1, 0.266667, 1, 2.22221e-07, -2.259, -2.70084e-08, -1.49011e-08, 1.29048e-08, 7.45058e-09, 1, 1, 1, 1, 0.333333, 1, 3.75106e-07, -2.38185, -6.70552e-08, 0.0192167, -6.79416e-08, 3.05787e-08, 0.999815, 1, 1, 1, 0.4, 1, 3.75106e-07, -2.38185, -6.70552e-08, 0.130525, -7.31533e-08, 9.873e-08, 0.991445, 1, 1, 1, 0.466667, 1, 3.75106e-07, -2.38185, -6.70552e-08, 0.234545, -3.37279e-08, 1.14338e-07, 0.972105, 1, 1, 1, 0.5, 1, 3.75106e-07, -2.38185, -6.70552e-08, 0.258819, -5.96404e-08, 1.07434e-07, 0.965926, 1, 1, 1 )

@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/HUD/UpgradeScreen.gd" type="Script" id=1]
+
+[node name="UpgradeScreen" type="CanvasLayer"]
+pause_mode = 2
+script = ExtResource( 1 )
+
+[node name="Popup" type="Popup" parent="."]
+visible = true
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Popup"]
+margin_right = 1917.0
+margin_bottom = 1080.0
+color = Color( 1, 1, 1, 0.0784314 )
+
+[node name="UpgradePistol" type="Button" parent="Popup"]
+margin_left = 697.067
+margin_top = 398.671
+margin_right = 1003.07
+margin_bottom = 594.671
+text = "u.p grade pistol"
+
+[node name="UpgradeRifle" type="Button" parent="Popup"]
+margin_left = 1133.75
+margin_top = 421.897
+margin_right = 1418.75
+margin_bottom = 609.897
+text = "ryelf"
+
+[node name="UpgradeShotgun" type="Button" parent="Popup"]
+margin_left = 610.121
+margin_top = 675.446
+margin_right = 1080.12
+margin_bottom = 895.446
+text = "shotgnu"
+
+[node name="Quit" type="Button" parent="Popup"]
+margin_left = 1804.48
+margin_top = 22.556
+margin_right = 1869.48
+margin_bottom = 81.556
+[connection signal="pressed" from="Popup/UpgradePistol" to="." method="_on_UpgradePistol_pressed"]
+[connection signal="pressed" from="Popup/UpgradeRifle" to="." method="_on_UpgradeRifle_pressed"]
+[connection signal="pressed" from="Popup/UpgradeShotgun" to="." method="_on_UpgradeShotgun_pressed"]
+[connection signal="pressed" from="Popup/Quit" to="." method="_on_Quit_pressed"]

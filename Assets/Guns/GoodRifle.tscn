@@ -1,0 +1,118 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scripts/Weapons/Rifle.gd" type="Script" id=1]
+[ext_resource path="res://3D Model Imports/Guns/L'Ak/AK.tres" type="ArrayMesh" id=2]
+[ext_resource path="res://Sprites/hiclipart.com.png" type="Texture" id=5]
+[ext_resource path="res://3D Model Imports/Guns/AK v 2/reloadanimation.anim" type="Animation" id=6]
+[ext_resource path="res://3D Model Imports/Guns/L'Ak/tempunequip.anim" type="Animation" id=7]
+
+[sub_resource type="Animation" id=1]
+resource_name = "rifle_equip"
+step = 0.01
+tracks/0/type = "transform"
+tracks/0/path = NodePath("Armature:Mag")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = PoolRealArray( 0, 1, -4.76837e-07, -2.38419e-07, -1.5663e-07, 0, 0, 0, 1, 1, 1, 1, 1, 1, -4.76837e-07, -2.38419e-07, -1.5663e-07, 0, 0, 0, 1, 1, 1, 1 )
+tracks/1/type = "transform"
+tracks/1/path = NodePath("Armature:Root")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = PoolRealArray( 0, 1, -11.1116, -6.46005, -5.72948, 0, 0, -0.599043, 0.800717, 2.8842, 2.8842, 2.8842, 0.1, 1, -10.4786, -6.08716, -5.44605, 0, 0, -0.599043, 0.800717, 2.8842, 2.8842, 2.8842, 0.2, 1, -6.08036, -3.49623, -3.47675, 0, 0, -0.599043, 0.800717, 2.8842, 2.8842, 2.8842, 0.3, 1, -4.34272, -2.47261, -2.69873, 0, 0, -0.599043, 0.800717, 2.8842, 2.8842, 2.8842, 0.4, 1, -3.96732, -2.25147, -2.53065, 0, 0, -0.597386, 0.801954, 2.8842, 2.8842, 2.8842, 0.48, 1, -3.96732, -2.25147, -2.53065, 0, 0, -0.577585, 0.816331, 2.8842, 2.8842, 2.8842, 0.57, 1, -3.96732, -2.25147, -2.53065, 0, 0, -0.537836, 0.84305, 2.8842, 2.8842, 2.8842, 0.66, 1, -3.96732, -2.25147, -2.53065, 0, 0, -0.480967, 0.876739, 2.8842, 2.8842, 2.8842, 0.76, 1, -3.96732, -2.25147, -2.53065, 0, 0, -0.338867, 0.940834, 2.8842, 2.8842, 2.8842, 0.91, 1, -3.96732, -2.25147, -2.53065, 0, 0, -0.281828, 0.959465, 2.8842, 2.8842, 2.8842, 1, 1, -3.96732, -2.25147, -2.53065, 0, 0, -0.258819, 0.965926, 2.8842, 2.8842, 2.8842 )
+tracks/2/type = "value"
+tracks/2/path = NodePath("Armature/Ak:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.01, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -276.742, -489.14, 0 ), Vector3( -0.984847, -1.74071, 0 ), Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 2.0
+tracks/0/type = "transform"
+tracks/0/path = NodePath("Armature:Mag")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = PoolRealArray( 0, 1, -4.76837e-07, -2.38419e-07, -1.5663e-07, 0, 0, 0, 1, 1, 1, 1, 2, 1, -4.76837e-07, -2.38419e-07, -1.5663e-07, 0, 0, 0, 1, 1, 1, 1 )
+tracks/1/type = "transform"
+tracks/1/path = NodePath("Armature:Root")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = PoolRealArray( 0, 1, -3.79057, -2.5948, -2.53065, 0, 0, -0.258819, 0.965926, 2.8842, 2.8842, 2.8842, 0.0666667, 1, -3.79178, -2.59689, -2.53065, -0.000369198, 9.89264e-05, -0.258819, 0.965926, 2.8842, 2.8842, 2.8842, 0.133333, 1, -3.79501, -2.60248, -2.53065, -0.0014081, 0.0003773, -0.258819, 0.965925, 2.8842, 2.8842, 2.8842, 0.533333, 1, -3.82872, -2.66087, -2.53065, -0.0159335, 0.00426936, -0.258784, 0.965794, 2.8842, 2.8842, 2.8842, 0.6, 1, -3.83246, -2.66735, -2.53065, -0.0187741, 0.00503049, -0.25877, 0.965743, 2.8842, 2.8842, 2.8842, 0.666667, 1, -3.83436, -2.67064, -2.53065, -0.0214597, 0.00575012, -0.258755, 0.965687, 2.8842, 2.8842, 2.8842, 0.733333, 1, -3.83382, -2.66971, -2.53065, -0.0238876, 0.00640065, -0.25874, 0.965631, 2.8842, 2.8842, 2.8842, 0.8, 1, -3.83014, -2.66333, -2.53065, -0.0259547, 0.00695455, -0.258726, 0.965577, 2.8842, 2.8842, 2.8842, 0.866667, 1, -3.82247, -2.65005, -2.53065, -0.0275584, 0.00738426, -0.258714, 0.965533, 2.8842, 2.8842, 2.8842, 0.933333, 1, -3.80975, -2.62801, -2.53065, -0.028596, 0.00766228, -0.258706, 0.965502, 2.8842, 2.8842, 2.8842, 1, 1, -3.79057, -2.5948, -2.53065, -0.0289648, 0.00776108, -0.258703, 0.965491, 2.8842, 2.8842, 2.8842, 1.06667, 1, -3.77056, -2.56013, -2.53065, -0.028596, 0.00766228, -0.258706, 0.965502, 2.8842, 2.8842, 2.8842, 1.13333, 1, -3.75605, -2.53501, -2.53065, -0.0275584, 0.00738426, -0.258714, 0.965533, 2.8842, 2.8842, 2.8842, 1.2, 1, -3.74645, -2.51838, -2.53065, -0.0259547, 0.00695454, -0.258726, 0.965577, 2.8842, 2.8842, 2.8842, 1.26667, 1, -3.74114, -2.50919, -2.53065, -0.0238875, 0.00640064, -0.25874, 0.965631, 2.8842, 2.8842, 2.8842, 1.33333, 1, -3.73951, -2.50636, -2.53065, -0.0214597, 0.00575011, -0.258755, 0.965687, 2.8842, 2.8842, 2.8842, 1.4, 1, -3.74094, -2.50883, -2.53065, -0.018774, 0.00503048, -0.25877, 0.965743, 2.8842, 2.8842, 2.8842, 1.46667, 1, -3.74482, -2.51555, -2.53065, -0.0159334, 0.00426935, -0.258784, 0.965794, 2.8842, 2.8842, 2.8842, 1.6, 1, -3.75748, -2.53749, -2.53065, -0.0101996, 0.00273297, -0.258805, 0.965872, 2.8842, 2.8842, 2.8842, 1.86667, 1, -3.78526, -2.5856, -2.53065, -0.00140809, 0.000377294, -0.258819, 0.965925, 2.8842, 2.8842, 2.8842, 1.93333, 1, -3.78914, -2.59232, -2.53065, -0.000369196, 9.89219e-05, -0.258819, 0.965926, 2.8842, 2.8842, 2.8842, 2, 1, -3.79057, -2.5948, -2.53065, 0, 0, -0.258819, 0.965926, 2.8842, 2.8842, 2.8842 )
+
+[sub_resource type="Animation" id=3]
+length = 0.13
+loop = true
+step = 0.01
+tracks/0/type = "transform"
+tracks/0/path = NodePath("Armature:Mag")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = PoolRealArray( 0, 1, -4.76837e-07, -2.38419e-07, -1.5663e-07, 0, 0, 0, 1, 1, 1, 1, 0.13, 1, -4.76837e-07, -2.38419e-07, -1.5663e-07, 7.10543e-15, 1.81888e-12, 0, 1, 1, 1, 1 )
+tracks/1/type = "transform"
+tracks/1/path = NodePath("Armature:Root")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = PoolRealArray( 0, 1, -3.77984, -2.5762, -2.53065, -9.64176e-10, -3.59835e-09, -0.258819, 0.965926, 2.8842, 2.8842, 2.8842, 0.03, 1, -3.97051, -2.24594, -2.53065, -3.04159e-05, -0.000113514, -0.234546, 0.972105, 2.8842, 2.8842, 2.8842, 0.06, 1, -3.86413, -2.4302, -2.53065, -0.000234351, -0.000874609, -0.218802, 0.975769, 2.8842, 2.8842, 2.8842, 0.1, 1, -3.77984, -2.5762, -2.53065, 0.000101659, 0.000379395, -0.216673, 0.976244, 2.8842, 2.8842, 2.8842, 0.13, 1, -3.77984, -2.5762, -2.53065, 1.15018e-05, 4.29247e-05, -0.254226, 0.967145, 2.8842, 2.8842, 2.8842 )
+tracks/2/type = "value"
+tracks/2/path = NodePath("Armature/Ak/Sprite3D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.02 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[node name="Scene Root" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="Armature" type="Skeleton" parent="."]
+transform = Transform( 0.999947, 0.0103125, 0, -0.0103125, 0.999947, 0, 0, 0, 1, -0.816766, -1.36393, -0.871134 )
+bones/0/name = "Root"
+bones/0/parent = -1
+bones/0/rest = Transform( 0.300266, -0.173358, 0, 0.173358, 0.300266, 0, 0, 0, 0.346717, 0.688348, 1.43626, 0.877417 )
+bones/0/enabled = true
+bones/0/bound_children = [  ]
+bones/1/name = "Mag"
+bones/1/parent = 0
+bones/1/rest = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40658, -2.15819, 0 )
+bones/1/enabled = true
+bones/1/bound_children = [  ]
+
+[node name="Ak" type="MeshInstance" parent="Armature"]
+mesh = ExtResource( 2 )
+material/0 = null
+
+[node name="Sprite3D" type="Sprite3D" parent="Armature/Ak"]
+transform = Transform( 1.8469, 0.76743, 0, -0.767431, 1.8469, 0, 0, 0, 2, 9.80534, -4.37634, -0.0453703 )
+visible = false
+texture = ExtResource( 5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/rifle_equip = SubResource( 1 )
+anims/rifle_idle = SubResource( 2 )
+anims/rifle_reload = ExtResource( 6 )
+anims/rifle_shoot = SubResource( 3 )
+anims/rifle_unequip = ExtResource( 7 )
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

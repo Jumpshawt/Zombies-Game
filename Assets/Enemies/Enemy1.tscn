@@ -1,0 +1,87 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/Enemies/BasicEnemy.gd" type="Script" id=1]
+[ext_resource path="res://3D Model Imports/Zombies/ZombieImported.tscn" type="PackedScene" id=2]
+[ext_resource path="res://3D Model Imports/Zombies/WalkingAnimation.anim" type="Animation" id=3]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 200, 15, 200 )
+
+[sub_resource type="CapsuleShape" id=2]
+height = 2.0
+
+[sub_resource type="CapsuleShape" id=3]
+height = 0.25
+
+[node name="Enemy" type="KinematicBody" groups=[
+"Enemy",
+]]
+transform = Transform( -1, 0, 8.74227e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.084692, 2.13902, 0 )
+collision_layer = 3
+script = ExtResource( 1 )
+speed = 5
+MAX_SPEED = 10
+MIN_SPEED = 1084
+
+[node name="Scene Root" parent="." instance=ExtResource( 2 )]
+transform = Transform( -0.8, -1.34773e-07, -7.76466e-08, -1.46111e-07, 0.51423, 0.612835, -5.33313e-08, 0.612835, -0.51423, -0.0867896, 0.467696, 0.0430117 )
+
+[node name="Area" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 3.70769, 0, 0, 0, 1, 0, 0, 0 )
+space_override = 1
+collision_layer = 8
+collision_mask = 3
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+shape = SubResource( 1 )
+
+[node name="HitBox" type="Area" parent="." groups=[
+"Enemy",
+]]
+transform = Transform( 1, 1.24847e-08, -8.96044e-10, -1.24847e-08, 0.989749, -0.142808, -8.96193e-10, 0.142808, 0.989749, 0.087677, -0.782566, -0.475587 )
+space_override = 1
+collision_layer = 2147483650
+
+[node name="CollisionShape2" type="CollisionShape" parent="HitBox"]
+transform = Transform( 1, -1.45477e-07, 6.77674e-08, 3.01725e-08, -0.244311, -0.969698, 1.57625e-07, 0.969698, -0.244311, 0.321432, 1.0683, -0.39332 )
+shape = SubResource( 2 )
+
+[node name="HeadHitBox" type="Area" parent="." groups=[
+"Enemy",
+]]
+transform = Transform( 1, 7.10543e-15, 7.10543e-15, -2.13163e-14, 0.999999, 0, -1.13687e-13, -6.21176e-22, 0.999999, -0.13507, 1.25101, -0.0466993 )
+space_override = 1
+collision_layer = 2147483650
+
+[node name="CollisionShape3" type="CollisionShape" parent="HeadHitBox"]
+transform = Transform( 1, 1.50996e-07, 1.50996e-07, -1.50996e-07, -5.96047e-08, 1, 1.50996e-07, -1, -5.96047e-08, 0.499429, 1.60019, 0.100962 )
+shape = SubResource( 3 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="StunTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="DieTimer" type="Timer" parent="."]
+wait_time = 2.5
+
+[node name="AmmoBoxTimer" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/WalkingAnimation = ExtResource( 3 )
+
+[node name="CollisionShape3" type="CollisionShape" parent="."]
+transform = Transform( 1, -1.49396e-07, 5.58799e-08, -5.13161e-09, -0.380287, -0.924868, 1.59422e-07, 0.924868, -0.380287, 0.409109, 0.330952, -0.712313 )
+shape = SubResource( 2 )
+
+[node name="DeathTimer" type="Timer" parent="."]
+[connection signal="stop_walking" from="." to="Scene Root" method="_on_Enemy_stop_walking"]
+[connection signal="walk" from="." to="Scene Root" method="_on_Enemy_walk"]
+[connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
+[connection signal="body_exited" from="Area" to="." method="_on_Area_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="StunTimer" to="." method="_on_StunTimer_timeout"]
+[connection signal="timeout" from="DieTimer" to="." method="_on_DieTimer_timeout"]
+[connection signal="timeout" from="AmmoBoxTimer" to="." method="_on_AmmoBoxTimer_timeout"]
