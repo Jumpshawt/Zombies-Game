@@ -19,12 +19,15 @@ func _ready():
 	$AnimationPlayer.play("unequip")
 
 func _input(event):
-	if infotransfer.gun_state == "pistol" and not equipped:
+	
+	if Input.is_action_just_pressed("2") and not equipped:
 		self.visible = true
+		print("equiping")
 		$AnimationPlayer.play("equip")
 		yield(get_tree().create_timer(1), "timeout")
 		equipped = true
-	if not infotransfer.gun_state == "pistol" and equipped:
+	if not infotransfer.gun_state == "pistol" and equipped and infotransfer.gun_changing == false:
+		print("unequiping pistol")
 		$AnimationPlayer.play("unequip")
 		yield(get_tree().create_timer(1), "timeout")
 		equipped = false
