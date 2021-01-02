@@ -361,8 +361,8 @@ func check_for_hitsounds():
 	if infotransfer.hitmarkersound:
 		$HitSound.play()
 		infotransfer.hitmarkersound = false
-		$AnimationPlayer.stop("Hitmarker")
-		$AnimationPlayer.play("Hitmarker")
+		$AnimationPlayer2.seek(0, true)
+		$AnimationPlayer2.play("Hitmarker")
 
 func _on_RifleReloadTimer_timeout():
 	rifle_reloading = false

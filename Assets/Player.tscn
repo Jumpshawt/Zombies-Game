@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Guns/GoodShotgun.tscn" type="PackedScene" id=2]
@@ -22,8 +22,10 @@
 [ext_resource path="res://Assets/HUD/Ammo.png" type="Texture" id=20]
 [ext_resource path="res://Assets/HUD/thing.png" type="Texture" id=21]
 [ext_resource path="res://Assets/HUD/Weapons/Ak.png" type="Texture" id=22]
+[ext_resource path="res://Sprites/Temporary hitmarker.png" type="Texture" id=23]
 [ext_resource path="res://Assets/HUD/Weapons/Pistol.png" type="Texture" id=24]
 [ext_resource path="res://Assets/HUD/Weapons/Shotgun.png" type="Texture" id=25]
+[ext_resource path="res://Assets/Animations/Hitmarker.tres" type="Animation" id=26]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 3.0
@@ -339,6 +341,13 @@ scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 7 )
 offset = Vector2( 1920, 1080 )
 
+[node name="Hitmarker" type="Sprite" parent="Control"]
+visible = false
+position = Vector2( 4, -3 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 23 )
+offset = Vector2( 1920, 1080 )
+
 [node name="Pistol2" type="Sprite" parent="Control"]
 modulate = Color( 0.4, 0.4, 0.4, 1 )
 position = Vector2( 1740, 881.204 )
@@ -387,6 +396,9 @@ margin_right = 1895.59
 margin_bottom = 1069.77
 theme = ExtResource( 18 )
 script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Pistol" type="Sprite" parent="Control/PistolAmmo"]
 position = Vector2( 1740, 881.204 )
@@ -440,6 +452,9 @@ margin_right = 1766.59
 margin_bottom = 997.765
 theme = ExtResource( 18 )
 script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Shotgun_reload" type="AudioStreamPlayer" parent="Control/ShotgunAmmo"]
 stream = ExtResource( 13 )
@@ -499,8 +514,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+anims/Hitmarker = ExtResource( 26 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Crouch = SubResource( 7 )
+anims/Hitmarker = ExtResource( 26 )
 anims/Idle = SubResource( 8 )
 anims/UnCrouch = SubResource( 9 )
 
@@ -535,10 +554,10 @@ autostart = true
 [connection signal="rifle_ammo" from="." to="Control/RifleAmmo/Label3" method="_on_Player_rifle_ammo"]
 [connection signal="shotgun_ammo" from="." to="Control/ShotgunAmmo/Label4" method="_on_Player_shotgun_ammo"]
 [connection signal="body_entered" from="PickupArea" to="." method="_on_PickupArea_body_entered"]
-[connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/Pistol" method="_on_Label_need_to_reload"]
 [connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="." method="_on_Label_need_to_reload"]
-[connection signal="no_ammo" from="Control/PistolAmmo/Label" to="Rotation_Helper/Pistol" method="_on_Label_no_ammo"]
+[connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/Pistol" method="_on_Label_need_to_reload"]
 [connection signal="no_ammo" from="Control/PistolAmmo/Label" to="." method="_on_Label_no_ammo"]
+[connection signal="no_ammo" from="Control/PistolAmmo/Label" to="Rotation_Helper/Pistol" method="_on_Label_no_ammo"]
 [connection signal="no_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/Pistol" method="_on_Label_no_reload"]
 [connection signal="dont_need_to_reload_no_more" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Rifle" method="_on_Label3_dont_need_to_reload_no_more"]
 [connection signal="need_to_reload" from="Control/RifleAmmo/Label3" to="." method="_on_Label3_need_to_reload"]
@@ -547,13 +566,13 @@ autostart = true
 [connection signal="out_of_reserve_ammo" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Shotgun" method="_on_Label4_out_of_reserve_ammo"]
 [connection signal="shoot" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Shotgun" method="_on_Label4_shoot"]
 [connection signal="spin" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Shotgun" method="_on_Label4_spin"]
-[connection signal="timeout" from="PistolReloadTimer" to="." method="_on_PistolReloadTimer_timeout"]
 [connection signal="timeout" from="PistolReloadTimer" to="Control/PistolAmmo/Label" method="_on_PistolReloadTimer_timeout"]
-[connection signal="timeout" from="RifleReloadTimer" to="." method="_on_RifleReloadTimer_timeout"]
+[connection signal="timeout" from="PistolReloadTimer" to="." method="_on_PistolReloadTimer_timeout"]
 [connection signal="timeout" from="RifleReloadTimer" to="Control/RifleAmmo/Label3" method="_on_RifleReloadTimer_timeout"]
-[connection signal="timeout" from="ShotgunShootTimer" to="." method="_on_ShotgunShootTimer_timeout"]
+[connection signal="timeout" from="RifleReloadTimer" to="." method="_on_RifleReloadTimer_timeout"]
 [connection signal="timeout" from="ShotgunShootTimer" to="Control/ShotgunAmmo/Label4" method="_on_ShotgunShootTimer_timeout"]
-[connection signal="timeout" from="RifleSpreadTimer" to="." method="_on_RifleSpreadTimer_timeout"]
+[connection signal="timeout" from="ShotgunShootTimer" to="." method="_on_ShotgunShootTimer_timeout"]
 [connection signal="timeout" from="RifleSpreadTimer" to="Control/RifleAmmo/Label3" method="_on_RifleSpreadTimer_timeout"]
+[connection signal="timeout" from="RifleSpreadTimer" to="." method="_on_RifleSpreadTimer_timeout"]
 [connection signal="timeout" from="KnifeStabTimer" to="." method="_on_KnifeStabTimer_timeout"]
 [connection signal="timeout" from="HalfSecond Timer" to="Control/ShotgunAmmo/Label4" method="_on_HalfSecond_Timer_timeout"]
