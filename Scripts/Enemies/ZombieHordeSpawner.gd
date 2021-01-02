@@ -42,7 +42,7 @@ func change_spawn_location():
 	print("location changed")
 
 func spawn_horde():
-	if spawned_hordes < check_for_hordes(infotransfer.round_num) and infotransfer.spawn_zombies == true:
+	if spawned_hordes < infotransfer.hordes_to_spawn[infotransfer.round_num] and infotransfer.spawn_zombies == true:
 		zombies_spawned = 0
 		var b = basic_zombie.instance()
 		while zombies_spawned < zombies_per_horde:
@@ -70,4 +70,3 @@ func _on_HordeSpawnTimer_timeout():
 		spawn_horde()
 		$HordeSpawnTimer.start()
 		change_spawn_location()
-		print("works i guess")
