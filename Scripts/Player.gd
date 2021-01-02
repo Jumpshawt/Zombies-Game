@@ -30,6 +30,7 @@ onready var headbonker = $"HeadBonker"
 onready var infotransfer = $"/root/InfoTransfer" 
 onready var rifle_raycast = $"Rotation_Helper/Camera/RifleRayCast"
 onready var interactraycast = $"Rotation_Helper/InteractRaycast"
+onready var groundcast = $GroundCast
 #gun = 1 :rifle
 #gun = 2 : pistol
 #gun = 3 :shotgun
@@ -116,6 +117,7 @@ func shoot_shotgun():
 		shotgun_able_to_shoot = false
 		if not r.get_collider() == null:
 			r.get_collider().add_child(b)
+			b.scale = Vector3(0.1,0.1,0.1)
 			b.global_transform.origin = r.get_collision_point()
 			b.look_at(r.get_collision_point() + r.get_collision_normal() * 100, Vector3.DOWN) 
 			if r.is_colliding():
@@ -131,6 +133,7 @@ func shoot_pistol():
 		var b = bullet_decal.instance()
 		if not raycast.get_collider() == null:
 			raycast.get_collider().add_child(b)
+			b.scale = Vector3(0.1,0.1,0.1)
 			b.global_transform.origin = raycast.get_collision_point()
 			b.look_at(raycast.get_collision_point() + raycast.get_collision_normal() * 100, Vector3.DOWN)
 			if raycast.is_colliding():
@@ -162,6 +165,7 @@ func shoot_rifle():
 			if rifle_raycast.is_colliding():
 				rifle_raycast.get_collider().add_child(b)
 				emit_signal("bullet_hole_collider", rifle_raycast.get_collider())
+			b.scale = Vector3(0.1,0.1,0.1)
 			b.global_transform.origin = rifle_raycast.get_collision_point()
 			b.look_at(raycast.get_collision_point() + raycast.get_collision_normal()* 100, Vector3.DOWN)
 			rifle_raycast.force_raycast_update()
@@ -270,8 +274,11 @@ func process_input(delta):
 func process_movement(delta):
 	dir.y = 0
 	dir = dir.normalized()
-
-	vel.y += delta*GRAVITY
+	
+	if groundcast.is_colliding():
+		vel.y = 0
+	elif not groundcast.is_colliding():
+		vel.y += delta*GRAVITY
 
 	var hvel = vel
 	hvel.y = 0
@@ -288,7 +295,7 @@ func process_movement(delta):
 	hvel = hvel.linear_interpolate(target, accel*delta)
 	vel.x = hvel.x
 	vel.z = hvel.z
-	vel = move_and_slide(vel,Vector3(0,1,0), 0.05, 4, deg2rad(MAX_SLOPE_ANGLE))
+	vel = move_and_slide(vel, Vector3(0,1,0), 0.05, 4, deg2rad(MAX_SLOPE_ANGLE))
 
 func _process(delta):
 	ammo_box_check()
