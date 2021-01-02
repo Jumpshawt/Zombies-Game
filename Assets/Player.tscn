@@ -549,9 +549,6 @@ wait_time = 0.5
 autostart = true
 
 [node name="GroundCast" type="RayCast" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.59989, -2.38419e-07 )
-enabled = true
-collision_mask = 4
 [connection signal="pistol_ammo" from="." to="Control/PistolAmmo/Label" method="_on_Player_pistol_ammo"]
 [connection signal="reloading" from="." to="Control/PistolAmmo/Label" method="_on_Player_reloading"]
 [connection signal="rifle_ammo" from="." to="Control/RifleAmmo/Label3" method="_on_Player_rifle_ammo"]
@@ -563,8 +560,8 @@ collision_mask = 4
 [connection signal="no_ammo" from="Control/PistolAmmo/Label" to="." method="_on_Label_no_ammo"]
 [connection signal="no_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/Pistol" method="_on_Label_no_reload"]
 [connection signal="dont_need_to_reload_no_more" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Rifle" method="_on_Label3_dont_need_to_reload_no_more"]
-[connection signal="need_to_reload" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Rifle" method="_on_Label3_need_to_reload"]
 [connection signal="need_to_reload" from="Control/RifleAmmo/Label3" to="." method="_on_Label3_need_to_reload"]
+[connection signal="need_to_reload" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Rifle" method="_on_Label3_need_to_reload"]
 [connection signal="no_ammo" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Rifle" method="_on_Label3_no_ammo"]
 [connection signal="out_of_reserve_ammo" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Shotgun" method="_on_Label4_out_of_reserve_ammo"]
 [connection signal="shoot" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Shotgun" method="_on_Label4_shoot"]

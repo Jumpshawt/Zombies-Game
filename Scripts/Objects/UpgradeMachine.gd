@@ -1,6 +1,7 @@
 extends Spatial
 
 onready var static_body = $StaticBody
+onready var infotransfer = $"/root/InfoTransfer"
 
 signal upgrades_popup
 
