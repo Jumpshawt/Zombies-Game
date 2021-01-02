@@ -1,10 +1,10 @@
-[gd_scene load_steps=21 format=2]
 
+[gd_scene load_steps=21 format=2]
 [ext_resource path="res://Scripts/Main Scene.gd" type="Script" id=1]
 [ext_resource path="res://Space.tres" type="Environment" id=2]
 [ext_resource path="res://Assets/Enemies/Zombie Spawner.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/Enemies/Enemy1.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Levels/TestLevel3.0.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scripts/Levels/TestLevel3.0.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/Environment/ShotgunMachine.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Assets/Environment/UpgradeMachine.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Assets/Environment/RifleMachine.tscn" type="PackedScene" id=8]
@@ -17,6 +17,8 @@
 [ext_resource path="res://Assets/HUD/ShotgunShopScreen.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Assets/Environment/AmmoBox.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Assets/Audio/SpookyAmbience.wav" type="AudioStream" id=17]
+
+[ext_resource path="res://Assets/Enemies/Enemy2.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Assets/Enemies/HordeSpawner.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Assets/Environment/Barrier.tscn" type="PackedScene" id=19]
 
@@ -52,7 +54,10 @@ MINSPAWNTIME = 0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -87.7078, -0.186139, 22.0147 )
 active = false
 
-[node name="Enemy" parent="Nav/NavigationMeshInstance/Zombie Spawner2" instance=ExtResource( 4 )]
+[node name="Enemy" parent="Nav/NavigationMeshInstance/Zombie Spawner2" instance=ExtResource( 18 )]
+transform = Transform( -1, 0, 8.74227e-08, 0, 1, 0, -8.74228e-08, 0, -1, 74.4431, -12.0931, -48.8846 )
+
+[node name="Enemy3" parent="Nav/NavigationMeshInstance/Zombie Spawner2" instance=ExtResource( 4 )]
 transform = Transform( -1, -8.06795e-16, -8.74228e-08, -1.53243e-09, 0.999846, 0.017529, 8.74094e-08, 0.017529, -0.999846, 73.825, -8.67875, -54.4215 )
 speed = 0
 
@@ -127,3 +132,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 42.7781, -3.52513, 93.9071 )
 stream = ExtResource( 17 )
 volume_db = -0.253
 autoplay = true
+[connection signal="stop_walking" from="Nav/NavigationMeshInstance/Zombie Spawner2/Enemy" to="Nav/NavigationMeshInstance/Zombie Spawner2/Enemy" method="_on_Enemy_walk"]
+[connection signal="walk" from="Nav/NavigationMeshInstance/Zombie Spawner2/Enemy" to="Nav/NavigationMeshInstance/Zombie Spawner2/Enemy" method="_on_Enemy_walk"]
