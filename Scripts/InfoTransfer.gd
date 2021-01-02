@@ -9,6 +9,11 @@ var a = 0
 var game_paused : bool = false
 var ammo_box_collected : bool = false
 
+var pistol_reloading = false
+var pistol_ammo_loaded = 16
+var pistol_reserve_ammo = 48
+
+
 #=====GUN_STUFF=====#
 var gun_state = "unarmed"
 #[unarmed, shotgun, pistol, rifle, rpg, smg, knife]

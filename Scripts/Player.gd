@@ -20,6 +20,8 @@ var able_to_stab = true
 onready var camera = $"Rotation_Helper/Camera"
 var rotation_helper
 
+onready var Hud = $Control
+
 onready var blood_splatter = preload("res://Assets/Particles/Blood_particles.tscn")
 onready var rotationhelper = $Rotation_Helper
 onready var bullet_decal = preload("res://Assets/Guns/BulletHole.tscn")
@@ -359,6 +361,8 @@ func check_for_hitsounds():
 	if infotransfer.hitmarkersound:
 		$HitSound.play()
 		infotransfer.hitmarkersound = false
+		$AnimationPlayer2.seek(0, true)
+		$AnimationPlayer2.play("Hitmarker")
 
 func _on_RifleReloadTimer_timeout():
 	rifle_reloading = false
