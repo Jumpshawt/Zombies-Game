@@ -109,6 +109,7 @@ func player_die():
 		$HeadHitBox/CollisionShape3.disabled = true
 		$HitBox.queue_free()
 		$HeadHitBox.queue_free()
+		$CollisionShape3.queue_free() 
 		$"Scene Root".visible = false
 		ammo_rng = rand_range(0,10)
 		if ammo_rng <= drop_ammo_box_rng:
@@ -117,9 +118,8 @@ func player_die():
 			infotransfer.blood_splatter = true
 			var c = ammobox.instance()
 			self.add_child(c)
-#			print("box spawned")
 			c.global_transform.origin = self.global_transform.origin - Vector3(0,1,0)
-			c.look_at(self.global_transform.origin + Vector3(0,300,0), Vector3.UP)
+			self.rotation = Vector3(0, 0, 0)
 			$AmmoBoxTimer.start()
 		else:
 			infotransfer.money += int(rand_range(75, 125))
@@ -158,7 +158,11 @@ func stun():
 
 # warning-ignore:unused_argument
 func _physics_process(delta):
-	look_at(Vector3(Player.global_transform.origin.x, self.global_transform.origin.y - 10, Player.global_transform.origin.z), Vector3.UP)
+	if path.size() > 3:
+		look_at(Vector3(path[3].x,path[3].y + -5,path[3].z), Vector3.UP)
+	else:
+		look_at(Vector3(Player.global_transform.origin.x, self.global_transform.origin.y - 10, Player.global_transform.origin.z), Vector3.UP)
+	
 	tick += 1
 	if  path_node < path.size() and not dead:
 		var direction = (path[path_node] - global_transform.origin)
@@ -170,7 +174,6 @@ func _physics_process(delta):
 		
 		if tick > tickratedistance * infotransfer.zombies_alive / 2:
 # warning-ignore:return_value_discarded
-			var prev_locat = self.global_transform 
 #			print("nice")
 			
 			move_and_slide(direction.normalized() * tick * 8)
