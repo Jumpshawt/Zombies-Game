@@ -1,8 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Scripts/Levels/Level Assets/Scifi_D_O_O_R.gd" type="Script" id=1]
+[ext_resource path="res://Levels/Level Assets/Scifi_D_O_O_R.gd" type="Script" id=1]
 [ext_resource path="res://3D Model Imports/Level Assets/Material_002.material" type="Material" id=2]
-
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Plane.039"

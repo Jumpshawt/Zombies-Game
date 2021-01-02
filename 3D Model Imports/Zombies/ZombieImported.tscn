@@ -14,5 +14,5 @@ transform = Transform( 1, 0, 0, 0, 0.779351, -0.626588, 0, 0.626588, 0.779351, -
 
 [node name="AnimationPlayer" parent="." instance=ExtResource( 3 )]
 playback_speed = 1.5
-anims/Walk = ExtResource( 4 )
+anims/ArmatureAction = ExtResource( 4 )
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

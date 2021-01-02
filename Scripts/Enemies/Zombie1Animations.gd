@@ -9,13 +9,13 @@ signal dead
 
 func walk():
 	if not plug_walking:
-		$AnimationPlayer.play("Walk")
+		$AnimationPlayer.play("ArmatureAction")
 	elif plug_walking:
 		pass
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if plug_walking:
-		$AnimationPlayer.play("Walk")
+		$AnimationPlayer.play("ArmatureAction")
 	elif not plug_walking:
 		$AnimationPlayer.stop()
 
