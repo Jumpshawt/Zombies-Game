@@ -241,3 +241,7 @@ func _on_AmmoBoxTimer_timeout():
 func _on_AmmoBox_box_collected():
 #	print("hi lol")
 	queue_free()
+
+
+func _on_Enemy_walk():
+	pass # Replace with function body.
