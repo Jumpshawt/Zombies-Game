@@ -106,6 +106,14 @@ func _ready():
 	MOUSE_SENSITIVITY = 0.1
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+func reset_camera_rotation():
+	if reset_rotation == true:
+		#camera.rotation is the recoil position 
+		
+		if camera.rotation.x == original_cam_x:
+			#reset_rotation = false
+			pass
 
 func shoot_shotgun():
 	camera.rotation.x = camera.rotation.x + rand_range(rcs + 0.1,rcs+0.3)
@@ -324,12 +332,7 @@ func _on_PistolReloadTimer_timeout():
 func _on_Label3_no_ammo():
 	out_of_rifle_ammo = true
 
-func reset_camera_rotation():
-	if reset_rotation == true:
-		camera.rotation.x = lerp(camera.rotation.x, -0, 0.1)
-		if camera.rotation.x == original_cam_x:
-			#reset_rotation = false
-			pass
+
 
 func _on_RifleSpreadTimer_timeout():
 	x = 0.5
