@@ -21,11 +21,18 @@ onready var camera = $"Rotation_Helper/Camera"
 var rotation_helper
 
 onready var Hud = $Control
-
-onready var blood_splatter = preload("res://Assets/Particles/Blood_particles.tscn")
+var velocity = 0
+var gravity = .5
+var gravity_eased = 0
+export var ease_ammount = 0.25
+export var kick_ammount = 0.2
+export var pistol_kick_ammount = 0.05
+export var shotgun_kick_ammount = 0.2
+export var rifle_kick_ammount = 0.1
+reload("res://Assets/Particles/Blood_particles.tscn")
 onready var rotationhelper = $Rotation_Helper
 onready var bullet_decal = preload("res://Assets/Guns/BulletHole.tscn")
-onready var raycast = $"Rotation_Helper/RayCast"
+onready var raycast = $"Rotation_Helper/Camera/RayCast"
 onready var headbonker = $"HeadBonker"
 onready var infotransfer = $"/root/InfoTransfer" 
 onready var rifle_raycast = $"Rotation_Helper/Camera/RifleRayCast"
@@ -73,7 +80,7 @@ export var spread : int = 5
 var shotgun_able_to_shoot : bool = true
 
 onready var shotgunammo = $"Control/ShotgunAmmo/Label4"
-onready var raycontainer = $"Rotation_Helper/ShotgunRayCastHolder"
+onready var raycontainer = $"Rotation_Helper/Camera/ShotgunRayCastHolder"
 onready var kniferaycast = $"Rotation_Helper/KnifeRaycast"
 
 #=====AmmoBoxStuff=====#
@@ -108,8 +115,11 @@ func _ready():
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
+
+
 func shoot_shotgun():
-	camera.rotation.x = camera.rotation.x + rand_range(rcs + 0.1,rcs+0.3)
+	kick_ammount = shotgun_kick_ammount
+	velocity = kick_ammount
 	for r in raycontainer.get_children():
 		var b = bullet_decal.instance()
 		r.cast_to.x = rand_range(-spread, spread)
@@ -126,9 +136,13 @@ func shoot_shotgun():
 
 func shoot_pistol():
 	if not reloading and not out_of_pistol_ammo and not pistol_need_to_reload and infotransfer.gun_state == "pistol":
+		print("Pistol shoot")
 		raycast.cast_to.x = rand_range(-pistol_spread, pistol_spread)
 		raycast.cast_to.y = rand_range(-pistol_spread, pistol_spread)
-		camera.rotation.x = camera.rotation.x + rand_range(rcs,rcs+0.050)
+
+		kick_ammount = pistol_kick_ammount 
+		velocity += kick_ammount / (2* camera.rotation.x + 1)
+		print("shoot", velocity)
 		raycast.force_raycast_update()
 		var b = bullet_decal.instance()
 		if not raycast.get_collider() == null:
@@ -146,6 +160,7 @@ func shoot_pistol():
 			pass
 
 func shoot_rifle():
+	
 	if not rifle_reloading and not out_of_rifle_ammo and infotransfer.gun_state == "rifle" and not rifle_need_to_reload:
 		$RifleSpreadTimer.stop()
 		$RifleSpreadTimer.start()
@@ -157,8 +172,8 @@ func shoot_rifle():
 			elif rifle_spread == true:
 				yield(get_tree().create_timer(0.1), "timeout")
 				if x <= 1:
-					x += 0.05
-				camera.rotation.x = camera.rotation.x + lerp(0, rand_range(rcs,rcs+0.025), x)
+				kick_ammount = rifle_kick_ammount
+				velocity += kick_ammount / (2 * camera.rotation.x + 1)
 				#camera.rotation.x = camera.rotation.x + rand_range(-rcs,rcs)
 				rifle_raycast.cast_to.x = rand_range(-rifle_spread_amount, rifle_spread_amount)
 				rifle_raycast.cast_to.y = rand_range(-rifle_spread_amount, rifle_spread_amount)
@@ -197,105 +212,15 @@ func _physics_process(delta):
 	handle_blood_splatter()
 
 
-func process_input(delta):
-	
-	if Input.is_action_just_pressed("shoot") and infotransfer.gun_state == "shotgun" and shotgunammo.ammo_loaded >= 1 and shotgun_able_to_shoot:
-		shoot_shotgun()
 
-	dir = Vector3()
-	var cam_xform = camera.get_global_transform()
-	var input_movement_vector = Vector2()
-	if Input.is_action_pressed("W"):
-		input_movement_vector.y += 1
-	if Input.is_action_pressed("S"):
-		input_movement_vector.y -= 1
-	if Input.is_action_pressed("A"):
-		input_movement_vector.x -= 1
-	if Input.is_action_pressed("D"):
-		input_movement_vector.x = 1
-	if Input.is_action_pressed("sprint") and Input.is_action_pressed("W") and Input.is_action_pressed("S") == false and not crouched:
-		max_speed = 15
-	elif not crouched:
-		max_speed = 8
-	
-	#dooors
-	if Input.is_action_just_pressed("interact"):
-		interactraycast.force_raycast_update()
-		emit_signal("interacted", interactraycast.get_collider())
-	
-	if infotransfer.gun_state == "knife" and Input.is_action_just_pressed("shoot") and able_to_stab:
-		stab_knife()
-		able_to_stab = false
-		$KnifeStabTimer.start()
-	
-	#rifle reload
-	if Input.is_action_just_pressed("reload") and infotransfer.gun_state == "rifle" and not reloading:
-		$RifleReloadTimer.start()
-		reloading = true
-		emit_signal("reloading")
-		rifle_need_to_reload = false
-	if Input.is_action_pressed("shoot") and not rifle_reloading and not rifle_need_to_reload and infotransfer.gun_state == "rifle":
-		yz += delta
-		if yz >= zy:
-			shoot_rifle()
-			yz = 0
-	if Input.is_action_just_released("shoot"):
-		yield(get_tree().create_timer(0.25), "timeout")
-		reset_rotation = true
-	
-	#pistol reload
-	if Input.is_action_just_pressed("reload") and not reloading and infotransfer.gun_state == "pistol":
-		$PistolReloadTimer.start()
-		emit_signal("reloading")
-		reloading = true
-	if Input.is_action_just_pressed("shoot") and not reloading and infotransfer.gun_state == "pistol":
-		shoot_pistol()
-	
-	#crouching
-	if Input.is_action_just_pressed("crouch") and not crouched:
-		crouched = true
-		max_speed = 6
-		$AnimationPlayer.play("Crouch")
-		$AnimationPlayer.playback_speed = 4 
-	elif Input.is_action_just_pressed("crouch") and crouched and can_stand_up:
-		crouched = false
-		max_speed = 6
-		$AnimationPlayer.play("UnCrouch")
-		$AnimationPlayer.playback_speed = 4 
-	#movement
-	input_movement_vector = input_movement_vector.normalized()
-	
-	dir += -cam_xform.basis.z.normalized() * input_movement_vector.y
-	dir += cam_xform.basis.x.normalized() * input_movement_vector.x
-	
-	if Input.is_action_just_pressed("Jump") and is_on_floor():
-		vel.y = JUMP_SPEED
+func process_input(delta):
+	#This is process on playermovement
+	pass
 
 func process_movement(delta):
-	dir.y = 0
-	dir = dir.normalized()
-	
-	if groundcast.is_colliding():
-		vel.y = 0
-	elif not groundcast.is_colliding():
-		vel.y += delta*GRAVITY
+	#This is process on playermovement
+	pass
 
-	var hvel = vel
-	hvel.y = 0
-
-	var target = dir
-	target *= max_speed
-
-	var accel
-	if dir.dot(hvel) > 0:
-		accel = ACCEL
-	else:
-		accel = DEACCEL
-
-	hvel = hvel.linear_interpolate(target, accel*delta)
-	vel.x = hvel.x
-	vel.z = hvel.z
-	vel = move_and_slide(vel, Vector3(0,1,0), 0.05, 4, deg2rad(MAX_SLOPE_ANGLE))
 
 func _process(delta):
 	ammo_box_check()
@@ -310,14 +235,7 @@ func _process(delta):
 		yield(get_tree().create_timer(1), "timeout")
 		reloading = false
 
-func _input(event):
-	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		rotation_helper.rotate_x(deg2rad(event.relative.y * MOUSE_SENSITIVITY * -1))
-		self.rotate_y(deg2rad(event.relative.x * MOUSE_SENSITIVITY * -1))
-		
-		var camera_rot = rotation_helper.rotation_degrees
-		camera_rot.x = clamp(camera_rot.x, -70, 70)
-		rotation_helper.rotation_degrees = camera_rot
+
 
 func _on_ReloadTimer_timeout():
 	reloading = false
@@ -332,11 +250,40 @@ func _on_Label3_no_ammo():
 	out_of_rifle_ammo = true
 
 func reset_camera_rotation():
-	if reset_rotation == true:
-		camera.rotation.x = lerp(camera.rotation.x, -0, 0.1)
-		if camera.rotation.x == original_cam_x:
-			#reset_rotation = false
-			pass
+
+#	print("velocity before calculations", velocity)
+	if camera.rotation.x >= 0:
+
+		#subtract the gravity to the velocity 
+#		print("calculating")
+		
+		
+		#Checks if the velocity is less than or equal to 0, if it is  the gravity is low if not the gravity is high 
+		
+		if velocity <= 0:
+			gravity_eased = gravity * 1 * ease_ammount
+		else:
+			gravity_eased = gravity * 1 * ease_ammount
+		velocity = velocity - (gravity_eased * camera.rotation.x)
+		
+		
+		#add velocity 
+		
+		if infotransfer.gun_state == "pistol":
+			$Rotation_Helper/Camera/Pistol.rotation.x = velocity * 2
+		if infotransfer.gun_state == "rifle":
+			$Rotation_Helper/Camera/Rifle.rotation.x = velocity * 2
+		if infotransfer.gun_state == "shotgun":
+			$Rotation_Helper/Camera/Shotgun.rotation.x = velocity * 2
+		 
+		camera.rotation.x = velocity 
+		
+#		print("pre lerp",camera.rotation.x)
+		
+#		print("after lerp",camera.rotation.x)
+	else:
+		camera.rotation.x = 0
+		velocity = 0
 
 func _on_RifleSpreadTimer_timeout():
 	x = 0.5
