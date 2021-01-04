@@ -29,7 +29,7 @@ export var kick_ammount = 0.2
 export var pistol_kick_ammount = 0.05
 export var shotgun_kick_ammount = 0.2
 export var rifle_kick_ammount = 0.1
-reload("res://Assets/Particles/Blood_particles.tscn")
+var blood_splatter = preload("res://Assets/Particles/Blood_particles.tscn")
 onready var rotationhelper = $Rotation_Helper
 onready var bullet_decal = preload("res://Assets/Guns/BulletHole.tscn")
 onready var raycast = $"Rotation_Helper/Camera/RayCast"
@@ -172,11 +172,11 @@ func shoot_rifle():
 			elif rifle_spread == true:
 				yield(get_tree().create_timer(0.1), "timeout")
 				if x <= 1:
-				kick_ammount = rifle_kick_ammount
-				velocity += kick_ammount / (2 * camera.rotation.x + 1)
+					kick_ammount = rifle_kick_ammount
+					velocity += kick_ammount / (2 * camera.rotation.x + 1)
 				#camera.rotation.x = camera.rotation.x + rand_range(-rcs,rcs)
-				rifle_raycast.cast_to.x = rand_range(-rifle_spread_amount, rifle_spread_amount)
-				rifle_raycast.cast_to.y = rand_range(-rifle_spread_amount, rifle_spread_amount)
+					rifle_raycast.cast_to.x = rand_range(-rifle_spread_amount, rifle_spread_amount)
+					rifle_raycast.cast_to.y = rand_range(-rifle_spread_amount, rifle_spread_amount)
 			if rifle_raycast.is_colliding():
 				rifle_raycast.get_collider().add_child(b)
 				emit_signal("bullet_hole_collider", rifle_raycast.get_collider())

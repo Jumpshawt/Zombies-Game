@@ -549,10 +549,6 @@ wait_time = 0.5
 autostart = true
 
 [node name="GroundCast" type="RayCast" parent="."]
-[connection signal="pistol_ammo" from="." to="Control/PistolAmmo/Label" method="_on_Player_pistol_ammo"]
-[connection signal="reloading" from="." to="Control/PistolAmmo/Label" method="_on_Player_reloading"]
-[connection signal="rifle_ammo" from="." to="Control/RifleAmmo/Label3" method="_on_Player_rifle_ammo"]
-[connection signal="shotgun_ammo" from="." to="Control/ShotgunAmmo/Label4" method="_on_Player_shotgun_ammo"]
 [connection signal="body_entered" from="PickupArea" to="." method="_on_PickupArea_body_entered"]
 [connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="." method="_on_Label_need_to_reload"]
 [connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/Camera/Pistol" method="_on_Label_need_to_reload"]
