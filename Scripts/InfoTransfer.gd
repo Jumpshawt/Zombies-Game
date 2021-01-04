@@ -29,7 +29,7 @@ var gun_changing : bool = false
 #=====ZOMBIE_SPAWNER=====#
 var x = 0
 var y = 100
-export var round_num = 5
+export var round_num = 1
 var zombies_to_spawn = [0, 3, 4, 6, 9, 12, 13, 14, 14, 15,
 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 25, 25, 25, 25, 25,
 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25,
@@ -68,13 +68,25 @@ func _ready():
 	pass
 # warning-ignore:unused_argument
 func _input(event):
+	var t1 = Timer.new()
+	t1.set_wait_time(1)
+	var t3 = Timer.new()
+	t3.set_wait_time(3)
 	if gun_changing:
-		yield(get_tree().create_timer(1), "timeout")
+		t3.set_one_shot(true)
+		self.add_child(t3)
+		t3.start()
+		yield(t3, "timeout")
+		t3.queue_free()
 		gun_changing = false
 	
 	if Input.is_action_just_pressed("reload") and not gun_state == "rifle":
 		gun_reloading = true
-		yield(get_tree().create_timer(1), "timeout")
+		t1.set_one_shot(true)
+		self.add_child(t1)
+		t1.start()
+		yield(t1, "timeout")
+		t1.queue_free()
 		gun_reloading = false
 	elif Input.is_action_just_pressed("reload") and gun_state == "rifle":
 		gun_reloading = true
