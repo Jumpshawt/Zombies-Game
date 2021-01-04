@@ -23,10 +23,11 @@ var rotation_helper
 onready var Hud = $Control
 # Recoil variables
 var velocity = 0
-var gravity = 1
+export var gravity = 1
 var gravity_eased = 0
-var ease_ammount = 0.1
-var kick_ammount = 0.5
+export var ease_ammount = 0.1
+export var kick_ammount = 0.2
+export var pistol_kick_ammount = 0.2
 onready var blood_splatter = preload("res://Assets/Particles/Blood_particles.tscn")
 onready var rotationhelper = $Rotation_Helper
 onready var bullet_decal = preload("res://Assets/Guns/BulletHole.tscn")
@@ -340,13 +341,19 @@ func reset_camera_rotation():
 #		var kick_ammount = 1
 		#subtract the gravity to the velocity 
 #		print("calculating")
-		
-		gravity_eased = gravity * camera.rotation.x * 10
+		if velocity <= 0:
+			gravity_eased = gravity * camera.rotation.x * 10
+		else:
+			gravity_eased = gravity * camera.rotation.x * 40
 		print("gravity_eased", gravity_eased, "gravity", gravity)
 		velocity = velocity - (gravity_eased * camera.rotation.x)
 		#add velocity 
 #		print(gravity * camera.rotation.x)
 #		print(velocity)
+		
+		
+		
+		camera.rotation.x += velocity * 0.1
 		camera.rotation.x += velocity * 0.1
 		print("pre lerp",camera.rotation.x)
 		camera.rotation.x = lerp(camera.rotation.x, -0, 0.1)
