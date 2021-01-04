@@ -64,6 +64,7 @@ func new_round_check():
 	if infotransfer.changing_rounds == true:
 		spawned_hordes = 0
 		hordes_to_spawn = infotransfer.hordes_to_spawn[infotransfer.round_num]
+		print("Successfull new round")
 
 func _on_HordeSpawnTimer_timeout():
 	if infotransfer.zombies_alive + 4 < infotransfer.zombies_to_spawn[infotransfer.round_num]:

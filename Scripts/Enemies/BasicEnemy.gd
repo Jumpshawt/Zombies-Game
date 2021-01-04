@@ -25,6 +25,9 @@ export var dead : bool = false
 var drop_ammo_box_rng = 1 #ex 2 = 20% chance
 var ammo_rng = 0
 
+#=====Attack=====#
+var player_in_attack = false
+
 #=====AnimationStuff=====#
 signal walk
 signal stop_walking
@@ -109,6 +112,7 @@ func player_die():
 		$HeadHitBox/CollisionShape3.disabled = true
 		$HitBox.queue_free()
 		$HeadHitBox.queue_free()
+		$CollisionShape3.queue_free()
 		$"Scene Root".visible = false
 		ammo_rng = rand_range(0,10)
 		if ammo_rng <= drop_ammo_box_rng:
@@ -116,8 +120,8 @@ func player_die():
 			infotransfer.zombies_alive -= 1
 			infotransfer.blood_splatter = true
 			var c = ammobox.instance()
+			self.rotation = Vector3(0,0,0)
 			self.add_child(c)
-#			print("box spawned")
 			c.global_transform.origin = self.global_transform.origin - Vector3(0,1,0)
 			c.look_at(self.global_transform.origin + Vector3(0,300,0), Vector3.UP)
 			$AmmoBoxTimer.start()
@@ -139,7 +143,8 @@ func die():
 
 # warning-ignore:unused_argument
 func _process(delta):
-	
+	if dead:
+		self.rotation = Vector3(0,0,0)
 	if health <= 0 and not dead:
 		player_die()
 		dead = true
@@ -158,7 +163,10 @@ func stun():
 
 # warning-ignore:unused_argument
 func _physics_process(delta):
-	look_at(Vector3(Player.global_transform.origin.x, self.global_transform.origin.y - 10, Player.global_transform.origin.z), Vector3.UP)
+	if path.size() > 5:
+		look_at(Vector3(path[5].x, self.global_transform.origin.y -10, path[5].z), Vector3.UP)#lerp(Player.global_transform.origin.y, self.global_transform.origin.y, 0.1)- 10, path[3].z), Vector3.UP)
+	else:
+		look_at(Vector3(Player.global_transform.origin.x, self.global_transform.origin.y - 10, Player.global_transform.origin.z), Vector3.UP)
 	tick += 1
 	if  path_node < path.size() and not dead:
 		var direction = (path[path_node] - global_transform.origin)
@@ -167,7 +175,9 @@ func _physics_process(delta):
 			
 		
 		var tickratedistance = tickrate * global_transform.origin.distance_to(Player.global_transform.origin) / 32
-		
+		if tickratedistance < 1:
+			tickratedistance = 1
+		#print("tick",tick,"tickrated distance", tickratedistance)
 		if tick > tickratedistance * infotransfer.zombies_alive / 2:
 # warning-ignore:return_value_discarded
 			var prev_locat = self.global_transform 
@@ -245,3 +255,25 @@ func _on_AmmoBox_box_collected():
 
 func _on_Enemy_walk():
 	pass # Replace with function body.
+
+
+func _on_AttackArea_body_entered(body):
+	if body.is_in_group("Player"):
+		player_in_attack = true
+		set_physics_process(false) #Turns off zombie
+		$AttackTimer.start()  #Controls how long before zombie turns back on
+		$HitTimer.start() #Controls how long till zombie hits
+		$AnimationPlayer.play("Attack")
+		print("Player in danger zone")
+
+func _on_AttackArea_body_exited(body):
+	if body.is_in_group("Player"):
+		player_in_attack = false
+		print("Player left danger zone")
+
+func _on_AttackTimer_timeout():
+	set_physics_process(true)
+
+func _on_HitTimer_timeout():
+	if player_in_attack:
+		print("Player hit!")

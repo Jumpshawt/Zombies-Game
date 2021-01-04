@@ -21,7 +21,6 @@ onready var camera = $"Rotation_Helper/Camera"
 var rotation_helper
 
 onready var Hud = $Control
-# Recoil variables
 var velocity = 0
 var gravity = .5
 var gravity_eased = 0
@@ -30,7 +29,7 @@ export var kick_ammount = 0.2
 export var pistol_kick_ammount = 0.05
 export var shotgun_kick_ammount = 0.2
 export var rifle_kick_ammount = 0.1
-onready var blood_splatter = preload("res://Assets/Particles/Blood_particles.tscn")
+reload("res://Assets/Particles/Blood_particles.tscn")
 onready var rotationhelper = $Rotation_Helper
 onready var bullet_decal = preload("res://Assets/Guns/BulletHole.tscn")
 onready var raycast = $"Rotation_Helper/Camera/RayCast"
@@ -38,6 +37,7 @@ onready var headbonker = $"HeadBonker"
 onready var infotransfer = $"/root/InfoTransfer" 
 onready var rifle_raycast = $"Rotation_Helper/Camera/RifleRayCast"
 onready var interactraycast = $"Rotation_Helper/InteractRaycast"
+onready var groundcast = $GroundCast
 #gun = 1 :rifle
 #gun = 2 : pistol
 #gun = 3 :shotgun
@@ -127,6 +127,7 @@ func shoot_shotgun():
 		shotgun_able_to_shoot = false
 		if not r.get_collider() == null:
 			r.get_collider().add_child(b)
+			b.scale = Vector3(0.1,0.1,0.1)
 			b.global_transform.origin = r.get_collision_point()
 			b.look_at(r.get_collision_point() + r.get_collision_normal() * 100, Vector3.DOWN) 
 			if r.is_colliding():
@@ -138,6 +139,7 @@ func shoot_pistol():
 		print("Pistol shoot")
 		raycast.cast_to.x = rand_range(-pistol_spread, pistol_spread)
 		raycast.cast_to.y = rand_range(-pistol_spread, pistol_spread)
+
 		kick_ammount = pistol_kick_ammount 
 		velocity += kick_ammount / (2* camera.rotation.x + 1)
 		print("shoot", velocity)
@@ -145,6 +147,7 @@ func shoot_pistol():
 		var b = bullet_decal.instance()
 		if not raycast.get_collider() == null:
 			raycast.get_collider().add_child(b)
+			b.scale = Vector3(0.1,0.1,0.1)
 			b.global_transform.origin = raycast.get_collision_point()
 			b.look_at(raycast.get_collision_point() + raycast.get_collision_normal() * 100, Vector3.DOWN)
 			if raycast.is_colliding():
@@ -169,18 +172,15 @@ func shoot_rifle():
 			elif rifle_spread == true:
 				yield(get_tree().create_timer(0.1), "timeout")
 				if x <= 1:
-					x += 0.05
-				
-				
 				kick_ammount = rifle_kick_ammount
 				velocity += kick_ammount / (2 * camera.rotation.x + 1)
-				
 				#camera.rotation.x = camera.rotation.x + rand_range(-rcs,rcs)
 				rifle_raycast.cast_to.x = rand_range(-rifle_spread_amount, rifle_spread_amount)
 				rifle_raycast.cast_to.y = rand_range(-rifle_spread_amount, rifle_spread_amount)
 			if rifle_raycast.is_colliding():
 				rifle_raycast.get_collider().add_child(b)
 				emit_signal("bullet_hole_collider", rifle_raycast.get_collider())
+			b.scale = Vector3(0.1,0.1,0.1)
 			b.global_transform.origin = rifle_raycast.get_collision_point()
 			b.look_at(raycast.get_collision_point() + raycast.get_collision_normal()* 100, Vector3.DOWN)
 			rifle_raycast.force_raycast_update()
@@ -221,6 +221,7 @@ func process_movement(delta):
 	#This is process on playermovement
 	pass
 
+
 func _process(delta):
 	ammo_box_check()
 	reset_camera_rotation()
@@ -249,6 +250,7 @@ func _on_Label3_no_ammo():
 	out_of_rifle_ammo = true
 
 func reset_camera_rotation():
+
 #	print("velocity before calculations", velocity)
 	if camera.rotation.x >= 0:
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Enemies/BasicEnemy.gd" type="Script" id=1]
 [ext_resource path="res://3D Model Imports/Zombies/ZombieImported.tscn" type="PackedScene" id=2]
@@ -12,6 +12,25 @@ height = 2.0
 
 [sub_resource type="CapsuleShape" id=3]
 height = 0.25
+
+[sub_resource type="Animation" id=4]
+resource_name = "Attack"
+length = 1.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Scene Root:translation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.6, 0.7, 1.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -0.0867896, 0.467696, 0.0430117 ), Vector3( -0.0867893, 0.467696, 3.10061 ), Vector3( -0.0867896, 0.467696, 0.0430117 ) ]
+}
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 2.02024, 2.51667, 2.08745 )
 
 [node name="Enemy" type="KinematicBody" groups=[
 "Enemy",
@@ -57,6 +76,10 @@ collision_layer = 2147483650
 transform = Transform( 1, 1.50996e-07, 1.50996e-07, -1.50996e-07, -5.96047e-08, 1, 1.50996e-07, -1, -5.96047e-08, 0.499429, 1.60019, 0.100962 )
 shape = SubResource( 3 )
 
+[node name="HitTimer" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
 
@@ -67,9 +90,14 @@ one_shot = true
 wait_time = 2.5
 
 [node name="AmmoBoxTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 25.0
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 1.1
+one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Attack = SubResource( 4 )
 anims/WalkingAnimation = ExtResource( 3 )
 
 [node name="CollisionShape3" type="CollisionShape" parent="."]
@@ -77,11 +105,21 @@ transform = Transform( 1, -1.49396e-07, 5.58799e-08, -5.13161e-09, -0.380287, -0
 shape = SubResource( 2 )
 
 [node name="DeathTimer" type="Timer" parent="."]
+
+[node name="AttackArea" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="AttackArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.68221e-07, 0.742999, 3.04119 )
+shape = SubResource( 5 )
 [connection signal="stop_walking" from="." to="Scene Root" method="_on_Enemy_stop_walking"]
 [connection signal="walk" from="." to="Scene Root" method="_on_Enemy_walk"]
 [connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
 [connection signal="body_exited" from="Area" to="." method="_on_Area_body_exited"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="StunTimer" to="." method="_on_StunTimer_timeout"]
 [connection signal="timeout" from="DieTimer" to="." method="_on_DieTimer_timeout"]
 [connection signal="timeout" from="AmmoBoxTimer" to="." method="_on_AmmoBoxTimer_timeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
+[connection signal="body_entered" from="AttackArea" to="." method="_on_AttackArea_body_entered"]
+[connection signal="body_exited" from="AttackArea" to="." method="_on_AttackArea_body_exited"]

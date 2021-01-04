@@ -1,6 +1,7 @@
 extends Spatial
 
 func _ready():
+	self.scale = Vector3(0.1,0.1,0.1)
 	var get_collider = get_tree().get_root().find_node("Player", true, false)
 	get_collider.connect("bullet_hole_collider", self, "find_collider")
 
