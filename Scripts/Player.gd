@@ -23,17 +23,17 @@ var rotation_helper
 onready var Hud = $Control
 # Recoil variables
 var velocity = 0
-export var gravity = 0.2
+var gravity = .5
 var gravity_eased = 0
 export var ease_ammount = 0.25
 export var kick_ammount = 0.2
-export var pistol_kick_ammount = 0.2
+export var pistol_kick_ammount = 0.05
 export var shotgun_kick_ammount = 0.2
-export var rifle_kick_ammount = 0.2
+export var rifle_kick_ammount = 0.1
 onready var blood_splatter = preload("res://Assets/Particles/Blood_particles.tscn")
 onready var rotationhelper = $Rotation_Helper
 onready var bullet_decal = preload("res://Assets/Guns/BulletHole.tscn")
-onready var raycast = $"Rotation_Helper/RayCast"
+onready var raycast = $"Rotation_Helper/Camera/RayCast"
 onready var headbonker = $"HeadBonker"
 onready var infotransfer = $"/root/InfoTransfer" 
 onready var rifle_raycast = $"Rotation_Helper/Camera/RifleRayCast"
@@ -80,7 +80,7 @@ export var spread : int = 5
 var shotgun_able_to_shoot : bool = true
 
 onready var shotgunammo = $"Control/ShotgunAmmo/Label4"
-onready var raycontainer = $"Rotation_Helper/ShotgunRayCastHolder"
+onready var raycontainer = $"Rotation_Helper/Camera/ShotgunRayCastHolder"
 onready var kniferaycast = $"Rotation_Helper/KnifeRaycast"
 
 #=====AmmoBoxStuff=====#
@@ -138,8 +138,8 @@ func shoot_pistol():
 		print("Pistol shoot")
 		raycast.cast_to.x = rand_range(-pistol_spread, pistol_spread)
 		raycast.cast_to.y = rand_range(-pistol_spread, pistol_spread)
-		kick_ammount = pistol_kick_ammount
-		velocity += kick_ammount / (1)
+		kick_ammount = pistol_kick_ammount 
+		velocity += kick_ammount / (2* camera.rotation.x + 1)
 		print("shoot", velocity)
 		raycast.force_raycast_update()
 		var b = bullet_decal.instance()
@@ -157,6 +157,7 @@ func shoot_pistol():
 			pass
 
 func shoot_rifle():
+	
 	if not rifle_reloading and not out_of_rifle_ammo and infotransfer.gun_state == "rifle" and not rifle_need_to_reload:
 		$RifleSpreadTimer.stop()
 		$RifleSpreadTimer.start()
@@ -170,9 +171,9 @@ func shoot_rifle():
 				if x <= 1:
 					x += 0.05
 				
-				camera.rotation.x = camera.rotation.x + lerp(0, rand_range(rcs,rcs+0.025), x)
+				
 				kick_ammount = rifle_kick_ammount
-				velocity = kick_ammount
+				velocity += kick_ammount / (2 * camera.rotation.x + 1)
 				
 				#camera.rotation.x = camera.rotation.x + rand_range(-rcs,rcs)
 				rifle_raycast.cast_to.x = rand_range(-rifle_spread_amount, rifle_spread_amount)

@@ -70,6 +70,8 @@ func process_input(delta):
 		$PistolReloadTimer.start()
 		emit_signal("reloading")
 		reloading = true
+	if Input.is_action_just_pressed("shoot") and not reloading and infotransfer.gun_state == "rifle":
+		shoot_rifle()
 	if Input.is_action_just_pressed("shoot") and not reloading and infotransfer.gun_state == "pistol":
 		shoot_pistol()
 	
