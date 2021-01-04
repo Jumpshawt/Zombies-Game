@@ -23,11 +23,13 @@ var rotation_helper
 onready var Hud = $Control
 # Recoil variables
 var velocity = 0
-export var gravity = 1
+export var gravity = 0.2
 var gravity_eased = 0
-export var ease_ammount = 0.1
+export var ease_ammount = 0.25
 export var kick_ammount = 0.2
 export var pistol_kick_ammount = 0.2
+export var shotgun_kick_ammount = 0.2
+export var rifle_kick_ammount = 0.2
 onready var blood_splatter = preload("res://Assets/Particles/Blood_particles.tscn")
 onready var rotationhelper = $Rotation_Helper
 onready var bullet_decal = preload("res://Assets/Guns/BulletHole.tscn")
@@ -113,8 +115,11 @@ func _ready():
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
+
+
 func shoot_shotgun():
-	camera.rotation.x = camera.rotation.x + rand_range(rcs + 0.1,rcs+0.3)
+	kick_ammount = shotgun_kick_ammount
+	velocity = kick_ammount
 	for r in raycontainer.get_children():
 		var b = bullet_decal.instance()
 		r.cast_to.x = rand_range(-spread, spread)
@@ -130,9 +135,11 @@ func shoot_shotgun():
 
 func shoot_pistol():
 	if not reloading and not out_of_pistol_ammo and not pistol_need_to_reload and infotransfer.gun_state == "pistol":
+		print("Pistol shoot")
 		raycast.cast_to.x = rand_range(-pistol_spread, pistol_spread)
 		raycast.cast_to.y = rand_range(-pistol_spread, pistol_spread)
-		velocity = kick_ammount
+		kick_ammount = pistol_kick_ammount
+		velocity += kick_ammount / (1)
 		print("shoot", velocity)
 		raycast.force_raycast_update()
 		var b = bullet_decal.instance()
@@ -162,8 +169,11 @@ func shoot_rifle():
 				yield(get_tree().create_timer(0.1), "timeout")
 				if x <= 1:
 					x += 0.05
+				
 				camera.rotation.x = camera.rotation.x + lerp(0, rand_range(rcs,rcs+0.025), x)
-				velocity == kick_ammount
+				kick_ammount = rifle_kick_ammount
+				velocity = kick_ammount
+				
 				#camera.rotation.x = camera.rotation.x + rand_range(-rcs,rcs)
 				rifle_raycast.cast_to.x = rand_range(-rifle_spread_amount, rifle_spread_amount)
 				rifle_raycast.cast_to.y = rand_range(-rifle_spread_amount, rifle_spread_amount)
@@ -240,32 +250,32 @@ func _on_Label3_no_ammo():
 func reset_camera_rotation():
 #	print("velocity before calculations", velocity)
 	if camera.rotation.x >= 0:
-#		var velocity = 0
-#		var gravity = 0.1
-#		var ease_ammount = 0
-#		var kick_ammount = 1
+
 		#subtract the gravity to the velocity 
 #		print("calculating")
+		
+		
+		#Checks if the velocity is less than or equal to 0, if it is  the gravity is low if not the gravity is high 
+		
 		if velocity <= 0:
-			gravity_eased = gravity * camera.rotation.x * 10
+			gravity_eased = gravity * 1 * ease_ammount
 		else:
-			gravity_eased = gravity * camera.rotation.x * 40
-		print("gravity_eased", gravity_eased, "gravity", gravity)
+			gravity_eased = gravity * 1 * ease_ammount
+		print("velocity", velocity, "velocity - gravity", velocity - (gravity_eased * camera.rotation.x))
 		velocity = velocity - (gravity_eased * camera.rotation.x)
+		
+		
 		#add velocity 
 #		print(gravity * camera.rotation.x)
 #		print(velocity)
 		
 		
 		
-		camera.rotation.x += velocity * 0.1
-		camera.rotation.x += velocity * 0.1
-		print("pre lerp",camera.rotation.x)
-		camera.rotation.x = lerp(camera.rotation.x, -0, 0.1)
-		print("after lerp",camera.rotation.x)
-		if camera.rotation.x == original_cam_x:
-			#reset_rotation = false
-			pass
+		camera.rotation.x = velocity 
+		
+#		print("pre lerp",camera.rotation.x)
+		
+#		print("after lerp",camera.rotation.x)
 	else:
 		camera.rotation.x = 0
 		velocity = 0
