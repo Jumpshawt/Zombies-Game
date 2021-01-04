@@ -262,16 +262,18 @@ func reset_camera_rotation():
 			gravity_eased = gravity * 1 * ease_ammount
 		else:
 			gravity_eased = gravity * 1 * ease_ammount
-		print("velocity", velocity, "velocity - gravity", velocity - (gravity_eased * camera.rotation.x))
 		velocity = velocity - (gravity_eased * camera.rotation.x)
 		
 		
 		#add velocity 
-#		print(gravity * camera.rotation.x)
-#		print(velocity)
 		
-		
-		
+		if infotransfer.gun_state == "pistol":
+			$Rotation_Helper/Camera/Pistol.rotation.x = velocity * 2
+		if infotransfer.gun_state == "rifle":
+			$Rotation_Helper/Camera/Rifle.rotation.x = velocity * 2
+		if infotransfer.gun_state == "shotgun":
+			$Rotation_Helper/Camera/Shotgun.rotation.x = velocity * 2
+		 
 		camera.rotation.x = velocity 
 		
 #		print("pre lerp",camera.rotation.x)
