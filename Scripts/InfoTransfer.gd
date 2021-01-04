@@ -68,30 +68,20 @@ func _ready():
 	pass
 # warning-ignore:unused_argument
 func _input(event):
-	var t1 = Timer.new()
-	t1.set_wait_time(1)
-	var t3 = Timer.new()
-	t3.set_wait_time(3)
 	if gun_changing:
-		t3.set_one_shot(true)
-		self.add_child(t3)
-		t3.start()
-		yield(t3, "timeout")
-		t3.queue_free()
+		yield(get_tree().create_timer(3), "timeout")
 		gun_changing = false
 	
 	if Input.is_action_just_pressed("reload") and not gun_state == "rifle":
 		gun_reloading = true
-		t1.set_one_shot(true)
-		self.add_child(t1)
-		t1.start()
-		yield(t1, "timeout")
-		t1.queue_free()
+		yield(get_tree().create_timer(1),"timeout")
 		gun_reloading = false
+	
 	elif Input.is_action_just_pressed("reload") and gun_state == "rifle":
 		gun_reloading = true
 		yield(get_tree().create_timer(2), "timeout")
 		gun_reloading = false
+	
 	if Input.is_action_just_pressed("1") and not gun_state == "rifle" and not gun_reloading and not gun_changing and rifle_activated:
 		gun_state = "rifle"
 		gun_changing = true
