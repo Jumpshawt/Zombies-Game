@@ -132,7 +132,7 @@ func shoot_pistol():
 		raycast.cast_to.x = rand_range(-pistol_spread, pistol_spread)
 		raycast.cast_to.y = rand_range(-pistol_spread, pistol_spread)
 		velocity = kick_ammount
-		print("shoot", velocity)
+		#print("shoot", velocity)
 		raycast.force_raycast_update()
 		var b = bullet_decal.instance()
 		if not raycast.get_collider() == null:
@@ -342,15 +342,15 @@ func reset_camera_rotation():
 #		print("calculating")
 		
 		gravity_eased = gravity * camera.rotation.x * 10
-		print("gravity_eased", gravity_eased, "gravity", gravity)
+		#print("gravity_eased", gravity_eased, "gravity", gravity)
 		velocity = velocity - (gravity_eased * camera.rotation.x)
 		#add velocity 
 #		print(gravity * camera.rotation.x)
 #		print(velocity)
 		camera.rotation.x += velocity * 0.1
-		print("pre lerp",camera.rotation.x)
+		#print("pre lerp",camera.rotation.x)
 		camera.rotation.x = lerp(camera.rotation.x, -0, 0.1)
-		print("after lerp",camera.rotation.x)
+		#print("after lerp",camera.rotation.x)
 		if camera.rotation.x == original_cam_x:
 			#reset_rotation = false
 			pass
@@ -377,8 +377,8 @@ func _on_ShotgunShootTimer_timeout():
 #=====KnifeStabStuff=====#
 func stab_knife():
 	kniferaycast.force_raycast_update()
-	print("stab")
-	print(kniferaycast.get_collider())
+	#print("stab")
+	#print(kniferaycast.get_collider())
 	emit_signal("knife_damage", kniferaycast.get_collider())
 
 func _on_KnifeStabTimer_timeout():
