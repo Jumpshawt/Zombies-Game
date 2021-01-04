@@ -1,6 +1,6 @@
 [gd_scene load_steps=36 format=2]
 
-[ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/PlayerMovement.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Guns/GoodShotgun.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Guns/GoodPistol.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/Guns/GoodRifle.tscn" type="PackedScene" id=4]
@@ -164,7 +164,6 @@ tracks/2/keys = {
 "Player",
 ]]
 script = ExtResource( 1 )
-pistol_spread = 0
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
@@ -189,27 +188,20 @@ cast_to = Vector3( 0, 0, -10 )
 collision_mask = 4
 collide_with_areas = true
 
-[node name="RayCast" type="RayCast" parent="Rotation_Helper"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.867804, -0.793105 )
-enabled = true
-cast_to = Vector3( 0, 0, -1000 )
-collision_mask = 6
-collide_with_areas = true
-
-[node name="Shotgun" parent="Rotation_Helper" instance=ExtResource( 2 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.00341, 0.250038, -1.00281 )
-
-[node name="Pistol" parent="Rotation_Helper" instance=ExtResource( 3 )]
-transform = Transform( -3.78364e-08, -3.53163e-08, 1, -0.184809, 0.982774, 2.77154e-08, -0.982774, -0.184809, -4.37114e-08, -0.389, -0.519, 1.05 )
-
-[node name="Rifle" parent="Rotation_Helper" instance=ExtResource( 4 )]
-transform = Transform( -2.27131e-08, 1.31134e-08, 0.6, 0.3, 0.519615, 3.59401e-14, -0.519615, 0.3, -2.62268e-08, 1.99887, 0.368178, -1.50768 )
-
 [node name="Camera" type="Camera" parent="Rotation_Helper"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.841964, 0 )
 current = true
 fov = 90.0
 far = 500.0
+
+[node name="Shotgun" parent="Rotation_Helper/Camera" instance=ExtResource( 2 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.00341, -0.591926, -1.00281 )
+
+[node name="Pistol" parent="Rotation_Helper/Camera" instance=ExtResource( 3 )]
+transform = Transform( -3.78364e-08, -3.53163e-08, 1, -0.184809, 0.982774, 2.77154e-08, -0.982774, -0.184809, -4.37114e-08, -0.389, -1.36096, 1.05 )
+
+[node name="Rifle" parent="Rotation_Helper/Camera" instance=ExtResource( 4 )]
+transform = Transform( -2.27131e-08, 1.31134e-08, 0.6, 0.3, 0.519615, 3.59401e-14, -0.519615, 0.3, -2.62268e-08, 1.99887, -0.473786, -1.50768 )
 
 [node name="RifleRayCast" type="RayCast" parent="Rotation_Helper/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0182799, 0 )
@@ -218,72 +210,79 @@ cast_to = Vector3( 0, 0, -100 )
 collision_mask = 6
 collide_with_areas = true
 
+[node name="RayCast" type="RayCast" parent="Rotation_Helper/Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02584, -0.793105 )
+enabled = true
+cast_to = Vector3( 0, 0, -1000 )
+collision_mask = 6
+collide_with_areas = true
+
+[node name="ShotgunRayCastHolder" type="Spatial" parent="Rotation_Helper/Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01911, 0.00352693 )
+
+[node name="ShotgunRaycast1" type="RayCast" parent="Rotation_Helper/Camera/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast2" type="RayCast" parent="Rotation_Helper/Camera/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast3" type="RayCast" parent="Rotation_Helper/Camera/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast4" type="RayCast" parent="Rotation_Helper/Camera/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast5" type="RayCast" parent="Rotation_Helper/Camera/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast6" type="RayCast" parent="Rotation_Helper/Camera/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast7" type="RayCast" parent="Rotation_Helper/Camera/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast8" type="RayCast" parent="Rotation_Helper/Camera/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast9" type="RayCast" parent="Rotation_Helper/Camera/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
+[node name="ShotgunRaycast10" type="RayCast" parent="Rotation_Helper/Camera/ShotgunRayCastHolder"]
+enabled = true
+cast_to = Vector3( 0, 0, -50 )
+collision_mask = 7
+collide_with_areas = true
+
 [node name="PostProcessing" type="CSGMesh" parent="Rotation_Helper/Camera"]
 transform = Transform( 1.0025, 0, 0, 0, 1.0025, 0, 0, 0, 1.0025, -0.00563608, -5.96046e-08, -0.497982 )
 mesh = SubResource( 5 )
-
-[node name="ShotgunRayCastHolder" type="Spatial" parent="Rotation_Helper"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.861074, 0.00352693 )
-
-[node name="ShotgunRaycast1" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
-enabled = true
-cast_to = Vector3( 0, 0, -50 )
-collision_mask = 7
-collide_with_areas = true
-
-[node name="ShotgunRaycast2" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
-enabled = true
-cast_to = Vector3( 0, 0, -50 )
-collision_mask = 7
-collide_with_areas = true
-
-[node name="ShotgunRaycast3" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
-enabled = true
-cast_to = Vector3( 0, 0, -50 )
-collision_mask = 7
-collide_with_areas = true
-
-[node name="ShotgunRaycast4" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
-enabled = true
-cast_to = Vector3( 0, 0, -50 )
-collision_mask = 7
-collide_with_areas = true
-
-[node name="ShotgunRaycast5" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
-enabled = true
-cast_to = Vector3( 0, 0, -50 )
-collision_mask = 7
-collide_with_areas = true
-
-[node name="ShotgunRaycast6" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
-enabled = true
-cast_to = Vector3( 0, 0, -50 )
-collision_mask = 7
-collide_with_areas = true
-
-[node name="ShotgunRaycast7" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
-enabled = true
-cast_to = Vector3( 0, 0, -50 )
-collision_mask = 7
-collide_with_areas = true
-
-[node name="ShotgunRaycast8" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
-enabled = true
-cast_to = Vector3( 0, 0, -50 )
-collision_mask = 7
-collide_with_areas = true
-
-[node name="ShotgunRaycast9" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
-enabled = true
-cast_to = Vector3( 0, 0, -50 )
-collision_mask = 7
-collide_with_areas = true
-
-[node name="ShotgunRaycast10" type="RayCast" parent="Rotation_Helper/ShotgunRayCastHolder"]
-enabled = true
-cast_to = Vector3( 0, 0, -50 )
-collision_mask = 7
-collide_with_areas = true
 
 [node name="Knife" parent="Rotation_Helper" instance=ExtResource( 5 )]
 transform = Transform( -0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, -0.25, 0.621872, 0.522834, -1.07371 )
@@ -555,17 +554,17 @@ autostart = true
 [connection signal="shotgun_ammo" from="." to="Control/ShotgunAmmo/Label4" method="_on_Player_shotgun_ammo"]
 [connection signal="body_entered" from="PickupArea" to="." method="_on_PickupArea_body_entered"]
 [connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="." method="_on_Label_need_to_reload"]
-[connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/Pistol" method="_on_Label_need_to_reload"]
+[connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/Camera/Pistol" method="_on_Label_need_to_reload"]
 [connection signal="no_ammo" from="Control/PistolAmmo/Label" to="." method="_on_Label_no_ammo"]
-[connection signal="no_ammo" from="Control/PistolAmmo/Label" to="Rotation_Helper/Pistol" method="_on_Label_no_ammo"]
-[connection signal="no_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/Pistol" method="_on_Label_no_reload"]
-[connection signal="dont_need_to_reload_no_more" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Rifle" method="_on_Label3_dont_need_to_reload_no_more"]
+[connection signal="no_ammo" from="Control/PistolAmmo/Label" to="Rotation_Helper/Camera/Pistol" method="_on_Label_no_ammo"]
+[connection signal="no_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/Camera/Pistol" method="_on_Label_no_reload"]
+[connection signal="dont_need_to_reload_no_more" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Camera/Rifle" method="_on_Label3_dont_need_to_reload_no_more"]
 [connection signal="need_to_reload" from="Control/RifleAmmo/Label3" to="." method="_on_Label3_need_to_reload"]
-[connection signal="need_to_reload" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Rifle" method="_on_Label3_need_to_reload"]
-[connection signal="no_ammo" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Rifle" method="_on_Label3_no_ammo"]
-[connection signal="out_of_reserve_ammo" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Shotgun" method="_on_Label4_out_of_reserve_ammo"]
-[connection signal="shoot" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Shotgun" method="_on_Label4_shoot"]
-[connection signal="spin" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Shotgun" method="_on_Label4_spin"]
+[connection signal="need_to_reload" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Camera/Rifle" method="_on_Label3_need_to_reload"]
+[connection signal="no_ammo" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Camera/Rifle" method="_on_Label3_no_ammo"]
+[connection signal="out_of_reserve_ammo" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Camera/Shotgun" method="_on_Label4_out_of_reserve_ammo"]
+[connection signal="shoot" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Camera/Shotgun" method="_on_Label4_shoot"]
+[connection signal="spin" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Camera/Shotgun" method="_on_Label4_spin"]
 [connection signal="timeout" from="PistolReloadTimer" to="Control/PistolAmmo/Label" method="_on_PistolReloadTimer_timeout"]
 [connection signal="timeout" from="PistolReloadTimer" to="." method="_on_PistolReloadTimer_timeout"]
 [connection signal="timeout" from="RifleReloadTimer" to="Control/RifleAmmo/Label3" method="_on_RifleReloadTimer_timeout"]
