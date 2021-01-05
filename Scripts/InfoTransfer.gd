@@ -129,9 +129,7 @@ func update_prices():
 	shotgun_upgrade_cost = 2000 + (shotgun_increase_amount * shotgun_upgrade_level)
 
 func change_round():
-	print("round change started")
 	yield(get_tree().create_timer(5, false), "timeout")
 	spawn_zombies = true
 	round_num += 1
 	changing_rounds = true
-	print("round change ended")

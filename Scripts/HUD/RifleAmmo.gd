@@ -33,15 +33,12 @@ func _process(delta):
 				shoot_sound()
 				y = 0
 				ammo_loaded -= 1
-
 	
 		if ammo_loaded <= 0 and reserve_ammo > 1:
 			reload_popup.popup()
 			if Input.is_action_just_pressed("reload"):
 				reload_popup.hide()
 				reloading = true
-	
-
 	
 		if ammo_loaded <= 0:
 			emit_signal("need_to_reload")
