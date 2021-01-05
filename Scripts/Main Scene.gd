@@ -5,7 +5,7 @@ var a = 1
 
 func _ready():
 	print("start")
-	$"Round Change".set_volume_db(150)
+	
 
 func _process(delta):
 	if infotransfer.changing_rounds == true and a == 1:

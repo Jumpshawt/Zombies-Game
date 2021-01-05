@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/RoundBegin.wav-a9b8fa3f79f2f7b877d3181e2bec5bcb.sample"
+
+[deps]
+
+source_file="res://Sounds/RoundBegin.wav"
+dest_files=[ "res://.import/RoundBegin.wav-a9b8fa3f79f2f7b877d3181e2bec5bcb.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
