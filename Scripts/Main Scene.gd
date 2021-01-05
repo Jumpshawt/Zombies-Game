@@ -7,7 +7,7 @@ func _ready():
 	print("start")
 	$"Round Change".set_volume_db(150)
 
-func _process(delta):
+func _process(_delta):
 	if infotransfer.changing_rounds == true and a == 1:
 		$"Round Change".play()
 		a = 0
