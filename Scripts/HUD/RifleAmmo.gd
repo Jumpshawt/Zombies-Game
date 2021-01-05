@@ -82,11 +82,9 @@ func shoot_sound():
 	ShootRNG = rand_range(0,2)
 	if ShootRNG <= 1:
 		$"../Ak-1".set_volume_db(-15)
-		#$"../Ak-1".set_pitch_scale(rand_range(1.3,1.5))
 		$"../Ak-1".play()
 	elif ShootRNG <= 2:
 		$"../Ak-2".set_volume_db(-25)
-		#$"../Ak-2".set_pitch_scale(rand_range(1.3,1.5))
 		$"../Ak-2".play()
 	yield(get_tree().create_timer(0.25), "timeout")
 

@@ -112,7 +112,7 @@ environment = ExtResource( 2 )
 [node name="ShotgunShopScreen" parent="HUD Screens" instance=ExtResource( 15 )]
 
 [node name="AmmoBox" parent="." instance=ExtResource( 16 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -26.0377, 1.7041, -48.6796 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -56.4449, 130.666, -46.7895 )
 
 [node name="HordeSpawnLocations" type="Node" parent="."]
 
