@@ -163,7 +163,9 @@ func stun():
 
 # warning-ignore:unused_argument
 func _physics_process(delta):
-
+#	if path.size() > 5:
+#		look_at(Vector3(path[5].x, self.global_transform.origin.y -10, path[5].z), Vector3.UP)#lerp(Player.global_transform.origin.y, self.global_transform.or	igin.y, 0.1)- 10, path[3].z), Vector3.UP)
+#	else:
 	look_at(Vector3(Player.global_transform.origin.x, self.global_transform.origin.y - 10, Player.global_transform.origin.z), Vector3.UP)
 	tick += 1
 	if  path_node < path.size() and not dead:
