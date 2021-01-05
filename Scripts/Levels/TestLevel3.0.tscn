@@ -559,13 +559,6 @@ shadow_bias = 1.0
 shadow_contact = 1.0
 omni_range = 50.0
 
-[node name="Point001" type="OmniLight" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2435, 10.4433, -29.5263 )
-light_energy = 1.5
-shadow_bias = 1.0
-shadow_contact = 1.0
-omni_range = 50.0
-
 [node name="Point004" type="OmniLight" parent="."]
 transform = Transform( 0.000942826, 0.0234534, 0.999725, 0.999193, -0.0401656, -4.58632e-08, 0.0401545, 0.998918, -0.0234723, -13.2804, -0.724709, 27.218 )
 light_energy = 1.5
@@ -625,6 +618,7 @@ material/0 = null
 
 [node name="desk" type="MeshInstance" parent="."]
 transform = Transform( 0, 0, 0.345812, 0, 0.345812, 0, -0.345812, 0, 0, -7.14857, -6.19928, -5.40502 )
+layers = 16384
 mesh = ExtResource( 8 )
 material/0 = null
 
@@ -633,6 +627,15 @@ collision_layer = 4
 
 [node name="CollisionShape" type="CollisionShape" parent="desk/StaticBody"]
 shape = SubResource( 6 )
+
+[node name="ReflectionProbe2" type="ReflectionProbe" parent="desk/StaticBody"]
+transform = Transform( 1.15669, 0, 0.00385928, 0, 1.1567, 0, -0.00385928, 0, 1.15669, 7.7257, 1.64011, 0.15535 )
+layers = 16384
+max_distance = 16384.0
+extents = Vector3( 15.6179, 3.69181, 12.7304 )
+origin_offset = Vector3( -0.18457, 1.48438, -0.96875 )
+box_projection = true
+cull_mask = 1032191
 
 [node name="Plane026" type="MeshInstance" parent="."]
 transform = Transform( -1.19209e-07, 0.5, -1.49012e-08, 1.49012e-08, 0, -0.5, -0.5, -1.3411e-07, 0, -0.675169, 2.72938, -27.4795 )
@@ -650,22 +653,296 @@ mesh = SubResource( 9 )
 material/0 = null
 
 [node name="Outside" type="MeshInstance" parent="."]
-transform = Transform( 0.634755, 0, 0.772713, 0, 1, 0, -0.772713, 0, 0.634755, -0.675169, 16.5808, -29.4184 )
+transform = Transform( 0.634755, 0, 0.772713, 0, 1, 0, -0.772713, 0, 0.634755, -1.50799, 16.5808, -40.4534 )
 mesh = SubResource( 10 )
 material/0 = null
 
 [node name="Outside 2" type="MeshInstance" parent="."]
-transform = Transform( 5.96046e-08, 1, 0, -1, 5.96046e-08, 0, 0, 0, 1, -0.610062, 2.76486, -41.3384 )
+transform = Transform( 8.50861e-08, 1, 0, -1.127, 7.54979e-08, 0, 0, 0, 1, -0.512165, -7.08717, -41.3384 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="Outside 5" type="MeshInstance" parent="."]
+transform = Transform( 8.50861e-08, 1, 0, -1.127, 7.54979e-08, 0, 0, 0, 1, -19.4908, -6.25146, -41.3384 )
 mesh = SubResource( 11 )
 material/0 = null
 
 [node name="Outside 3" type="MeshInstance" parent="."]
-transform = Transform( -1, 1.33279e-07, 0, -1.50996e-07, -0.882666, 0, 0, 0, 1, 0.176239, 1.73081, -17.3188 )
+transform = Transform( -1, 1.33279e-07, 0, -1.50996e-07, -0.882666, 0, 0, 0, 1, 0.176239, -8.12122, -17.3188 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Outside 50" type="MeshInstance" parent="."]
+transform = Transform( -1, 1.33279e-07, 0, -1.50996e-07, -0.882666, 0, 0, 0, 1, 0.176239, -8.12122, -17.3188 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Outside 12" type="MeshInstance" parent="."]
+transform = Transform( 8.50861e-08, 1, 0, -1.127, 7.54979e-08, 0, 0, 0, 1, -0.512165, 5.37117, -41.3384 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="Outside 13" type="MeshInstance" parent="."]
+transform = Transform( -1, 1.33279e-07, 0, -1.50996e-07, -0.882666, 0, 0, 0, 1, 0.176239, 4.33712, -17.3188 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Outside 6" type="MeshInstance" parent="."]
+transform = Transform( -1, 1.33279e-07, 0, -1.50996e-07, -0.882666, 0, 0, 0, 1, -24.4134, -7.28551, -17.3188 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Outside 8" type="MeshInstance" parent="."]
+transform = Transform( 8.50861e-08, 1, 0, -1.127, 7.54979e-08, 0, 0, 0, 1, -19.4908, 6.09207, -41.3384 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="Outside 9" type="MeshInstance" parent="."]
+transform = Transform( -1, 1.33279e-07, 0, -1.50996e-07, -0.882666, 0, 0, 0, 1, -24.4134, 5.05802, -17.3188 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Outside 14" type="MeshInstance" parent="."]
+transform = Transform( 8.50861e-08, 1, 0, -1.127, 7.54979e-08, 0, 0, 0, 1, -0.512165, 16.6981, -41.3384 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="Outside 15" type="MeshInstance" parent="."]
+transform = Transform( 8.50861e-08, 1, 0, -1.127, 7.54979e-08, 0, 0, 0, 1, -19.4908, 17.5338, -41.3384 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="Outside 16" type="MeshInstance" parent="."]
+transform = Transform( -1, 1.33279e-07, 0, -1.50996e-07, -0.882666, 0, 0, 0, 1, 0.176239, 15.6641, -17.3188 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Outside 17" type="MeshInstance" parent="."]
+transform = Transform( 8.50861e-08, 1, 0, -1.127, 7.54979e-08, 0, 0, 0, 1, -0.512165, 29.1564, -41.3384 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="Outside 18" type="MeshInstance" parent="."]
+transform = Transform( -1, 1.33279e-07, 0, -1.50996e-07, -0.882666, 0, 0, 0, 1, 0.176239, 28.1224, -17.3188 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Outside 19" type="MeshInstance" parent="."]
+transform = Transform( -1, 1.33279e-07, 0, -1.50996e-07, -0.882666, 0, 0, 0, 1, -24.4134, 16.4998, -17.3188 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Outside 20" type="MeshInstance" parent="."]
+transform = Transform( 8.50861e-08, 1, 0, -1.127, 7.54979e-08, 0, 0, 0, 1, -19.4908, 29.8773, -41.3384 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="Outside 21" type="MeshInstance" parent="."]
+transform = Transform( -1, 1.33279e-07, 0, -1.50996e-07, -0.882666, 0, 0, 0, 1, -24.4134, 28.8433, -17.3188 )
 mesh = SubResource( 12 )
 material/0 = null
 
 [node name="Outside 4" type="MeshInstance" parent="."]
-transform = Transform( 0.505683, 0, 0.862719, 0, 1, 0, -0.862719, 0, 0.505683, 5.87982, 16.5808, -29.4184 )
+transform = Transform( 0.505683, 0, 0.862719, 0, 1, 0, -0.862719, 0, 0.505683, 5.047, 16.5808, -40.4534 )
+mesh = SubResource( 13 )
+material/0 = null
+
+[node name="Outside2" type="MeshInstance" parent="."]
+transform = Transform( 0.634755, 0, 0.772713, 0, 1, 0, -0.772713, 0, 0.634755, -25.2617, 16.5808, -40.4534 )
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( -0.202223, -0.0088935, -0.345002, 0.00449725, -0.399901, 0.00767262, -0.345088, 5.1817e-08, 0.202273, -15.5588, 16.5808, -40.4534 )
+light_energy = 4.37
+
+[node name="Outside 7" type="MeshInstance" parent="."]
+transform = Transform( 0.505683, 0, 0.862719, 0, 1, 0, -0.862719, 0, 0.505683, -18.7067, 16.5808, -40.4534 )
+mesh = SubResource( 13 )
+material/0 = null
+
+[node name="Outside3" type="MeshInstance" parent="."]
+transform = Transform( 0.634755, 0, 0.772713, 0, 1, 0, -0.772713, 0, 0.634755, -25.2617, 50.1566, -40.4534 )
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="Outside 10" type="MeshInstance" parent="."]
+transform = Transform( 0.505683, 0, 0.862719, 0, 1, 0, -0.862719, 0, 0.505683, -18.7067, 50.1566, -40.4534 )
+mesh = SubResource( 13 )
+material/0 = null
+
+[node name="Outside4" type="MeshInstance" parent="."]
+transform = Transform( 0.634755, 0, 0.772713, 0, 1, 0, -0.772713, 0, 0.634755, -1.52648, 50.1566, -40.4534 )
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="Outside 11" type="MeshInstance" parent="."]
+transform = Transform( 0.505683, 0, 0.862719, 0, 1, 0, -0.862719, 0, 0.505683, 5.02851, 50.1566, -40.4534 )
+mesh = SubResource( 13 )
+material/0 = null
+
+[node name="Plane027" type="MeshInstance" parent="."]
+transform = Transform( -1.19209e-07, 0.5, -1.49012e-08, 1.49012e-08, 0, -0.5, -0.5, -1.3411e-07, 0, -0.675169, 2.72938, -53.481 )
+mesh = SubResource( 7 )
+material/0 = null
+
+[node name="Outside5" type="MeshInstance" parent="."]
+transform = Transform( 0.634755, 0, 0.772713, 0, 1, 0, -0.772713, 0, 0.634755, -1.50799, 16.5808, -66.455 )
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="Outside 22" type="MeshInstance" parent="."]
+transform = Transform( 8.50861e-08, 1, 0, -1.127, 7.54979e-08, 0, 0, 0, 1, -0.512165, -7.08717, -67.34 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="Outside 23" type="MeshInstance" parent="."]
+transform = Transform( 8.50861e-08, 1, 0, -1.127, 7.54979e-08, 0, 0, 0, 1, -19.4908, -6.25146, -67.34 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="Outside 24" type="MeshInstance" parent="."]
+transform = Transform( -1, 1.33279e-07, 0, -1.50996e-07, -0.882666, 0, 0, 0, 1, 0.176239, -8.12122, -43.3204 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Outside 25" type="MeshInstance" parent="."]
+transform = Transform( 8.50861e-08, 1, 0, -1.127, 7.54979e-08, 0, 0, 0, 1, -0.512165, 5.37117, -67.34 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="Outside 26" type="MeshInstance" parent="."]
+transform = Transform( -1, 1.33279e-07, 0, -1.50996e-07, -0.882666, 0, 0, 0, 1, 0.176239, 4.33712, -43.3204 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Outside 27" type="MeshInstance" parent="."]
+transform = Transform( -1, 1.33279e-07, 0, -1.50996e-07, -0.882666, 0, 0, 0, 1, -24.4134, -7.28551, -43.3204 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Outside 28" type="MeshInstance" parent="."]
+transform = Transform( 8.50861e-08, 1, 0, -1.127, 7.54979e-08, 0, 0, 0, 1, -19.4908, 6.09207, -67.34 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="Outside 29" type="MeshInstance" parent="."]
+transform = Transform( -1, 1.33279e-07, 0, -1.50996e-07, -0.882666, 0, 0, 0, 1, -24.4134, 5.05802, -43.3204 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Outside 30" type="MeshInstance" parent="."]
+transform = Transform( 8.50861e-08, 1, 0, -1.127, 7.54979e-08, 0, 0, 0, 1, -0.512165, 16.6981, -67.34 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="Outside 31" type="MeshInstance" parent="."]
+transform = Transform( 8.50861e-08, 1, 0, -1.127, 7.54979e-08, 0, 0, 0, 1, -19.4908, 17.5338, -67.34 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="Outside 32" type="MeshInstance" parent="."]
+transform = Transform( -1, 1.33279e-07, 0, -1.50996e-07, -0.882666, 0, 0, 0, 1, 0.176239, 15.6641, -43.3204 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Outside 33" type="MeshInstance" parent="."]
+transform = Transform( 8.50861e-08, 1, 0, -1.127, 7.54979e-08, 0, 0, 0, 1, -0.512165, 29.1564, -67.34 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="Outside 34" type="MeshInstance" parent="."]
+transform = Transform( -1, 1.33279e-07, 0, -1.50996e-07, -0.882666, 0, 0, 0, 1, 0.176239, 28.1224, -43.3204 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Outside 35" type="MeshInstance" parent="."]
+transform = Transform( -1, 1.33279e-07, 0, -1.50996e-07, -0.882666, 0, 0, 0, 1, -24.4134, 16.4998, -43.3204 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Outside 36" type="MeshInstance" parent="."]
+transform = Transform( 8.50861e-08, 1, 0, -1.127, 7.54979e-08, 0, 0, 0, 1, -19.4908, 29.8773, -67.34 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="Outside 37" type="MeshInstance" parent="."]
+transform = Transform( -1, 1.33279e-07, 0, -1.50996e-07, -0.882666, 0, 0, 0, 1, -24.4134, 28.8433, -43.3204 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Outside 42" type="MeshInstance" parent="."]
+transform = Transform( 8.50861e-08, 1, 0, -1.127, 7.54979e-08, 0, 0, 0, 1, -0.512165, 50.0693, -41.3384 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="Outside 43" type="MeshInstance" parent="."]
+transform = Transform( -1, 1.33279e-07, 0, -1.50996e-07, -0.882666, 0, 0, 0, 1, 0.176239, 49.0352, -17.3188 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Outside 44" type="MeshInstance" parent="."]
+transform = Transform( 8.50861e-08, 1, 0, -1.127, 7.54979e-08, 0, 0, 0, 1, -19.4908, 50.7902, -41.3384 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="Outside 45" type="MeshInstance" parent="."]
+transform = Transform( -1, 1.33279e-07, 0, -1.50996e-07, -0.882666, 0, 0, 0, 1, -24.4134, 49.7561, -17.3188 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Outside 46" type="MeshInstance" parent="."]
+transform = Transform( 8.50861e-08, 1, 0, -1.127, 7.54979e-08, 0, 0, 0, 1, -0.512165, 50.0693, -67.34 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="Outside 47" type="MeshInstance" parent="."]
+transform = Transform( -1, 1.33279e-07, 0, -1.50996e-07, -0.882666, 0, 0, 0, 1, 0.176239, 49.0352, -43.3204 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Outside 48" type="MeshInstance" parent="."]
+transform = Transform( 8.50861e-08, 1, 0, -1.127, 7.54979e-08, 0, 0, 0, 1, -19.4908, 50.7902, -67.34 )
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="Outside 49" type="MeshInstance" parent="."]
+transform = Transform( -1, 1.33279e-07, 0, -1.50996e-07, -0.882666, 0, 0, 0, 1, -24.4134, 49.7561, -43.3204 )
+mesh = SubResource( 12 )
+material/0 = null
+
+[node name="Outside 38" type="MeshInstance" parent="."]
+transform = Transform( 0.505683, 0, 0.862719, 0, 1, 0, -0.862719, 0, 0.505683, 5.047, 16.5808, -66.455 )
+mesh = SubResource( 13 )
+material/0 = null
+
+[node name="Outside6" type="MeshInstance" parent="."]
+transform = Transform( 0.634755, 0, 0.772713, 0, 1, 0, -0.772713, 0, 0.634755, -25.2617, 16.5808, -66.455 )
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="Outside 39" type="MeshInstance" parent="."]
+transform = Transform( 0.505683, 0, 0.862719, 0, 1, 0, -0.862719, 0, 0.505683, -18.7067, 16.5808, -66.455 )
+mesh = SubResource( 13 )
+material/0 = null
+
+[node name="Outside7" type="MeshInstance" parent="."]
+transform = Transform( 0.634755, 0, 0.772713, 0, 1, 0, -0.772713, 0, 0.634755, -25.2617, 50.1566, -66.455 )
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="Outside 40" type="MeshInstance" parent="."]
+transform = Transform( 0.505683, 0, 0.862719, 0, 1, 0, -0.862719, 0, 0.505683, -18.7067, 50.1566, -66.455 )
+mesh = SubResource( 13 )
+material/0 = null
+
+[node name="Outside8" type="MeshInstance" parent="."]
+transform = Transform( 0.634755, 0, 0.772713, 0, 1, 0, -0.772713, 0, 0.634755, -1.52648, 50.1566, -66.455 )
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="Outside 41" type="MeshInstance" parent="."]
+transform = Transform( 0.505683, 0, 0.862719, 0, 1, 0, -0.862719, 0, 0.505683, 5.02851, 50.1566, -66.455 )
 mesh = SubResource( 13 )
 material/0 = null
 
@@ -884,4 +1161,5 @@ material/0 = null
 collision_layer = 4
 
 [node name="CollisionShape" type="CollisionShape" parent="StairRailing2/StaticBody"]
+transform = Transform( 1, 0, -2.84217e-14, 0, 1, 0, 2.84217e-14, 0, 1, 0, 0, 0 )
 shape = SubResource( 53 )

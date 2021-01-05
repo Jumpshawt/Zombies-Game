@@ -48,6 +48,10 @@ transform = Transform( 2, 0, 0, 0, 4, 0, 0, 0, 4, 29.798, -1.51926, 1.22246 )
 [node name="Level" parent="Nav/NavigationMeshInstance" instance=ExtResource( 5 )]
 transform = Transform( 2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -1.87937, 5.43766, 0 )
 
+[node name="Level2" parent="Nav/NavigationMeshInstance" instance=ExtResource( 5 )]
+transform = Transform( 2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -1.87937, 5.43766, 0 )
+visible = false
+
 [node name="HordeSpawner" parent="Nav/NavigationMeshInstance" instance=ExtResource( 18 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 42.7781, -3.52513, 93.9071 )
 
