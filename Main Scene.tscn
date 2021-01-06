@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Scripts/Main Scene.gd" type="Script" id=1]
 [ext_resource path="res://Space.tres" type="Environment" id=2]
@@ -32,6 +32,9 @@ agent/max_climb = 1.0
 agent/max_slope = 40.0
 filter/ledge_spans = true
 filter/filter_walkable_low_height_spans = true
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 7.59813, 1, 1 )
 
 [node name="Main Scene" type="Spatial"]
 script = ExtResource( 1 )
@@ -133,4 +136,10 @@ autoplay = true
 [node name="Round Change" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 20 )
 autoplay = true
+
+[node name="Quick fix" type="StaticBody" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Quick fix"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2265, -2.6127, 104.214 )
+shape = SubResource( 2 )
 [connection signal="player_hit" from="Nav/NavigationMeshInstance/Zombie Spawner/Enemy" to="Nav/Player" method="_on_Enemy_player_hit"]

@@ -91,7 +91,7 @@ var min_damage = 15
 var max_damage = 30
 onready var health_display = $"Control/Money2"
 var able_to_regen : bool = true
-var regentime = 0.2
+var regentime = 0.5
 
 #=====AmmoBoxStuff=====#
 signal shotgun_ammo
@@ -243,6 +243,7 @@ func _process(delta):
 	check_for_hitsounds()
 	update_blood_overlay()
 	regen_health(delta)
+	player_hit_fade_out(delta)
 	if headbonker.is_colliding():
 		can_stand_up = false
 	else:
@@ -348,20 +349,23 @@ func _on_PickupArea_body_entered(body):
 
 func ammo_box_check():
 	if infotransfer.ammo_box_collected == true:
-		ammo_box_rng = rand_range(0,4)
-		if ammo_box_rng >= 1:
-			emit_signal("pistol_ammo")
-		elif ammo_box_rng >= 2:
-			emit_signal("rifle_ammo")
-		elif ammo_box_rng >= 3:
-			emit_signal("shotgun_ammo")
-		elif ammo_box_rng >= 4:
-			if infotransfer.gun_state == "pistol":
-				emit_signal("pistol_ammo")
-			if infotransfer.gun_state == "rifle":
-				emit_signal("rifle_ammo")
-			if infotransfer.gun_state == "shotgun":
-				emit_signal("shotgun_ammo")
+		infotransfer.pistol_reserve_ammo += int(rand_range(16,32))
+		emit_signal("rifle_ammo")
+		emit_signal("shotgun_ammo")
+		#ammo_box_rng = rand_range(0,4)
+		#if ammo_box_rng >= 1:
+		#	emit_signal("pistol_ammo")
+		#elif ammo_box_rng >= 2:
+		#	emit_signal("rifle_ammo")
+		#elif ammo_box_rng >= 3:
+		#	emit_signal("shotgun_ammo")
+		#elif ammo_box_rng >= 4:
+		#	if infotransfer.gun_state == "pistol":
+	#			emit_signal("pistol_ammo")
+#			if infotransfer.gun_state == "rifle":
+			#	emit_signal("rifle_ammo")
+			#if infotransfer.gun_state == "shotgun":
+			#	emit_signal("shotgun_ammo")
 		infotransfer.ammo_box_collected = false
 
 #Die
@@ -394,3 +398,10 @@ func regen_health(del): #also in process
 				use = 0
 				health += 1
 				health_display.set_text("Health = "+ str(health))
+
+#=====Makes the blood after getting hit fade out
+var fade_out : float = 0
+func player_hit_fade_out(del):
+	if fade_out >= 0:
+		fade_out -= 1 * del
+	$Control/BloodOverlay2.set_modulate(Color(1, 1, 1, fade_out))

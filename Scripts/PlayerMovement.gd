@@ -115,6 +115,7 @@ func process_movement(delta):
 
 func player_hit():
 	if infotransfer.player_hit == true:
+		fade_out = 1
 		able_to_regen = false
 		$RegenTimer.start()
 		damage_taken = rand_range(min_damage, max_damage)

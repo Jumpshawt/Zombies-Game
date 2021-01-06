@@ -117,6 +117,7 @@ func player_die():
 		$HitBox.queue_free()
 		$HeadHitBox.queue_free()
 		$CollisionShape3.queue_free()
+		$AttackArea.queue_free()
 		$"Scene Root".visible = false
 		ammo_rng = rand_range(0,10)
 		if ammo_rng <= drop_ammo_box_rng:
@@ -132,7 +133,7 @@ func player_die():
 			self.add_child(c)
 			c.global_transform.origin = self.global_transform.origin - Vector3(0,1,0)
 			c.look_at(self.global_transform.origin + Vector3(0,300,0), Vector3.UP)
-			$AmmoBoxTimer.start()
+			#$AmmoBoxTimer.start()
 		else:
 			money_earned = int(rand_range(75,125))
 			infotransfer.money += money_earned
@@ -258,7 +259,8 @@ func _on_DieTimer_timeout():
 	die()
 
 func _on_AmmoBoxTimer_timeout():
-	queue_free()
+	#queue_free()
+	pass
 
 func _on_AmmoBox_box_collected():
 #	print("hi lol")

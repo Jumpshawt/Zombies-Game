@@ -318,6 +318,11 @@ position = Vector2( 963.929, 545.738 )
 scale = Vector2( 3.51359, 2.72482 )
 texture = ExtResource( 28 )
 
+[node name="BloodOverlay2" type="Sprite" parent="Control"]
+position = Vector2( 963.929, 545.738 )
+scale = Vector2( 3.51359, 2.72482 )
+texture = ExtResource( 28 )
+
 [node name="3thing" type="Sprite" parent="Control"]
 modulate = Color( 0, 0, 0, 0.878431 )
 position = Vector2( 1008.54, 76.4408 )
@@ -350,6 +355,7 @@ offset = Vector2( 1920, 1080 )
 
 [node name="Hitmarker" type="Sprite" parent="Control"]
 visible = false
+modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 4, -3 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 23 )
