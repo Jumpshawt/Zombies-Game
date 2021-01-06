@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://3D Model Imports/Levels/Material_005.material" type="Material" id=1]
 [ext_resource path="res://3D Model Imports/Levels/Material_001.material" type="Material" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://3D Model Imports/Levels/Material_006.material" type="Material" id=6]
 [ext_resource path="res://3D Model Imports/Levels/glass.material" type="Material" id=7]
 [ext_resource path="res://3D Model Imports/Level Assets/bloody_desk.tres" type="ArrayMesh" id=8]
+[ext_resource path="res://Assets/Environment/pipes.tscn" type="PackedScene" id=9]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Plane"
@@ -1163,3 +1164,5 @@ collision_layer = 4
 [node name="CollisionShape" type="CollisionShape" parent="StairRailing2/StaticBody"]
 transform = Transform( 1, 0, -2.84217e-14, 0, 1, 0, 2.84217e-14, 0, 1, 0, 0, 0 )
 shape = SubResource( 53 )
+
+[node name="24blockout_3_1 (1)" parent="." instance=ExtResource( 9 )]
