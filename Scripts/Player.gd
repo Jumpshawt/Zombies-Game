@@ -83,6 +83,13 @@ onready var shotgunammo = $"Control/ShotgunAmmo/Label4"
 onready var raycontainer = $"Rotation_Helper/Camera/ShotgunRayCastHolder"
 onready var kniferaycast = $"Rotation_Helper/KnifeRaycast"
 
+#=====Health=====#
+var health = 100
+var damage_taken = 0
+var min_damage = 15
+var max_damage = 30
+onready var health_display = $"Control/Money2"
+
 #=====AmmoBoxStuff=====#
 signal shotgun_ammo
 signal rifle_ammo
@@ -91,7 +98,8 @@ signal define_ammo_box(object)
 var ammo_box_rng = 0
 
 func _ready():
-	
+	var zombiehitfinder = get_tree().get_root().find_node("Enemy", true, false) 
+	zombiehitfinder.connect("player_hit", self, "handle_player_hit")
 	original_cam_x = camera.rotation.x
 	var splatter_finder = get_tree().get_root().find_node("Enemy", true, false)
 	splatter_finder.connect("blood_splatter", self,"handle_blood_splatter")
@@ -160,7 +168,6 @@ func shoot_pistol():
 			pass
 
 func shoot_rifle():
-	
 	if not rifle_reloading and not out_of_rifle_ammo and infotransfer.gun_state == "rifle" and not rifle_need_to_reload:
 		$RifleSpreadTimer.stop()
 		$RifleSpreadTimer.start()
@@ -339,3 +346,14 @@ func ammo_box_check():
 		elif ammo_box_rng >= 3:
 			emit_signal("shotgun_ammo")
 		infotransfer.ammo_box_collected = false
+
+#Die
+func player_die():
+	set_physics_process(false)
+	yield(get_tree().create_timer(1, false), "timeout")
+	get_tree().change_scene("res://Assets/HUD/StatScreen.tscn")
+	infotransfer.pistol_reserve_ammo = 48
+	infotransfer.pistol_ammo_loaded = 16
+	$Die.set_volume_db(150)
+	$Die.play()
+

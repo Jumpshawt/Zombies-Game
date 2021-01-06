@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://Scripts/PlayerMovement.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Guns/GoodShotgun.tscn" type="PackedScene" id=2]
@@ -26,6 +26,7 @@
 [ext_resource path="res://Assets/HUD/Weapons/Pistol.png" type="Texture" id=24]
 [ext_resource path="res://Assets/HUD/Weapons/Shotgun.png" type="Texture" id=25]
 [ext_resource path="res://Assets/Animations/Hitmarker.tres" type="Animation" id=26]
+[ext_resource path="res://Sounds/u died.wav" type="AudioStream" id=27]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 3.0
@@ -524,10 +525,12 @@ anims/Idle = SubResource( 8 )
 anims/UnCrouch = SubResource( 9 )
 
 [node name="PistolReloadTimer" type="Timer" parent="."]
+pause_mode = 1
 wait_time = 1.542
 one_shot = true
 
 [node name="RifleReloadTimer" type="Timer" parent="."]
+pause_mode = 1
 wait_time = 2.0
 one_shot = true
 
@@ -549,11 +552,14 @@ wait_time = 0.5
 autostart = true
 
 [node name="GroundCast" type="RayCast" parent="."]
+
+[node name="Die" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 27 )
 [connection signal="body_entered" from="PickupArea" to="." method="_on_PickupArea_body_entered"]
-[connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/Camera/Pistol" method="_on_Label_need_to_reload"]
 [connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="." method="_on_Label_need_to_reload"]
-[connection signal="no_ammo" from="Control/PistolAmmo/Label" to="Rotation_Helper/Camera/Pistol" method="_on_Label_no_ammo"]
+[connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/Camera/Pistol" method="_on_Label_need_to_reload"]
 [connection signal="no_ammo" from="Control/PistolAmmo/Label" to="." method="_on_Label_no_ammo"]
+[connection signal="no_ammo" from="Control/PistolAmmo/Label" to="Rotation_Helper/Camera/Pistol" method="_on_Label_no_ammo"]
 [connection signal="no_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/Camera/Pistol" method="_on_Label_no_reload"]
 [connection signal="dont_need_to_reload_no_more" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Camera/Rifle" method="_on_Label3_dont_need_to_reload_no_more"]
 [connection signal="need_to_reload" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Camera/Rifle" method="_on_Label3_need_to_reload"]

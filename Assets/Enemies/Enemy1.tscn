@@ -8,9 +8,10 @@
 extents = Vector3( 200, 15, 200 )
 
 [sub_resource type="CapsuleShape" id=2]
-height = 2.0
+height = 1.08097
 
 [sub_resource type="CapsuleShape" id=3]
+radius = 0.75
 height = 0.25
 
 [sub_resource type="Animation" id=4]
@@ -30,7 +31,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="BoxShape" id=5]
-extents = Vector3( 2.02024, 2.51667, 2.08745 )
+extents = Vector3( 2.68843, 2.5, 2.11994 )
 
 [node name="Enemy" type="KinematicBody" groups=[
 "Enemy",
@@ -62,7 +63,7 @@ space_override = 1
 collision_layer = 2147483650
 
 [node name="CollisionShape2" type="CollisionShape" parent="HitBox"]
-transform = Transform( 1, -1.45477e-07, 6.77674e-08, 3.01725e-08, -0.244311, -0.969698, 1.57625e-07, 0.969698, -0.244311, 0.321432, 1.0683, -0.39332 )
+transform = Transform( 1, -1.45477e-07, 6.77674e-08, 3.01725e-08, -0.244311, -0.969698, 1.57625e-07, 0.969698, -0.244311, 0.321432, 1.24801, -0.393641 )
 shape = SubResource( 2 )
 
 [node name="HeadHitBox" type="Area" parent="." groups=[
@@ -84,6 +85,7 @@ one_shot = true
 wait_time = 0.1
 
 [node name="StunTimer" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 
 [node name="DieTimer" type="Timer" parent="."]
@@ -101,7 +103,7 @@ anims/Attack = SubResource( 4 )
 anims/WalkingAnimation = ExtResource( 3 )
 
 [node name="CollisionShape3" type="CollisionShape" parent="."]
-transform = Transform( 1, -1.49396e-07, 5.58799e-08, -5.13161e-09, -0.380287, -0.924868, 1.59422e-07, 0.924868, -0.380287, 0.409109, 0.330952, -0.712313 )
+transform = Transform( 1, -1.49396e-07, 5.58799e-08, -5.13161e-09, -0.380287, -0.924868, 1.59422e-07, 0.924868, -0.380287, 0.409109, 0.508863, -0.686967 )
 shape = SubResource( 2 )
 
 [node name="DeathTimer" type="Timer" parent="."]
@@ -109,7 +111,7 @@ shape = SubResource( 2 )
 [node name="AttackArea" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="AttackArea"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.68221e-07, 0.742999, 3.04119 )
+transform = Transform( 1, 4.30357e-08, -1.13264e-08, -4.30358e-08, 0.870442, -0.492271, -1.13263e-08, 0.492271, 0.870442, -2.38419e-07, 2.86809, -2.75559 )
 shape = SubResource( 5 )
 [connection signal="stop_walking" from="." to="Scene Root" method="_on_Enemy_stop_walking"]
 [connection signal="walk" from="." to="Scene Root" method="_on_Enemy_walk"]

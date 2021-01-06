@@ -1,14 +1,10 @@
 extends "res://Scripts/Player.gd"
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
+
+func _process(_delta):
+	player_hit()
 
 func _input(event):
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
@@ -20,7 +16,6 @@ func _input(event):
 		rotation_helper.rotation_degrees = camera_rot
 
 func process_input(delta):
-	
 	if Input.is_action_just_pressed("shoot") and infotransfer.gun_state == "shotgun" and shotgunammo.ammo_loaded >= 1 and shotgun_able_to_shoot:
 		shoot_shotgun()
 
@@ -116,8 +111,15 @@ func process_movement(delta):
 	hvel = hvel.linear_interpolate(target, accel*delta)
 	vel.x = hvel.x
 	vel.z = hvel.z
-	vel = move_and_slide(vel,Vector3(0,1,0), 0.05, 4, deg2rad(MAX_SLOPE_ANGLE))
+	vel = move_and_slide(vel, Vector3.UP, true)# 4, deg2rad(MAX_SLOPE_ANGLE))#move_and_slide(vel,Vector3(0,1,0), 0.05, 4, deg2rad(MAX_SLOPE_ANGLE))
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func player_hit():
+	if infotransfer.player_hit == true:
+		damage_taken = rand_range(min_damage, max_damage)
+		health -= int(damage_taken)
+		infotransfer.total_damage_taken += damage_taken
+		infotransfer.player_hit = false
+		health_display.set_text("Health = "+ str(health))
+		if health <= 0:
+			health = 0
+			player_die()

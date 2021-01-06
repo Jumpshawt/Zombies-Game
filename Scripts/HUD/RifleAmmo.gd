@@ -33,15 +33,12 @@ func _process(delta):
 				shoot_sound()
 				y = 0
 				ammo_loaded -= 1
-
 	
 		if ammo_loaded <= 0 and reserve_ammo > 1:
 			reload_popup.popup()
 			if Input.is_action_just_pressed("reload"):
 				reload_popup.hide()
 				reloading = true
-	
-
 	
 		if ammo_loaded <= 0:
 			emit_signal("need_to_reload")
@@ -82,11 +79,9 @@ func shoot_sound():
 	ShootRNG = rand_range(0,2)
 	if ShootRNG <= 1:
 		$"../Ak-1".set_volume_db(-15)
-		#$"../Ak-1".set_pitch_scale(rand_range(1.3,1.5))
 		$"../Ak-1".play()
 	elif ShootRNG <= 2:
 		$"../Ak-2".set_volume_db(-25)
-		#$"../Ak-2".set_pitch_scale(rand_range(1.3,1.5))
 		$"../Ak-2".play()
 	yield(get_tree().create_timer(0.25), "timeout")
 

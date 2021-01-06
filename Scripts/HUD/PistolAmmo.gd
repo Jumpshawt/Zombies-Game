@@ -38,7 +38,7 @@ func _process(delta):
 	if not infotransfer.gun_state == "pistol": 
 		pistol_ammo_popup.hide()
 	if InfoTransfer.pistol_reloading:
-		yield(get_tree().create_timer(1), "timeout")
+		yield(get_tree().create_timer(1, false), "timeout")
 		InfoTransfer.pistol_reloading = false
 
 func _on_PistolReloadTimer_timeout():

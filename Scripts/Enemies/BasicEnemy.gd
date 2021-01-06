@@ -21,24 +21,28 @@ var player_in_range = false
 var random_walking = 2
 var stunned = false
 var health : float = 80
+var total_health : float = 80
 export var dead : bool = false
 var drop_ammo_box_rng = 1 #ex 2 = 20% chance
 var ammo_rng = 0
 
+#=====Damage=====#
+var damage_dealt = 0
+
+#=====Money=====#
+var money_earned = 0
+
 #=====Attack=====#
 var player_in_attack = false
+signal player_hit 
 
 #=====AnimationStuff=====#
 signal walk
 signal stop_walking
 
-
-#=====Sounds=====#
-#signal hitsound
-
 func _ready():
-	health = health + (20 * infotransfer.round_num) * (1 + (0.1 * infotransfer.round_num))
-#	print(health)
+	total_health = total_health + (20 * infotransfer.round_num) #* (1 + (0.1 * infotransfer.round_num)) <- Insert if too ez
+	health = total_health
 	speed = rand_range(MIN_SPEED, MAX_SPEED)
 # warning-ignore:unsafe_method_access
 	$Timer.start()
@@ -116,8 +120,12 @@ func player_die():
 		$"Scene Root".visible = false
 		ammo_rng = rand_range(0,10)
 		if ammo_rng <= drop_ammo_box_rng:
-			infotransfer.money += int(rand_range(75, 125))
+			money_earned = int(rand_range(75, 125))
+			infotransfer.money += money_earned
+			infotransfer.total_money_earned += money_earned
 			infotransfer.zombies_alive -= 1
+			infotransfer.total_damage_dealt += total_health
+			infotransfer.total_zombies_killed += 1
 			infotransfer.blood_splatter = true
 			var c = ammobox.instance()
 			self.rotation = Vector3(0,0,0)
@@ -126,8 +134,12 @@ func player_die():
 			c.look_at(self.global_transform.origin + Vector3(0,300,0), Vector3.UP)
 			$AmmoBoxTimer.start()
 		else:
-			infotransfer.money += int(rand_range(75, 125))
+			money_earned = int(rand_range(75,125))
+			infotransfer.money += money_earned
+			infotransfer.total_money_earned += money_earned
+			infotransfer.total_damage_dealt += total_health
 			infotransfer.zombies_alive -= 1
+			infotransfer.total_zombies_killed += 1
 			infotransfer.blood_splatter = true
 			queue_free()
 #func _pistol_damaged(object):
@@ -276,4 +288,5 @@ func _on_AttackTimer_timeout():
 
 func _on_HitTimer_timeout():
 	if player_in_attack:
-		print("Player hit!")
+		infotransfer.player_hit = true
+		print("Player hit")

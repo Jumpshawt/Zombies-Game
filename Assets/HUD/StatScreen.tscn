@@ -1,0 +1,67 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/HUD/StatScreen.gd" type="Script" id=1]
+
+[node name="Stats" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 39.6427
+margin_top = 88.7242
+margin_right = 311.643
+margin_bottom = 191.724
+text = "eee"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 37.755
+margin_top = 217.091
+margin_right = 309.755
+margin_bottom = 320.091
+text = "aaa"
+
+[node name="Label3" type="Label" parent="."]
+margin_left = 43.4182
+margin_top = 336.019
+margin_right = 315.418
+margin_bottom = 439.019
+text = "iii"
+
+[node name="Label4" type="Label" parent="."]
+margin_left = 44.3953
+margin_top = 432.926
+margin_right = 316.395
+margin_bottom = 535.926
+text = "ooo"
+
+[node name="Label5" type="Label" parent="."]
+margin_left = 49.0824
+margin_top = 560.47
+margin_right = 321.082
+margin_bottom = 663.47
+text = "uuu"
+
+[node name="Label6" type="Label" parent="."]
+margin_left = 53.0456
+margin_top = 685.64
+margin_right = 325.046
+margin_bottom = 788.64
+text = "yyy"
+
+[node name="Button" type="Button" parent="."]
+margin_left = 906.0
+margin_top = 80.0
+margin_right = 1642.0
+margin_bottom = 912.0
+text = "OK."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

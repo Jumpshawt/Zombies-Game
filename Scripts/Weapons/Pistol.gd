@@ -28,12 +28,13 @@ func _ready():
 
 func _input(event):
 	if Input.is_action_just_released("2"):
-		print("pressed 2")
-		print(equipped)
+		#print("pressed 2")
+		#print(equipped)
+		pass
 	if Input.is_action_just_released("2") and not equipped:
 		equipped = true
 		self.visible = true
-		print("equiping")
+		#print("equiping")
 		$AnimationPlayer.play("equip")
 		yield(get_tree().create_timer(1), "timeout")
 		
@@ -41,15 +42,15 @@ func _input(event):
 
 func _process(delta):
 	if not infotransfer.gun_state == "pistol" and equipped and infotransfer.gun_changing == false:
-		print("unequiping pistol")
+		#print("unequiping pistol")
 		$AnimationPlayer.play("unequip")
 		yield(get_tree().create_timer(1), "timeout")
 		equipped = false
 	if infotransfer.gun_state == "pistol" and equipped:
 		if Input.is_action_just_pressed("shoot") and !InfoTransfer.pistol_ammo_loaded == 0:
 			$AnimationPlayer.stop(true)
-			print(InfoTransfer.pistol_ammo_loaded)
-			print(InfoTransfer.pistol_ammo_loaded == 0)
+			#print(InfoTransfer.pistol_ammo_loaded)
+			#print(InfoTransfer.pistol_ammo_loaded == 0)
 			$AnimationPlayer.play("shoot")
 			able_to_shoot = true 
 			able_to_reload = false
@@ -57,7 +58,7 @@ func _process(delta):
 			$Pistol_Fire.play()
 		elif Input.is_action_just_pressed("shoot") and InfoTransfer.pistol_ammo_loaded == 0:
 			$No_Ammo.play()
-			print("out of ammo")
+			#print("out of ammo")
 		if Input.is_action_just_pressed("reload") and able_to_reload and not cant_reload:
 			$AnimationPlayer.play("reload")
 			yield(get_tree().create_timer(0.47), "timeout")
@@ -88,11 +89,11 @@ func _on_Label_no_ammo(eee):
 func _on_Label_need_to_reload():
 	able_to_shoot = false
 	out_of_ammo = true
-	print('recived signal')
+	#print('recived signal')
 
 func _on_AnimationPlayer_animation_finished(Animation_name):
 	if Animation_name == "reload":
-		print("finished reload")
+		#print("finished reload")
 		out_of_ammo = false
 		able_to_shoot = true
 		

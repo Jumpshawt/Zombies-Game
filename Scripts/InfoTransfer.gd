@@ -1,18 +1,12 @@
 extends Spatial
 
 #====GAME_STUFF====#
-# warning-ignore:unused_class_variable
-var round_paused : bool = false
-# warning-ignore:unused_class_variable
-var a = 0
-# warning-ignore:unused_class_variable
 var game_paused : bool = false
 var ammo_box_collected : bool = false
 
 var pistol_reloading = false
 var pistol_ammo_loaded = 16
 var pistol_reserve_ammo = 48
-
 
 #=====GUN_STUFF=====#
 var gun_state = "unarmed"
@@ -40,7 +34,7 @@ var hordes_to_spawn = [0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 
 var zombies_alive = 1
 var spawn_zombies = true
 var changing_rounds = false
-
+var player_hit = false
 var fixme = true
 
 #=====UPGRADES======#
@@ -62,6 +56,17 @@ var blood_splatter = false
 
 #=====Sounds=====#
 var hitmarkersound = false
+
+#=====Stats=====#
+var total_zombies_killed = 0
+var total_damage_dealt = 0
+var total_damage_taken = 0
+var rounds_survived = 0
+var total_money_earned = 0
+
+var total_hours_taken = 0
+var total_mins_taken = 0
+var total_seconds_taken = 0
 
 #=====ACTUAL_CODE=====#
 func _ready():
@@ -97,12 +102,10 @@ func _input(event):
 	if Input.is_action_just_pressed("4") and not gun_state == "knife" and not gun_reloading and not gun_changing:
 		gun_state = "knife"
 		gun_changing = true
-	
-	if Input.is_action_just_pressed("5") and not gun_state == "rpg" and not gun_reloading and not gun_changing:
-		gun_state = "rpg"
-		gun_changing = true
 
 func _process(delta):
+	if not get_tree().is_paused():
+		update_timer(delta)
 	update_prices()
 	#=====New=Round=Shit=====#
 	if zombies_alive == zombies_to_spawn[round_num]:
@@ -114,6 +117,7 @@ func _process(delta):
 	if x >= y:
 		x = 0 
 		round_num += 1
+		rounds_survived += 1
 		spawn_zombies = true
 		changing_rounds = true
 	if changing_rounds:
@@ -129,9 +133,17 @@ func update_prices():
 	shotgun_upgrade_cost = 2000 + (shotgun_increase_amount * shotgun_upgrade_level)
 
 func change_round():
-	print("round change started")
+	print("Waiting")
 	yield(get_tree().create_timer(5, false), "timeout")
 	spawn_zombies = true
 	round_num += 1
+	rounds_survived += 1
 	changing_rounds = true
-	print("round change ended")
+
+func update_timer(del):
+	total_seconds_taken += 1 * del
+	if total_seconds_taken >= 60:
+		total_seconds_taken = 0
+		total_mins_taken += 1
+	if total_mins_taken >= 60:
+		total_hours_taken += 1
