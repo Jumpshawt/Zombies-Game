@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=2]
+[gd_scene load_steps=64 format=2]
 
 [ext_resource path="res://3D Model Imports/Levels/Material_005.material" type="Material" id=1]
 [ext_resource path="res://3D Model Imports/Levels/Material_001.material" type="Material" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://3D Model Imports/Levels/glass.material" type="Material" id=7]
 [ext_resource path="res://3D Model Imports/Level Assets/bloody_desk.tres" type="ArrayMesh" id=8]
 [ext_resource path="res://Assets/Environment/pipes.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/Environment/server.tscn" type="PackedScene" id=10]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Plane"
@@ -552,6 +553,8 @@ data = PoolVector3Array( -4.1418, 0.5533, -2.5399, -4.1711, 3.6332, -2.5692, -4.
 
 [node name="Scene Root" type="Spatial"]
 transform = Transform( 2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0 )
+
+[node name="realpipes" parent="." instance=ExtResource( 10 )]
 
 [node name="Light" type="OmniLight" parent="."]
 transform = Transform( -1.16346, 2.26557, 3.0844, -0.220756, 3.17869, -2.4181, -3.82068, -0.873565, -0.799534, 8.83741, 17.0844, -9.53198 )
