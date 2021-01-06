@@ -55,6 +55,16 @@ margin_right = 325.046
 margin_bottom = 788.64
 text = "yyy"
 
+[node name="Label7" type="Label" parent="."]
+margin_left = 52.6104
+margin_top = 772.351
+margin_right = 384.61
+margin_bottom = 909.351
+text = "Rank"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Button" type="Button" parent="."]
 margin_left = 906.0
 margin_top = 80.0

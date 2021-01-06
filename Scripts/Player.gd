@@ -85,10 +85,13 @@ onready var kniferaycast = $"Rotation_Helper/KnifeRaycast"
 
 #=====Health=====#
 var health = 100
+var total_health = 100
 var damage_taken = 0
 var min_damage = 15
 var max_damage = 30
 onready var health_display = $"Control/Money2"
+var able_to_regen : bool = true
+var regentime = 0.2
 
 #=====AmmoBoxStuff=====#
 signal shotgun_ammo
@@ -96,6 +99,11 @@ signal rifle_ammo
 signal pistol_ammo
 signal define_ammo_box(object)
 var ammo_box_rng = 0
+
+#=====BloodSplatterOnScreen=====#
+onready var blood_overlay = $"Control/BloodOverlay"
+var blood_opacity : float = 0
+var distance_from_half : float = 0
 
 func _ready():
 	var zombiehitfinder = get_tree().get_root().find_node("Enemy", true, false) 
@@ -233,6 +241,8 @@ func _process(delta):
 	ammo_box_check()
 	reset_camera_rotation()
 	check_for_hitsounds()
+	update_blood_overlay()
+	regen_health(delta)
 	if headbonker.is_colliding():
 		can_stand_up = false
 	else:
@@ -338,13 +348,20 @@ func _on_PickupArea_body_entered(body):
 
 func ammo_box_check():
 	if infotransfer.ammo_box_collected == true:
-		ammo_box_rng = rand_range(0,3)
+		ammo_box_rng = rand_range(0,4)
 		if ammo_box_rng >= 1:
 			emit_signal("pistol_ammo")
 		elif ammo_box_rng >= 2:
 			emit_signal("rifle_ammo")
 		elif ammo_box_rng >= 3:
 			emit_signal("shotgun_ammo")
+		elif ammo_box_rng >= 4:
+			if infotransfer.gun_state == "pistol":
+				emit_signal("pistol_ammo")
+			if infotransfer.gun_state == "rifle":
+				emit_signal("rifle_ammo")
+			if infotransfer.gun_state == "shotgun":
+				emit_signal("shotgun_ammo")
 		infotransfer.ammo_box_collected = false
 
 #Die
@@ -357,3 +374,23 @@ func player_die():
 	$Die.set_volume_db(150)
 	$Die.play()
 
+#======Changes Blood Opacity Depending on the amount of health=====#
+func update_blood_overlay(): #run in process function
+	distance_from_half = -health + (total_health / 2)
+	if distance_from_half <= 0:
+		distance_from_half = 0
+		blood_opacity = 0
+	
+	blood_opacity = distance_from_half * 2
+	blood_overlay.set_modulate(Color(1, 1, 1, blood_opacity/100))
+
+var use = 0
+
+func regen_health(del): #also in process
+	if able_to_regen:
+		if health < total_health:
+			use += del
+			if use > regentime:
+				use = 0
+				health += 1
+				health_display.set_text("Health = "+ str(health))

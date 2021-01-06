@@ -115,6 +115,8 @@ func process_movement(delta):
 
 func player_hit():
 	if infotransfer.player_hit == true:
+		able_to_regen = false
+		$RegenTimer.start()
 		damage_taken = rand_range(min_damage, max_damage)
 		health -= int(damage_taken)
 		infotransfer.total_damage_taken += damage_taken
@@ -122,4 +124,8 @@ func player_hit():
 		health_display.set_text("Health = "+ str(health))
 		if health <= 0:
 			health = 0
+			health_display.set_text("Health = "+str(health))
 			player_die()
+
+func _on_RegenTimer_timeout():
+	able_to_regen = true

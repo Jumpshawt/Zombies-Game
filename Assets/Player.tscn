@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://Scripts/PlayerMovement.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Guns/GoodShotgun.tscn" type="PackedScene" id=2]
@@ -27,6 +27,7 @@
 [ext_resource path="res://Assets/HUD/Weapons/Shotgun.png" type="Texture" id=25]
 [ext_resource path="res://Assets/Animations/Hitmarker.tres" type="Animation" id=26]
 [ext_resource path="res://Sounds/u died.wav" type="AudioStream" id=27]
+[ext_resource path="res://Sprites/bloodOverlay.png" type="Texture" id=28]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 3.0
@@ -312,6 +313,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="BloodOverlay" type="Sprite" parent="Control"]
+position = Vector2( 963.929, 545.738 )
+scale = Vector2( 3.51359, 2.72482 )
+texture = ExtResource( 28 )
+
 [node name="3thing" type="Sprite" parent="Control"]
 modulate = Color( 0, 0, 0, 0.878431 )
 position = Vector2( 1008.54, 76.4408 )
@@ -555,6 +561,10 @@ autostart = true
 
 [node name="Die" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 27 )
+
+[node name="RegenTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
 [connection signal="body_entered" from="PickupArea" to="." method="_on_PickupArea_body_entered"]
 [connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="." method="_on_Label_need_to_reload"]
 [connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/Camera/Pistol" method="_on_Label_need_to_reload"]
@@ -562,19 +572,20 @@ stream = ExtResource( 27 )
 [connection signal="no_ammo" from="Control/PistolAmmo/Label" to="Rotation_Helper/Camera/Pistol" method="_on_Label_no_ammo"]
 [connection signal="no_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/Camera/Pistol" method="_on_Label_no_reload"]
 [connection signal="dont_need_to_reload_no_more" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Camera/Rifle" method="_on_Label3_dont_need_to_reload_no_more"]
-[connection signal="need_to_reload" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Camera/Rifle" method="_on_Label3_need_to_reload"]
 [connection signal="need_to_reload" from="Control/RifleAmmo/Label3" to="." method="_on_Label3_need_to_reload"]
+[connection signal="need_to_reload" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Camera/Rifle" method="_on_Label3_need_to_reload"]
 [connection signal="no_ammo" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Camera/Rifle" method="_on_Label3_no_ammo"]
 [connection signal="out_of_reserve_ammo" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Camera/Shotgun" method="_on_Label4_out_of_reserve_ammo"]
 [connection signal="shoot" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Camera/Shotgun" method="_on_Label4_shoot"]
 [connection signal="spin" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Camera/Shotgun" method="_on_Label4_spin"]
-[connection signal="timeout" from="PistolReloadTimer" to="Control/PistolAmmo/Label" method="_on_PistolReloadTimer_timeout"]
 [connection signal="timeout" from="PistolReloadTimer" to="." method="_on_PistolReloadTimer_timeout"]
-[connection signal="timeout" from="RifleReloadTimer" to="Control/RifleAmmo/Label3" method="_on_RifleReloadTimer_timeout"]
+[connection signal="timeout" from="PistolReloadTimer" to="Control/PistolAmmo/Label" method="_on_PistolReloadTimer_timeout"]
 [connection signal="timeout" from="RifleReloadTimer" to="." method="_on_RifleReloadTimer_timeout"]
-[connection signal="timeout" from="ShotgunShootTimer" to="Control/ShotgunAmmo/Label4" method="_on_ShotgunShootTimer_timeout"]
+[connection signal="timeout" from="RifleReloadTimer" to="Control/RifleAmmo/Label3" method="_on_RifleReloadTimer_timeout"]
 [connection signal="timeout" from="ShotgunShootTimer" to="." method="_on_ShotgunShootTimer_timeout"]
-[connection signal="timeout" from="RifleSpreadTimer" to="Control/RifleAmmo/Label3" method="_on_RifleSpreadTimer_timeout"]
+[connection signal="timeout" from="ShotgunShootTimer" to="Control/ShotgunAmmo/Label4" method="_on_ShotgunShootTimer_timeout"]
 [connection signal="timeout" from="RifleSpreadTimer" to="." method="_on_RifleSpreadTimer_timeout"]
+[connection signal="timeout" from="RifleSpreadTimer" to="Control/RifleAmmo/Label3" method="_on_RifleSpreadTimer_timeout"]
 [connection signal="timeout" from="KnifeStabTimer" to="." method="_on_KnifeStabTimer_timeout"]
 [connection signal="timeout" from="HalfSecond Timer" to="Control/ShotgunAmmo/Label4" method="_on_HalfSecond_Timer_timeout"]
+[connection signal="timeout" from="RegenTimer" to="." method="_on_RegenTimer_timeout"]

@@ -23,7 +23,7 @@ var gun_changing : bool = false
 #=====ZOMBIE_SPAWNER=====#
 var x = 0
 var y = 100
-export var round_num = 6
+export var round_num = 1
 var zombies_to_spawn = [0, 3, 4, 6, 9, 12, 13, 14, 14, 15,
 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 25, 25, 25, 25, 25,
 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25,
@@ -49,7 +49,7 @@ var shotgun_upgrade_cost : float = 2000
 var shotgun_increase_amount : float = 2000
 
 # warning-ignore:unused_class_variable
-var money = 100000
+var money = 0#100000
 
 #=====Particles=====#
 var blood_splatter = false
