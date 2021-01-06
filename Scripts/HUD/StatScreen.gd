@@ -66,5 +66,7 @@ func _on_Button_pressed():
 	infotransfer.total_mins_taken = 0
 	infotransfer.total_seconds_taken = 0
 	infotransfer.money = 0
-	infotransfer.round_num = 0
+	infotransfer.round_num = 1
+	infotransfer.shotgun_activated = false
+	infotransfer.rifle_activated = false
 	get_tree().change_scene("res://Main Scene.tscn")

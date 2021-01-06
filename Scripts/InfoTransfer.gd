@@ -13,7 +13,7 @@ var gun_state = "unarmed"
 #[unarmed, shotgun, pistol, rifle, rpg, smg, knife]
 
 var pistol_activated = true
-var rifle_activated = false
+var rifle_activated = true
 var shotgun_activated = false
 
 var gun_reloading = false

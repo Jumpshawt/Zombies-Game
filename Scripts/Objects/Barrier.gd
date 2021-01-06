@@ -52,7 +52,7 @@ func update_health(eee):
 
 func check_health():
 	if barrier_health > (max_health * .75):
-		$AnimationPlayer.play("BarrierHealth.3")
+		$AnimationPlayer.play("BarrierHealth.3") 
 		barrier_alive = true
 	elif barrier_health > (max_health * .5):
 		$AnimationPlayer.play("BarrierHealth.2")
@@ -63,4 +63,3 @@ func check_health():
 	elif barrier_health < 0:
 		$AnimationPlayer.play("BarrierHealth.0")
 		barrier_alive = false
-		emit_signal("zombie_unpause")

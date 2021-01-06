@@ -12,7 +12,7 @@ height = 1.08097
 
 [sub_resource type="CapsuleShape" id=3]
 radius = 0.75
-height = 0.25
+height = 0.002
 
 [sub_resource type="Animation" id=4]
 resource_name = "Attack"
@@ -31,7 +31,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="BoxShape" id=5]
-extents = Vector3( 2.68843, 2.5, 2.11994 )
+extents = Vector3( 2.68843, 2.5, 1.46581 )
 
 [node name="Enemy" type="KinematicBody" groups=[
 "Enemy",
@@ -107,7 +107,7 @@ shape = SubResource( 2 )
 [node name="AttackArea" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="AttackArea"]
-transform = Transform( 1, 4.30357e-08, -1.13264e-08, -4.30358e-08, 0.870442, -0.492271, -1.13263e-08, 0.492271, 0.870442, -2.38419e-07, 2.86809, -2.75559 )
+transform = Transform( 1, 4.30357e-08, -1.13264e-08, -4.30358e-08, 0.870442, -0.492271, -1.13263e-08, 0.492271, 0.870442, -2.23517e-07, 2.59896, -2.53917 )
 shape = SubResource( 5 )
 [connection signal="stop_walking" from="." to="Scene Root" method="_on_Enemy_stop_walking"]
 [connection signal="walk" from="." to="Scene Root" method="_on_Enemy_walk"]

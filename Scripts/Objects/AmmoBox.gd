@@ -9,9 +9,7 @@ func _ready():
 	$AnimationPlayer.play("Spin")
 
 func handle_defined_box(eee):
-	print("signal recieved")
 	if eee == self:
-		print("eee is self")
 		queue_free()
 
 func _process(delta):

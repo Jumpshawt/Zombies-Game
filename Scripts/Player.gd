@@ -91,7 +91,7 @@ var min_damage = 15
 var max_damage = 30
 onready var health_display = $"Control/Money2"
 var able_to_regen : bool = true
-var regentime = 0.5
+var regentime = 0.25
 
 #=====AmmoBoxStuff=====#
 signal shotgun_ammo
@@ -238,6 +238,7 @@ func process_movement(delta):
 
 
 func _process(delta):
+	reset_the_camera_rotation()
 	ammo_box_check()
 	reset_camera_rotation()
 	check_for_hitsounds()
@@ -405,3 +406,21 @@ func player_hit_fade_out(del):
 	if fade_out >= 0:
 		fade_out -= 1 * del
 	$Control/BloodOverlay2.set_modulate(Color(1, 1, 1, fade_out))
+
+#=====Camera Shake after gettin hit
+var shake = 0
+var max_shakes = 2
+var normal_shake_amount = 5
+var dead_shake = 250
+
+func screen_shake(shake_amount):
+	shake = 0
+	while shake <= max_shakes:
+		shake += 1
+		yield(get_tree().create_timer(0.05), "timeout")
+		$Rotation_Helper/Camera.rotation += Vector3(deg2rad(rand_range(-shake_amount, shake_amount)),deg2rad(rand_range(-shake_amount,shake_amount)),deg2rad(rand_range(-shake_amount,shake_amount)))
+		
+
+func reset_the_camera_rotation():
+	$Rotation_Helper/Camera.rotation = lerp($Rotation_Helper/Camera.rotation, Vector3(0,0,0), 0.1)
+
