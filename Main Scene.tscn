@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Scripts/Main Scene.gd" type="Script" id=1]
 [ext_resource path="res://Space.tres" type="Environment" id=2]
@@ -33,9 +33,6 @@ agent/max_slope = 40.0
 filter/ledge_spans = true
 filter/filter_walkable_low_height_spans = true
 
-[sub_resource type="BoxShape" id=2]
-extents = Vector3( 7.59813, 1, 1 )
-
 [node name="Main Scene" type="Spatial"]
 script = ExtResource( 1 )
 
@@ -51,12 +48,15 @@ transform = Transform( 2, 0, 0, 0, 4, 0, 0, 0, 4, 29.798, -1.51926, 1.22246 )
 [node name="Level" parent="Nav/NavigationMeshInstance" instance=ExtResource( 5 )]
 transform = Transform( 2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -1.87937, 5.43766, 0 )
 
+[node name="Level2" parent="Nav/NavigationMeshInstance" instance=ExtResource( 5 )]
+transform = Transform( 2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -1.87937, 5.43766, 0 )
+visible = false
+
 [node name="HordeSpawner" parent="Nav/NavigationMeshInstance" instance=ExtResource( 18 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -34.4673, -1.01088, 2.68911 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 42.7781, -3.52513, 93.9071 )
 
 [node name="Zombie Spawner" parent="Nav/NavigationMeshInstance" instance=ExtResource( 3 )]
 transform = Transform( -1, 0, -8.74228e-08, -1.53243e-09, 0.999846, 0.017529, 8.74094e-08, 0.017529, -0.999846, -13.8664, -10.2421, -21.5011 )
-active = false
 
 [node name="Enemy" parent="Nav/NavigationMeshInstance/Zombie Spawner" instance=ExtResource( 4 )]
 transform = Transform( 1, 6.66134e-16, 0, 0, 1, -1.86265e-09, -7.10543e-15, 1.86265e-09, 1, 0.0164003, 1.18583, 10.9282 )
@@ -68,12 +68,9 @@ active = false
 
 [node name="Zombie Spawner3" parent="Nav/NavigationMeshInstance" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 70.6015, -3.89853, 1.97317 )
-active = false
 
 [node name="Zombie Spawner4" parent="Nav/NavigationMeshInstance" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -27.4918, -10.1606, -8.16518 )
-MAXSPAWNTIME = 10
-MINSPAWNTIME = 5
 
 [node name="Zombie Spawner5" parent="Nav/NavigationMeshInstance" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -57.5096, 0.51907, 64.4547 )
@@ -112,21 +109,21 @@ environment = ExtResource( 2 )
 [node name="ShotgunShopScreen" parent="HUD Screens" instance=ExtResource( 15 )]
 
 [node name="AmmoBox" parent="." instance=ExtResource( 16 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -56.4449, 130.666, -46.7895 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -26.0377, 1.7041, -48.6796 )
 
 [node name="HordeSpawnLocations" type="Node" parent="."]
 
 [node name="Spatial" type="Spatial" parent="HordeSpawnLocations"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -33.7857, -2.13539, 1.79078 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -83.5799, 0.416928, 35.056 )
 
 [node name="Spatial2" type="Spatial" parent="HordeSpawnLocations"]
-transform = Transform( 0.999543, 0.0225841, 0.0201284, -0.022575, 0.999745, -0.000675817, -0.0201385, 0.000221108, 0.999797, -20.0646, -2.19279, 1.72495 )
+transform = Transform( 0.99994, -0.0109787, 0, 0.0109787, 0.99994, 0, 0, 0, 1, -4.14391, -9.75405, 20.3071 )
 
 [node name="Spatial3" type="Spatial" parent="HordeSpawnLocations"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 70.7063, -2.82814, -3.8147e-06 )
 
 [node name="Spatial4" type="Spatial" parent="HordeSpawnLocations"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 34.8528, -3.52513, 19.6868 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 42.7781, -3.52513, 93.9071 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 17 )
@@ -136,10 +133,3 @@ autoplay = true
 [node name="Round Change" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 20 )
 autoplay = true
-
-[node name="Quick fix" type="StaticBody" parent="."]
-
-[node name="CollisionShape" type="CollisionShape" parent="Quick fix"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2265, -2.6127, 104.214 )
-shape = SubResource( 2 )
-[connection signal="player_hit" from="Nav/NavigationMeshInstance/Zombie Spawner/Enemy" to="Nav/Player" method="_on_Enemy_player_hit"]
