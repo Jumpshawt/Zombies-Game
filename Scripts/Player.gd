@@ -152,13 +152,11 @@ func shoot_shotgun():
 
 func shoot_pistol():
 	if not reloading and not out_of_pistol_ammo and not pistol_need_to_reload and infotransfer.gun_state == "pistol":
-		print("Pistol shoot")
 		raycast.cast_to.x = rand_range(-pistol_spread, pistol_spread)
 		raycast.cast_to.y = rand_range(-pistol_spread, pistol_spread)
-
+		$PistolReloadTimer.stop()
 		kick_ammount = pistol_kick_ammount 
 		velocity += kick_ammount / (2* camera.rotation.x + 1)
-		print("shoot", velocity)
 		raycast.force_raycast_update()
 		var b = bullet_decal.instance()
 		if not raycast.get_collider() == null:
@@ -176,9 +174,10 @@ func shoot_pistol():
 			pass
 
 func shoot_rifle():
-	if not rifle_reloading and not out_of_rifle_ammo and infotransfer.gun_state == "rifle" and not rifle_need_to_reload:
+	if infotransfer.gun_state == "rifle" and infotransfer.rifle_ammo_loaded > 0 and not infotransfer.gun_reloading and not infotransfer.gun_changing:
 		$RifleSpreadTimer.stop()
 		$RifleSpreadTimer.start()
+		rifle_raycast.force_raycast_update()
 		var b = bullet_decal.instance()
 		if rifle_raycast.is_colliding():
 			if rifle_spread == false:
@@ -198,8 +197,10 @@ func shoot_rifle():
 			b.scale = Vector3(0.1,0.1,0.1)
 			b.global_transform.origin = rifle_raycast.get_collision_point()
 			b.look_at(raycast.get_collision_point() + raycast.get_collision_normal()* 100, Vector3.DOWN)
-			rifle_raycast.force_raycast_update()
 			emit_signal("rifle_damage", rifle_raycast.get_collider())
+		elif not rifle_raycast.is_colliding() and x <= 1:
+			kick_ammount = rifle_kick_ammount
+			velocity += kick_ammount / (2 * camera.rotation.x + 1)
 
 func handle_blood_splatter():
 	if infotransfer.blood_splatter:

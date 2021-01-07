@@ -17,55 +17,64 @@ func _ready():
 	$AnimationPlayer.play("rifle_unequip")
 
 func _input(event):
+	
+	if Input.is_action_pressed("shoot") and infotransfer.gun_state == "rifle" and not infotransfer.gun_reloading and able_to_shoot and equipped and infotransfer.rifle_ammo_loaded > 0 and infotransfer.rifle_reserve_ammo > 0:
+		able_to_reload = false
+	elif equipped and Input.is_action_just_released("shoot"): 
+		able_to_reload = true
+		$AnimationPlayer.play("rifle_idle")
+
+func equip_gun():
 	if infotransfer.gun_state == "rifle" and not equipped:
+		self.visible = true
 		$AnimationPlayer.play("rifle_equip")
 		yield(get_tree().create_timer(1), "timeout")
 		equipped = true
-		$AnimationPlayer.play("rifle_idle")
+
+func unequip_gun():
 	if not infotransfer.gun_state == "rifle" and equipped:
 		$AnimationPlayer.play("rifle_unequip")
 		yield(get_tree().create_timer(1), "timeout")
 		equipped = false
-	
-	if Input.is_action_pressed("shoot") and infotransfer.gun_state == "rifle" and able_to_shoot and equipped and not out_of_ammo and not no_ammo_in_clip:
-		shooting = true
-		able_to_reload = false
-	elif equipped and Input.is_action_just_released("shoot"): 
-		shooting = false
-		able_to_reload = true
-		$AnimationPlayer.play("rifle_idle")
 
+var reloading = false
+
+func reload():
+	if infotransfer.gun_reloading and infotransfer.gun_state == "rifle" and not reloading:
+		reloading = true
+		$AnimationPlayer.play("rifle_reload")
+		yield(get_tree().create_timer(2), "timeout")
+		reloading = false
 ####Work on Rifle Sounds
 
 func _process(delta): 
+	
+	if not equipped and infotransfer.gun_state == "rifle":
+		equip_gun()
+	if equipped and not infotransfer.gun_state == "rifle":
+		unequip_gun()
 	if infotransfer.gun_state == "rifle" and equipped:
-		if shooting and not out_of_ammo:
+		if infotransfer.rifle_shooting and infotransfer.rifle_ammo_loaded > 0 and not infotransfer.gun_changing:
 			$AnimationPlayer.play("rifle_shoot")
-			able_to_reload = false
-		if no_ammo_in_clip:
-			if shooting:
+		if infotransfer.rifle_ammo_loaded <= 0:
+			if infotransfer.rifle_shooting:
 				$AnimationPlayer.stop(true)
 				$Armature/Ak/Sprite3D.visible = false
-			shooting = false
 			able_to_reload = true
 		if not shooting and $Armature/Ak/Sprite3D.visible == true:
 			$Armature/Ak/Sprite3D.visible = false
-		if Input.is_action_just_pressed("reload") and able_to_reload:
-			able_to_shoot = false
-			able_to_reload = false
-			$AnimationPlayer.play("rifle_reload")
-			yield(get_tree().create_timer(2), "timeout")
-			able_to_reload = true
-			able_to_shoot = true
+		reload()
 
-func _on_AnimationPlayer_animation_finished(reload):
-	if reload == "rifle_shoot" and infotransfer.gun_state == "rifle" and shooting and no_ammo_in_clip:
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if anim_name == "rifle_shoot" and infotransfer.gun_state == "rifle" and infotransfer.rifle_shooting and infotransfer.rifle_ammo_loaded <= 0 or infotransfer.gun_reloading or infotransfer.gun_changing:
 		$AnimationPlayer.stop(true)
 		shooting = false
-	if reload == "rifle_shoot" and infotransfer.gun_state == "rifle" and shooting and not no_ammo_in_clip:
+	if anim_name == "rifle_shoot" and infotransfer.gun_state == "rifle" and infotransfer.rifle_shooting and infotransfer.rifle_ammo_loaded > 0 and not infotransfer.gun_reloading:
 		$AnimationPlayer.play("rifle_shoot")
-	if reload == "rifle_reload" and infotransfer.gun_state == "rifle":
-		no_ammo_in_clip = false
+	#if anim_name == "rifle_idle":
+	#	$AnimationPlayer.play("rifle_idle")
+	if anim_name == "rifle_unequip":
+		self.visible = false
 
 func _on_Label3_no_ammo(va):
 	out_of_ammo = true

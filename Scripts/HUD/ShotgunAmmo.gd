@@ -48,7 +48,7 @@ func _input(event):
 			able_to_shoot = false
 			able_to_reload = false
 			reloading = false
-		elif Input.is_action_just_pressed("reload") and able_to_reload and reserve_ammo > 0 and ammo_loaded < 7:
+		elif Input.is_action_just_pressed("reload") and able_to_reload and reserve_ammo > 0 and ammo_loaded < 7 and not infotransfer.shotgun_just_shot:
 			emit_signal("spin", 0)
 			reloading = true
 			able_to_reload = false

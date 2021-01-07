@@ -46,27 +46,25 @@ func process_input(delta):
 		$KnifeStabTimer.start()
 	
 	#rifle reload
-	if Input.is_action_just_pressed("reload") and infotransfer.gun_state == "rifle" and not reloading:
+	if Input.is_action_just_pressed("reload") and infotransfer.gun_state == "rifle" and not infotransfer.rifle_shooting:
 		$RifleReloadTimer.start()
 		reloading = true
 		emit_signal("reloading")
 		rifle_need_to_reload = false
-	if Input.is_action_pressed("shoot") and not rifle_reloading and not rifle_need_to_reload and infotransfer.gun_state == "rifle":
+	if Input.is_action_pressed("shoot") and not infotransfer.gun_reloading and not infotransfer.rifle_ammo_loaded <= 0 and infotransfer.gun_state == "rifle":
 		yz += delta
 		if yz >= zy:
 			shoot_rifle()
 			yz = 0
 	if Input.is_action_just_released("shoot"):
-		yield(get_tree().create_timer(0.25), "timeout")
-		reset_rotation = true
+		yield(get_tree().create_timer(0.5), "timeout")
+		yz = .174 
 	
 	#pistol reload
-	if Input.is_action_just_pressed("reload") and not reloading and infotransfer.gun_state == "pistol":
+	if Input.is_action_just_pressed("reload") and infotransfer.gun_reloading and infotransfer.gun_state == "pistol":
 		$PistolReloadTimer.start()
 		emit_signal("reloading")
 		reloading = true
-	if Input.is_action_just_pressed("shoot") and not reloading and infotransfer.gun_state == "rifle":
-		shoot_rifle()
 	if Input.is_action_just_pressed("shoot") and not reloading and infotransfer.gun_state == "pistol":
 		shoot_pistol()
 	
