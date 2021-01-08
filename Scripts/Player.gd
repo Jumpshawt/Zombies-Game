@@ -143,7 +143,6 @@ func shoot_shotgun():
 		shotgun_able_to_shoot = false
 		if not r.get_collider() == null:
 			r.get_collider().add_child(b)
-			b.scale = Vector3(0.1,0.1,0.1)
 			b.global_transform.origin = r.get_collision_point()
 			b.look_at(r.get_collision_point() + r.get_collision_normal() * 100, Vector3.DOWN) 
 			if r.is_colliding():
@@ -161,13 +160,10 @@ func shoot_pistol():
 		var b = bullet_decal.instance()
 		if not raycast.get_collider() == null:
 			raycast.get_collider().add_child(b)
-			b.scale = Vector3(0.1,0.1,0.1)
 			b.global_transform.origin = raycast.get_collision_point()
 			b.look_at(raycast.get_collision_point() + raycast.get_collision_normal() * 100, Vector3.DOWN)
 			if raycast.is_colliding():
 				var obj = raycast.get_collider()
-				
-				
 				emit_signal("pistol_damage", raycast.get_collider())
 				emit_signal("bullet_hole_collider", raycast.get_collider())
 		else:
@@ -194,7 +190,6 @@ func shoot_rifle():
 			if rifle_raycast.is_colliding():
 				rifle_raycast.get_collider().add_child(b)
 				emit_signal("bullet_hole_collider", rifle_raycast.get_collider())
-			b.scale = Vector3(0.1,0.1,0.1)
 			b.global_transform.origin = rifle_raycast.get_collision_point()
 			b.look_at(raycast.get_collision_point() + raycast.get_collision_normal()* 100, Vector3.DOWN)
 			emit_signal("rifle_damage", rifle_raycast.get_collider())

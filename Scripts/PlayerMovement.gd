@@ -92,7 +92,8 @@ func process_movement(delta):
 	dir.y = 0
 	dir = dir.normalized()
 	
-	vel.y += GRAVITY * delta
+	if not is_on_floor():
+		vel.y += GRAVITY * delta
 	
 	var hvel = vel
 	hvel.y = 0
@@ -109,7 +110,7 @@ func process_movement(delta):
 	hvel = hvel.linear_interpolate(target, accel*delta)
 	vel.x = hvel.x
 	vel.z = hvel.z
-	vel = move_and_slide(vel, Vector3(0,1,0), true)# 4, deg2rad(MAX_SLOPE_ANGLE))#move_and_slide(vel,Vector3(0,1,0), 0.05, 4, deg2rad(MAX_SLOPE_ANGLE))
+	vel = move_and_slide(vel, Vector3(0,1,0), false)# 4, deg2rad(MAX_SLOPE_ANGLE))#move_and_slide(vel,Vector3(0,1,0), 0.05, 4, deg2rad(MAX_SLOPE_ANGLE))
 
 func player_hit():
 	if infotransfer.player_hit == true:
