@@ -30,15 +30,16 @@ func equip_shotgun():
 		yield(get_tree().create_timer(0.5), "timeout")
 		equipped = true
 
-# warning-ignore:unused_argument
-func _input(event):
+func unequip_shotgun():
 	if not infotransfer.gun_state == "shotgun" and equipped:
 		$AnimationPlayer.play("shotgun_unequip")
-		yield(get_tree().create_timer(1), "timeout")
+		yield(get_tree().create_timer(0.5), "timeout")
 		equipped = false
+# warning-ignore:unused_argument
 
 func _process(delta):
 	equip_shotgun()
+	unequip_shotgun()
 	if not able_to_shoot:
 		yield(get_tree().create_timer(0,4), "timeout")
 		able_to_shoot = true

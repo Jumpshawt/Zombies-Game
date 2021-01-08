@@ -232,7 +232,6 @@ func process_movement(delta):
 	#This is process on playermovement
 	pass
 
-
 func _process(delta):
 	reset_the_camera_rotation()
 	ammo_box_check()
@@ -292,10 +291,7 @@ func reset_camera_rotation():
 			$Rotation_Helper/Camera/Shotgun.rotation.x = velocity * 2
 		 
 		camera.rotation.x = velocity 
-		
-#		print("pre lerp",camera.rotation.x)
-		
-#		print("after lerp",camera.rotation.x)
+	
 	else:
 		camera.rotation.x = 0
 		velocity = 0

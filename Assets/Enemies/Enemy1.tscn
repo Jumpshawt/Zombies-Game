@@ -82,6 +82,7 @@ one_shot = true
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
+autostart = true
 
 [node name="StunTimer" type="Timer" parent="."]
 wait_time = 0.5
