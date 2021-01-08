@@ -55,6 +55,7 @@ func _process(delta):
 		unequip_gun()
 	if infotransfer.gun_state == "rifle" and equipped:
 		if infotransfer.rifle_shooting and infotransfer.rifle_ammo_loaded > 0 and not infotransfer.gun_changing:
+			$AnimationPlayer.stop(true)
 			$AnimationPlayer.play("rifle_shoot")
 		if infotransfer.rifle_ammo_loaded <= 0:
 			if infotransfer.rifle_shooting:
