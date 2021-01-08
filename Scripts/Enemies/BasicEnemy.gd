@@ -143,8 +143,7 @@ func player_die():
 			infotransfer.total_zombies_killed += 1
 			infotransfer.blood_splatter = true
 			queue_free()
-#func _pistol_damaged(object):
-#	print("epic")
+
 
 func die():
 # warning-ignore:unsafe_method_access
@@ -287,6 +286,13 @@ func _on_AttackArea_body_exited(body):
 
 func _on_AttackTimer_timeout():
 	set_physics_process(true)
+	if player_in_attack:
+		set_physics_process(false)
+		yield(get_tree().create_timer(0.5), "timeout")
+		$AttackTimer.start()
+		$HitTimer.start()
+		$AnimationPlayer.play("Attack")
+
 
 func _on_HitTimer_timeout():
 	if player_in_attack:

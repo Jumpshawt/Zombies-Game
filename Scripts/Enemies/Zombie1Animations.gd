@@ -7,6 +7,9 @@ var dead : bool = false
 #=====Signals=====#
 signal dead
 
+func _ready():
+	walk()
+
 func walk():
 	if not plug_walking:
 		$AnimationPlayer.play("Walk")

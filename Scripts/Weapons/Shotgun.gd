@@ -19,24 +19,26 @@ onready var infotransfer = $"/root/InfoTransfer"
 
 func _ready():
 # warning-ignore:unsafe_method_access
+	self.visible = false
 	$AnimationPlayer.play("shotgun_unequip")
 	#$Shotgun_reload.set_volume_db()
 
+func equip_shotgun():
+	if infotransfer.gun_state == "shotgun" and not equipped:
+		self.visible = true
+		$AnimationPlayer.play("shotgun_equip")
+		yield(get_tree().create_timer(0.5), "timeout")
+		equipped = true
+
 # warning-ignore:unused_argument
 func _input(event):
-	
-	if infotransfer.gun_state == "shotgun" and not equipped:
-		
-		$AnimationPlayer.play("shotgun_equip")
-		yield(get_tree().create_timer(1), "timeout")
-		equipped = true
-	elif not infotransfer.gun_state == "shotgun" and equipped:
-		
+	if not infotransfer.gun_state == "shotgun" and equipped:
 		$AnimationPlayer.play("shotgun_unequip")
 		yield(get_tree().create_timer(1), "timeout")
 		equipped = false
 
 func _process(delta):
+	equip_shotgun()
 	if not able_to_shoot:
 		yield(get_tree().create_timer(0,4), "timeout")
 		able_to_shoot = true
@@ -57,12 +59,17 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	#if anim_name == "reload_middle" and reloading:
 	#	$AnimationPlayer.play("reload_middle")
 	
+	if anim_name == "shotgun_equip":
+		$AnimationPlayer.stop()
+	
 	if anim_name == "reload_start" and reloading and not out_of_reserve_ammo:
 		#$Shotgun_reload.play()
 		$AnimationPlayer.play("reload_middle")
+	if anim_name == "shotgun_unequip":
+		self.visible = false
 
 func _on_Label4_spin(value):
-	if not $AnimationPlayer.current_animation == "reload_middle" and value == 0 and not out_of_ammo:
+	if not $AnimationPlayer.current_animation == "reload_middle" and value == 0 and not out_of_ammo and not infotransfer.shotgun_just_shot:
 		reloading = true
 		$AnimationPlayer.stop(true)
 		$AnimationPlayer.play("reload_start")

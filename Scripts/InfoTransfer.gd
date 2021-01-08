@@ -13,12 +13,21 @@ var gun_state = "unarmed"
 #[unarmed, shotgun, pistol, rifle, rpg, smg, knife]
 
 var pistol_activated = true
-var rifle_activated = false
-var shotgun_activated = false
+var rifle_activated = true
+var shotgun_activated = true
 
 var gun_reloading = false
 
 var gun_changing : bool = false
+
+#=====RifleStuff=====#
+var rifle_reloading = false
+var rifle_ammo_loaded = 30
+var rifle_reserve_ammo = 90
+var rifle_shooting = false
+
+#=====ShotgunStuff=====#
+var shotgun_just_shot = false
 
 #=====ZOMBIE_SPAWNER=====#
 var x = 0
@@ -49,7 +58,7 @@ var shotgun_upgrade_cost : float = 2000
 var shotgun_increase_amount : float = 2000
 
 # warning-ignore:unused_class_variable
-var money = 0#100000
+var money = 100000
 
 #=====Particles=====#
 var blood_splatter = false
@@ -74,18 +83,29 @@ func _ready():
 # warning-ignore:unused_argument
 func _input(event):
 	if gun_changing:
-		yield(get_tree().create_timer(3, false), "timeout")
+		yield(get_tree().create_timer(1, false), "timeout")
 		gun_changing = false
+	
+	if Input.is_action_just_pressed("shoot") and gun_state == "shotgun" and not shotgun_just_shot:
+		shotgun_just_shot = true
+		yield(get_tree().create_timer(1), "timeout")
+		shotgun_just_shot = false
 	
 	if Input.is_action_just_pressed("reload") and not gun_state == "rifle":
 		gun_reloading = true
 		yield(get_tree().create_timer(1, false),"timeout")
 		gun_reloading = false
 	
-	elif Input.is_action_just_pressed("reload") and gun_state == "rifle":
+	elif Input.is_action_just_pressed("reload") and gun_state == "rifle" and not rifle_shooting:
 		gun_reloading = true
 		yield(get_tree().create_timer(2, false), "timeout")
 		gun_reloading = false
+	
+	if Input.is_action_just_pressed("shoot") and gun_state == "rifle" and not gun_reloading and not gun_changing and rifle_activated and rifle_ammo_loaded > 0:
+		rifle_shooting = true
+	
+	elif Input.is_action_just_released("shoot") and gun_state == "rifle":
+		rifle_shooting = false
 	
 	if Input.is_action_just_pressed("1") and not gun_state == "rifle" and not gun_reloading and not gun_changing and rifle_activated:
 		gun_state = "rifle"
@@ -107,6 +127,7 @@ func _process(delta):
 	if not get_tree().is_paused():
 		update_timer(delta)
 	update_prices()
+	fix_shooting()
 	#=====New=Round=Shit=====#
 	if zombies_alive == zombies_to_spawn[round_num]:
 		spawn_zombies = false
@@ -126,6 +147,11 @@ func _process(delta):
 	if fixme == false:
 		yield(get_tree().create_timer(5, false), "timeout")
 		fixme = true 
+
+func fix_shooting():
+	if not gun_state == "rifle":
+		rifle_reloading = false
+		rifle_shooting = false
 
 func update_prices():
 	pistol_upgrade_cost = 1000 + (pistol_increase_amount * pistol_upgrade_level)

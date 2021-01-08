@@ -91,7 +91,7 @@ var min_damage = 15
 var max_damage = 30
 onready var health_display = $"Control/Money2"
 var able_to_regen : bool = true
-var regentime = 0.5
+var regentime = 0.25
 
 #=====AmmoBoxStuff=====#
 signal shotgun_ammo
@@ -143,7 +143,6 @@ func shoot_shotgun():
 		shotgun_able_to_shoot = false
 		if not r.get_collider() == null:
 			r.get_collider().add_child(b)
-			b.scale = Vector3(0.1,0.1,0.1)
 			b.global_transform.origin = r.get_collision_point()
 			b.look_at(r.get_collision_point() + r.get_collision_normal() * 100, Vector3.DOWN) 
 			if r.is_colliding():
@@ -152,33 +151,29 @@ func shoot_shotgun():
 
 func shoot_pistol():
 	if not reloading and not out_of_pistol_ammo and not pistol_need_to_reload and infotransfer.gun_state == "pistol":
-		print("Pistol shoot")
 		raycast.cast_to.x = rand_range(-pistol_spread, pistol_spread)
 		raycast.cast_to.y = rand_range(-pistol_spread, pistol_spread)
-
+		$PistolReloadTimer.stop()
 		kick_ammount = pistol_kick_ammount 
 		velocity += kick_ammount / (2* camera.rotation.x + 1)
-		print("shoot", velocity)
 		raycast.force_raycast_update()
 		var b = bullet_decal.instance()
 		if not raycast.get_collider() == null:
 			raycast.get_collider().add_child(b)
-			b.scale = Vector3(0.1,0.1,0.1)
 			b.global_transform.origin = raycast.get_collision_point()
 			b.look_at(raycast.get_collision_point() + raycast.get_collision_normal() * 100, Vector3.DOWN)
 			if raycast.is_colliding():
 				var obj = raycast.get_collider()
-				
-				
 				emit_signal("pistol_damage", raycast.get_collider())
 				emit_signal("bullet_hole_collider", raycast.get_collider())
 		else:
 			pass
 
 func shoot_rifle():
-	if not rifle_reloading and not out_of_rifle_ammo and infotransfer.gun_state == "rifle" and not rifle_need_to_reload:
+	if infotransfer.gun_state == "rifle" and infotransfer.rifle_ammo_loaded > 0 and not infotransfer.gun_reloading and not infotransfer.gun_changing:
 		$RifleSpreadTimer.stop()
 		$RifleSpreadTimer.start()
+		rifle_raycast.force_raycast_update()
 		var b = bullet_decal.instance()
 		if rifle_raycast.is_colliding():
 			if rifle_spread == false:
@@ -195,11 +190,12 @@ func shoot_rifle():
 			if rifle_raycast.is_colliding():
 				rifle_raycast.get_collider().add_child(b)
 				emit_signal("bullet_hole_collider", rifle_raycast.get_collider())
-			b.scale = Vector3(0.1,0.1,0.1)
 			b.global_transform.origin = rifle_raycast.get_collision_point()
 			b.look_at(raycast.get_collision_point() + raycast.get_collision_normal()* 100, Vector3.DOWN)
-			rifle_raycast.force_raycast_update()
 			emit_signal("rifle_damage", rifle_raycast.get_collider())
+		elif not rifle_raycast.is_colliding() and x <= 1:
+			kick_ammount = rifle_kick_ammount
+			velocity += kick_ammount / (2 * camera.rotation.x + 1)
 
 func handle_blood_splatter():
 	if infotransfer.blood_splatter:
@@ -238,6 +234,7 @@ func process_movement(delta):
 
 
 func _process(delta):
+	reset_the_camera_rotation()
 	ammo_box_check()
 	reset_camera_rotation()
 	check_for_hitsounds()
@@ -405,3 +402,21 @@ func player_hit_fade_out(del):
 	if fade_out >= 0:
 		fade_out -= 1 * del
 	$Control/BloodOverlay2.set_modulate(Color(1, 1, 1, fade_out))
+
+#=====Camera Shake after gettin hit
+var shake = 0
+var max_shakes = 2
+var normal_shake_amount = 5
+var dead_shake = 250
+
+func screen_shake(shake_amount):
+	shake = 0
+	while shake <= max_shakes:
+		shake += 1
+		yield(get_tree().create_timer(0.05), "timeout")
+		$Rotation_Helper/Camera.rotation += Vector3(deg2rad(rand_range(-shake_amount, shake_amount)),deg2rad(rand_range(-shake_amount,shake_amount)),deg2rad(rand_range(-shake_amount,shake_amount)))
+		
+
+func reset_the_camera_rotation():
+	$Rotation_Helper/Camera.rotation = lerp($Rotation_Helper/Camera.rotation, Vector3(0,0,0), 0.1)
+

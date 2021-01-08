@@ -46,27 +46,25 @@ func process_input(delta):
 		$KnifeStabTimer.start()
 	
 	#rifle reload
-	if Input.is_action_just_pressed("reload") and infotransfer.gun_state == "rifle" and not reloading:
+	if Input.is_action_just_pressed("reload") and infotransfer.gun_state == "rifle" and not infotransfer.rifle_shooting:
 		$RifleReloadTimer.start()
 		reloading = true
 		emit_signal("reloading")
 		rifle_need_to_reload = false
-	if Input.is_action_pressed("shoot") and not rifle_reloading and not rifle_need_to_reload and infotransfer.gun_state == "rifle":
+	if Input.is_action_pressed("shoot") and not infotransfer.gun_reloading and not infotransfer.rifle_ammo_loaded <= 0 and infotransfer.gun_state == "rifle":
 		yz += delta
 		if yz >= zy:
 			shoot_rifle()
 			yz = 0
 	if Input.is_action_just_released("shoot"):
-		yield(get_tree().create_timer(0.25), "timeout")
-		reset_rotation = true
+		yield(get_tree().create_timer(0.5), "timeout")
+		yz = .174 
 	
 	#pistol reload
-	if Input.is_action_just_pressed("reload") and not reloading and infotransfer.gun_state == "pistol":
+	if Input.is_action_just_pressed("reload") and infotransfer.gun_reloading and infotransfer.gun_state == "pistol":
 		$PistolReloadTimer.start()
 		emit_signal("reloading")
 		reloading = true
-	if Input.is_action_just_pressed("shoot") and not reloading and infotransfer.gun_state == "rifle":
-		shoot_rifle()
 	if Input.is_action_just_pressed("shoot") and not reloading and infotransfer.gun_state == "pistol":
 		shoot_pistol()
 	
@@ -93,15 +91,16 @@ func process_input(delta):
 func process_movement(delta):
 	dir.y = 0
 	dir = dir.normalized()
-
-	vel.y += delta*GRAVITY
-
+	
+	if not is_on_floor():
+		vel.y += GRAVITY * delta
+	
 	var hvel = vel
 	hvel.y = 0
-
+	
 	var target = dir
 	target *= max_speed
-
+	
 	var accel
 	if dir.dot(hvel) > 0:
 		accel = ACCEL
@@ -111,11 +110,12 @@ func process_movement(delta):
 	hvel = hvel.linear_interpolate(target, accel*delta)
 	vel.x = hvel.x
 	vel.z = hvel.z
-	vel = move_and_slide(vel, Vector3.UP, true)# 4, deg2rad(MAX_SLOPE_ANGLE))#move_and_slide(vel,Vector3(0,1,0), 0.05, 4, deg2rad(MAX_SLOPE_ANGLE))
+	vel = move_and_slide(vel, Vector3(0,1,0), false)# 4, deg2rad(MAX_SLOPE_ANGLE))#move_and_slide(vel,Vector3(0,1,0), 0.05, 4, deg2rad(MAX_SLOPE_ANGLE))
 
 func player_hit():
 	if infotransfer.player_hit == true:
 		fade_out = 1
+		screen_shake(normal_shake_amount)
 		able_to_regen = false
 		$RegenTimer.start()
 		damage_taken = rand_range(min_damage, max_damage)
@@ -125,6 +125,7 @@ func player_hit():
 		health_display.set_text("Health = "+ str(health))
 		if health <= 0:
 			health = 0
+			screen_shake(dead_shake)
 			health_display.set_text("Health = "+str(health))
 			player_die()
 

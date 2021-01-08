@@ -101,6 +101,7 @@ bones/1/enabled = true
 bones/1/bound_children = [  ]
 
 [node name="Ak" type="MeshInstance" parent="Armature"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -276.742, -489.14, 0 )
 mesh = ExtResource( 2 )
 material/0 = null
 

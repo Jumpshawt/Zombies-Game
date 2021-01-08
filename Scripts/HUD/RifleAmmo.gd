@@ -1,15 +1,15 @@
 extends Label
 
-var ammo_loaded = 30
-var reserve_ammo = 90
+onready var reload_popup = $"../../ReloadPopup"
+onready var infotransfer = $"/root/InfoTransfer"
+
+var ammo_loaded : int#= infotransfer.rifle_ammo_loaded
+var reserve_ammo : int#= infotransfer.rifle_reserve_ammo
 var x = 0
 var y = 0
 var z = 0.125
 var reloading = false
 var ShootRNG : float = 0
-
-onready var reload_popup = $"../../ReloadPopup"
-onready var infotransfer = $"/root/InfoTransfer"
 
 signal no_reload
 signal need_to_reload
@@ -26,50 +26,51 @@ func handle_ammo_bought():
 func _process(delta):
 	if infotransfer.gun_state == "rifle":
 		get_parent().popup()
-		self.set_text(str(ammo_loaded)+" / "+str(reserve_ammo))
-		if Input.is_action_pressed("shoot") and ammo_loaded > 0 and not reloading and not infotransfer.game_paused:
+		self.set_text(str(infotransfer.rifle_ammo_loaded)+" / "+str(infotransfer.rifle_reserve_ammo))
+		if infotransfer.rifle_shooting and not infotransfer.game_paused and infotransfer.rifle_ammo_loaded > 0:
 			y += delta
 			if y >= z:
 				shoot_sound()
 				y = 0
-				ammo_loaded -= 1
+				infotransfer.rifle_ammo_loaded -= 1
 	
-		if ammo_loaded <= 0 and reserve_ammo > 1:
+		if infotransfer.rifle_ammo_loaded <= 5 and infotransfer.rifle_reserve_ammo > 1:
 			reload_popup.popup()
-			if Input.is_action_just_pressed("reload"):
+			if Input.is_action_just_pressed("reload") and not infotransfer.rifle_shooting:
 				reload_popup.hide()
-				reloading = true
 	
-		if ammo_loaded <= 0:
+		if infotransfer.rifle_ammo_loaded <= 0:
 			emit_signal("need_to_reload")
-		elif ammo_loaded > 0:
+		elif infotransfer.rifle_ammo_loaded > 0:
 			emit_signal("dont_need_to_reload_no_more")
 	
-		if reserve_ammo <= 0 and ammo_loaded >= 0:
+		if infotransfer.rifle_reserve_ammo <= 0 and infotransfer.rifle_ammo_loaded >= 0:
 			emit_signal("no_reload")
 	if not infotransfer.gun_state == "rifle":
 		get_parent().hide()
 
 func _on_Player_reloading():
-	reloading = true
+	#infotransfer.gun_reloading = true
+	pass
+
+
 
 func _on_RifleReloadTimer_timeout():
-	reloading = false
-	if reserve_ammo >= 30:
-		x = 30 - ammo_loaded
-		reserve_ammo -= x 
-		ammo_loaded = 30
-	elif reserve_ammo >= 0:
-		if reserve_ammo + ammo_loaded <= 29:
-			ammo_loaded += reserve_ammo 
-			reserve_ammo = 0
-		if reserve_ammo + ammo_loaded == 30:
-			reserve_ammo = 0
-			ammo_loaded = 30
-		elif reserve_ammo + ammo_loaded >= 31 and reserve_ammo <= 30:
-			x = reserve_ammo + ammo_loaded - 30
-			ammo_loaded = 30
-			reserve_ammo = x 
+	if infotransfer.rifle_reserve_ammo >= 30:
+		x = 30 - infotransfer.rifle_ammo_loaded
+		infotransfer.rifle_reserve_ammo -= x 
+		infotransfer.rifle_ammo_loaded = 30
+	elif infotransfer.rifle_reserve_ammo >= 0:
+		if infotransfer.rifle_reserve_ammo + infotransfer.rifle_ammo_loaded <= 29:
+			infotransfer.rifle_ammo_loaded += infotransfer.rifle_reserve_ammo 
+			infotransfer.rifle_reserve_ammo = 0
+		if infotransfer.rifle_reserve_ammo + infotransfer.rifle_ammo_loaded == 30:
+			infotransfer.rifle_reserve_ammo = 0
+			infotransfer.rifle_ammo_loaded = 30
+		elif infotransfer.rifle_reserve_ammo + infotransfer.rifle_ammo_loaded >= 31 and infotransfer.rifle_reserve_ammo <= 30:
+			x = infotransfer.rifle_reserve_ammo + infotransfer.rifle_ammo_loaded - 30
+			infotransfer.rifle_ammo_loaded = 30
+			infotransfer.rifle_reserve_ammo = x 
 
 
 func _on_RifleSpreadTimer_timeout():
@@ -87,4 +88,4 @@ func shoot_sound():
 
 
 func _on_Player_rifle_ammo():
-	reserve_ammo += int(rand_range(30, 60))
+	infotransfer.rifle_reserve_ammo += int(rand_range(30, 60))
