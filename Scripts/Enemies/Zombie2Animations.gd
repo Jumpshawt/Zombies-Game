@@ -35,7 +35,9 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 			$AnimationPlayer.play("Run")
 		if anim_name == "Kick":
 			$AnimationPlayer.play("Run")
-
+	if anim_name == "DeathBack" or anim_name == "DeathForwards":
+		yield(get_tree().create_timer(1), "timeout")
+		self.queue_free()
 
 func _on_Enemy_attack1():
 	$AnimationPlayer.stop(true)
@@ -48,3 +50,14 @@ func _on_Enemy_attack2():
 func _on_Enemy_kick():
 	$AnimationPlayer.stop(true)
 	$AnimationPlayer.play("Kick")
+
+
+func _on_Enemy_backwards_death():
+	$AnimationPlayer.stop(true)
+	$AnimationPlayer.play("DeathBack")
+	print("animation played")
+
+func _on_Enemy_forwards_death():
+	$AnimationPlayer.stop(true)
+	$AnimationPlayer.play("DeathForwards")
+	print("animation played")

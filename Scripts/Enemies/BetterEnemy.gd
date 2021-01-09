@@ -130,10 +130,30 @@ func handle_knife_damage(object):
 	else: 
 		pass
 
+var die_animation : float
+signal forwards_death
+signal backwards_death
+
+func die_animation():
+	die_animation = rand_range(0,2)
+	if die_animation <= 1:
+		emit_signal("forwards_death")
+		print("forwards")
+	elif die_animation <= 2:
+		emit_signal("backwards_death")
+		print("backwards")
+
 func player_die():
 	if not dead:
-		#queue free stuff here
-		ammo_rng = rand_range(0,10)
+		set_physics_process(false)
+		$HitBox.queue_free()
+		$HeadHitBox.queue_free()
+		$CollisionShape.disabled = true
+		$CollisionShape2.disabled = true
+		$AttackArea.queue_free()
+		$Area.queue_free()
+		ammo_rng = 1#rand_range(0,10)
+		die_animation()
 		if ammo_rng <= drop_ammo_box_rng:
 			money_earned = int(rand_range(75, 125))
 			infotransfer.money += money_earned
@@ -143,9 +163,8 @@ func player_die():
 			infotransfer.total_zombies_killed += 1
 			infotransfer.blood_splatter = true
 			var c = ammobox.instance()
-			self.rotation = Vector3(0,0,0)
 			self.add_child(c)
-			c.global_transform.origin = self.global_transform.origin - Vector3(0,1,0)
+			c.global_transform.origin = self.global_transform.origin + Vector3(0,1,0)
 			c.look_at(self.global_transform.origin + Vector3(0,300,0), Vector3.UP)
 			#$AmmoBoxTimer.start()
 		else:
@@ -156,6 +175,7 @@ func player_die():
 			infotransfer.zombies_alive -= 1
 			infotransfer.total_zombies_killed += 1
 			infotransfer.blood_splatter = true
+			yield(get_tree().create_timer(4), "timeout")
 			queue_free()
 
 
@@ -169,17 +189,21 @@ func die():
 
 # warning-ignore:unused_argument
 func _process(delta):
+	var c = ammobox.instance()
 	if dead:
-		self.rotation = Vector3(0,0,0)
+		set_physics_process(false)
+		self.rotation = Vector3(0, self.rotation.y, 0)
 	if health <= 0 and not dead:
 		player_die()
 		dead = true
 	if infotransfer.ammo_box_collected and dead:
+		c.queue_free()
+		yield(get_tree().create_timer(2), "timeout")
 		queue_free()
 
 func stun():
 # warning-ignore:standalone_expression
-	#emit_signal("hitsound")
+	#emit_signal("hitsound") 
 	infotransfer.hitmarkersound = true
 	stunned == true
 	set_physics_process(false)
