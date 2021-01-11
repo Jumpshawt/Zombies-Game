@@ -28,14 +28,17 @@ margin_left = 500.765
 margin_top = 589.262
 margin_right = 663.765
 margin_bottom = 706.262
-text = "Buy Rifle! Cost : 2000"
+text = "Buy Rifle! Cost : 1500"
 
 [node name="AmmoBuy" type="Button" parent="Popup"]
 margin_left = 1098.66
 margin_top = 591.421
 margin_right = 1238.66
 margin_bottom = 700.421
-text = "Buy 90 Ammo! Cost : 1250"
+text = "Buy 90 Ammo! Cost : 500"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Quit" type="Button" parent="Popup"]
 pause_mode = 2

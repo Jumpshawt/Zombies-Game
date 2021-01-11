@@ -1,7 +1,7 @@
 extends Spatial
 
 #=====Randomness=====#
-export var ss_min = 0.5  #Scale Size - min
+export var ss_min = 1  #Scale Size - min
 export var ss_max = 1.5  #Scale Size - max
 
 func _ready():

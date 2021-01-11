@@ -43,6 +43,9 @@ func reload():
 	if infotransfer.gun_reloading and infotransfer.gun_state == "rifle" and not reloading:
 		reloading = true
 		$AnimationPlayer.play("rifle_reload")
+		$AudioStreamPlayer.play()
+		$AudioStreamPlayer.set_pitch_scale(0.96)
+		#$AudioStreamPlayer.set_volume_db()
 		yield(get_tree().create_timer(2), "timeout")
 		reloading = false
 ####Work on Rifle Sounds

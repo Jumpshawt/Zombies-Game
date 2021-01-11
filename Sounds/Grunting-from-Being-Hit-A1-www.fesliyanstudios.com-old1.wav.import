@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Grunting-from-Being-Hit-A1-www.fesliyanstudios.com-old1.wav-3e78a3ba1d21f4e0b6314680472ce64e.sample"
+
+[deps]
+
+source_file="res://Sounds/Grunting-from-Being-Hit-A1-www.fesliyanstudios.com-old1.wav"
+dest_files=[ "res://.import/Grunting-from-Being-Hit-A1-www.fesliyanstudios.com-old1.wav-3e78a3ba1d21f4e0b6314680472ce64e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://Scripts/PlayerMovement.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Guns/GoodShotgun.tscn" type="PackedScene" id=2]
@@ -28,6 +28,8 @@
 [ext_resource path="res://Assets/Animations/Hitmarker.tres" type="Animation" id=26]
 [ext_resource path="res://Sounds/u died.wav" type="AudioStream" id=27]
 [ext_resource path="res://Sprites/bloodOverlay.png" type="Texture" id=28]
+[ext_resource path="res://Sounds/Heartbeat_Noise.wav" type="AudioStream" id=29]
+[ext_resource path="res://Sounds/Grunting-from-Being-Hit-A1-www.fesliyanstudios.com.wav" type="AudioStream" id=30]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 3.0
@@ -356,8 +358,8 @@ offset = Vector2( 1920, 1080 )
 [node name="Hitmarker" type="Sprite" parent="Control"]
 visible = false
 modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 4, -3 )
-scale = Vector2( 0.5, 0.5 )
+position = Vector2( 385.256, 213.844 )
+scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 23 )
 offset = Vector2( 1920, 1080 )
 
@@ -569,6 +571,12 @@ stream = ExtResource( 27 )
 [node name="RegenTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
+
+[node name="HeartBeat" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 29 )
+
+[node name="Ouch" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 30 )
 [connection signal="body_entered" from="PickupArea" to="." method="_on_PickupArea_body_entered"]
 [connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/Camera/Pistol" method="_on_Label_need_to_reload"]
 [connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="." method="_on_Label_need_to_reload"]
@@ -582,14 +590,15 @@ one_shot = true
 [connection signal="out_of_reserve_ammo" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Camera/Shotgun" method="_on_Label4_out_of_reserve_ammo"]
 [connection signal="shoot" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Camera/Shotgun" method="_on_Label4_shoot"]
 [connection signal="spin" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Camera/Shotgun" method="_on_Label4_spin"]
-[connection signal="timeout" from="PistolReloadTimer" to="Control/PistolAmmo/Label" method="_on_PistolReloadTimer_timeout"]
 [connection signal="timeout" from="PistolReloadTimer" to="." method="_on_PistolReloadTimer_timeout"]
-[connection signal="timeout" from="RifleReloadTimer" to="Control/RifleAmmo/Label3" method="_on_RifleReloadTimer_timeout"]
+[connection signal="timeout" from="PistolReloadTimer" to="Control/PistolAmmo/Label" method="_on_PistolReloadTimer_timeout"]
 [connection signal="timeout" from="RifleReloadTimer" to="." method="_on_RifleReloadTimer_timeout"]
-[connection signal="timeout" from="ShotgunShootTimer" to="Control/ShotgunAmmo/Label4" method="_on_ShotgunShootTimer_timeout"]
+[connection signal="timeout" from="RifleReloadTimer" to="Control/RifleAmmo/Label3" method="_on_RifleReloadTimer_timeout"]
 [connection signal="timeout" from="ShotgunShootTimer" to="." method="_on_ShotgunShootTimer_timeout"]
-[connection signal="timeout" from="RifleSpreadTimer" to="Control/RifleAmmo/Label3" method="_on_RifleSpreadTimer_timeout"]
+[connection signal="timeout" from="ShotgunShootTimer" to="Control/ShotgunAmmo/Label4" method="_on_ShotgunShootTimer_timeout"]
 [connection signal="timeout" from="RifleSpreadTimer" to="." method="_on_RifleSpreadTimer_timeout"]
+[connection signal="timeout" from="RifleSpreadTimer" to="Control/RifleAmmo/Label3" method="_on_RifleSpreadTimer_timeout"]
 [connection signal="timeout" from="KnifeStabTimer" to="." method="_on_KnifeStabTimer_timeout"]
 [connection signal="timeout" from="HalfSecond Timer" to="Control/ShotgunAmmo/Label4" method="_on_HalfSecond_Timer_timeout"]
 [connection signal="timeout" from="RegenTimer" to="." method="_on_RegenTimer_timeout"]
+[connection signal="finished" from="HeartBeat" to="." method="_on_HeartBeat_finished"]

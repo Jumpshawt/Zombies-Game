@@ -2,7 +2,8 @@ extends Area
 
 #=====ExternalVariables=====#
 onready var infotransfer = $"/root/InfoTransfer"
-var basic_zombie = preload("res://Assets/Enemies/Enemy1.tscn")
+var basic_zombie = preload("res://Assets/Enemies/Enemy2.tscn")
+# its not the basic zombie
 
 export var active = true
 
@@ -17,7 +18,7 @@ var max_wait_time = 45
 #=====Code=====#
 
 func _ready():
-	$HordeSpawnTimer.set_wait_time(rand_range(15,45))
+	$HordeSpawnTimer.set_wait_time(rand_range(10,25))
 	$HordeSpawnTimer.start()
 
 func _process(_delta):
@@ -36,7 +37,7 @@ func new_round_check():
 func _on_HordeSpawnTimer_timeout():
 	if infotransfer.zombies_alive + zombies_per_horde < infotransfer.zombies_to_spawn[infotransfer.round_num]:
 		spawn_horde()
-		$HordeSpawnTimer.set_wait_time(rand_range(15,45))
+		$HordeSpawnTimer.set_wait_time(rand_range(10,25))
 		$HordeSpawnTimer.start()
 
 func _on_IndividualZombieTimer_timeout():

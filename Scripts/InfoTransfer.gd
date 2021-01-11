@@ -124,6 +124,7 @@ func _input(event):
 		gun_changing = true
 
 func _process(delta):
+	fix_negative_zombies()
 	if not get_tree().is_paused():
 		update_timer(delta)
 	update_prices()
@@ -152,6 +153,10 @@ func fix_shooting():
 	if not gun_state == "rifle":
 		rifle_reloading = false
 		rifle_shooting = false
+
+func fix_negative_zombies():
+	if zombies_alive <= 0:
+		zombies_alive = 0
 
 func update_prices():
 	pistol_upgrade_cost = 1000 + (pistol_increase_amount * pistol_upgrade_level)

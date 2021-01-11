@@ -53,7 +53,7 @@ func find_rank():
 		rank = "S"
 	elif total_time_taken <= 1000 and infotransfer.total_damage_dealt > 30000:
 		rank = "S+"
-	elif total_time_taken <= 1500 and infotransfer.total_damage_dealt > 100000:
+	elif total_time_taken <= 1500 or total_time_taken >= 1500 and infotransfer.total_damage_dealt > 60000:
 		rank = "POG"
 
 func _on_Button_pressed():
@@ -71,4 +71,6 @@ func _on_Button_pressed():
 	infotransfer.rifle_reserve_ammo = 90
 	infotransfer.shotgun_activated = false
 	infotransfer.rifle_activated = false
+	infotransfer.pistol_ammo_loaded = 16
+	infotransfer.pistol_reserve_ammo = 48
 	get_tree().change_scene("res://Main Scene.tscn")

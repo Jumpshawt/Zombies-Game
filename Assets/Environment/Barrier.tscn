@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/Objects/Barrier.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Fonts/Black Ops One.theme" type="Theme" id=2]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 0.25, 1.5, 2 )
@@ -254,6 +255,24 @@ collision_mask = 0
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0359069, 0, 0 )
 shape = SubResource( 9 )
+
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control"]
+margin_left = 805.576
+margin_top = 443.226
+margin_right = 1264.58
+margin_bottom = 677.226
+theme = ExtResource( 2 )
+text = "Press E to Repair"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="body_entered" from="ZombieArea" to="." method="_on_ZombieArea_body_entered"]
 [connection signal="body_exited" from="ZombieArea" to="." method="_on_ZombieArea_body_exited"]
 [connection signal="body_entered" from="RepairArea" to="." method="_on_RepairArea_body_entered"]

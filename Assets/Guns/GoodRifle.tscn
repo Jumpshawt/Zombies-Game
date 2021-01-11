@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/Weapons/Rifle.gd" type="Script" id=1]
 [ext_resource path="res://3D Model Imports/Guns/L'Ak/AK.tres" type="ArrayMesh" id=2]
+[ext_resource path="res://Sounds/Ak-reload.wav" type="AudioStream" id=3]
 [ext_resource path="res://Sprites/hiclipart.com.png" type="Texture" id=5]
 [ext_resource path="res://3D Model Imports/Guns/AK v 2/reloadanimation.anim" type="Animation" id=6]
 [ext_resource path="res://3D Model Imports/Guns/L'Ak/tempunequip.anim" type="Animation" id=7]
@@ -116,4 +117,7 @@ anims/rifle_idle = SubResource( 2 )
 anims/rifle_reload = ExtResource( 6 )
 anims/rifle_shoot = SubResource( 3 )
 anims/rifle_unequip = ExtResource( 7 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

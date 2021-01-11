@@ -37,6 +37,9 @@ margin_top = 645.382
 margin_right = 703.0
 margin_bottom = 846.382
 text = "Buy Pistol"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Quit" type="Button" parent="Popup"]
 margin_left = 1554.1
