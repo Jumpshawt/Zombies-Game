@@ -20,35 +20,38 @@ func _ready():
 func _process(delta):
 	check_health()
 	update_health(delta)
+	labelpopup()
 
 func _on_RepairArea_body_entered(body):
 	if body.is_in_group("Player"):
 		player_in_area = true
-		print("player entered area")
 
 func _on_RepairArea_body_exited(body):
 	if body.is_in_group("Player"):
 		player_in_area = false
-		print("player left area")
 
 
 func _on_ZombieArea_body_entered(body):
 	if body.is_in_group("Enemy"):
 		zombies_in_area += 1
-		print("a zombie entered area")
 	if barrier_alive == true:
 		emit_signal("zombie_pause", body)
 
 func _on_ZombieArea_body_exited(body):
 	if body.is_in_group("Enemy"):
 		zombies_in_area -= 1
-		print("a zombie left the area")
 
 func update_health(eee):
 	if zombies_in_area > 0:
-		barrier_health -= (5 * zombies_in_area) * eee
+		barrier_health -= (10 * zombies_in_area) * eee
 	if player_in_area == true and Input.is_action_pressed("interact"):
 		barrier_health += 20 * eee
+
+func labelpopup():
+	if player_in_area and barrier_health <= 50:
+		$Control/Label.visible = true
+	else:
+		$Control/Label.visible = false
 
 func check_health():
 	if barrier_health > (max_health * .75):

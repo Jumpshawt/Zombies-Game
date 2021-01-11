@@ -16,16 +16,18 @@ var path = []
 var path_node = 0
 export var speed = 0
 export var MAX_SPEED = 15
-export var MIN_SPEED = 5
+export var MIN_SPEED = 13
 var player_in_range = false
 var random_walking = 2
 var stunned = false
 var health : float = 80
 var total_health : float = 80
 export var dead : bool = false
-var drop_ammo_box_rng = 1 #ex 2 = 20% chance
+var drop_ammo_box_rng = 2 #ex 2 = 20% chance
 var ammo_rng = 0
-
+var random_size_min = 0.3
+var random_size_max = 0.5
+var size_scale = null
 #=====Damage=====#
 var damage_dealt = 0
 
@@ -44,20 +46,37 @@ signal stop_walking
 var walk_or_run : float
 var move_state = null
 
+#=====Sounds=====#
+var play_sound = false
+var random_chance
+var sound_chance = 1.0 #x out of 10
+var chance_to_gurgle = 0.02 # x out of 10, called every second
+var random_gurgle = 0.0
+
+
 func _ready():
+	random_chance = rand_range(0, 10)
+	sound_chance += 2 - (infotransfer.round_num * 0.25)
+	if sound_chance <= 1:
+		sound_chance = 1
+	if random_chance <= sound_chance:
+		$ZombieSpawn.play()
+	size_scale = rand_range(random_size_min, random_size_max)
+	self.scale = Vector3(size_scale, size_scale, size_scale)
 	walk_or_run = rand_range(0, 2)
 	if walk_or_run <= 1:
 		move_state = "walk"
-		play_animation("walker")
+		emit_signal("walker")
 	elif walk_or_run <= 2:
 		move_state = "run"
-		play_animation("runner")
+		emit_signal("runner")
 	
-	self.scale = Vector3(0.45, 0.45, 0.45)
-	total_health = total_health + (20 * infotransfer.round_num) #* (1 + (0.1 * infotransfer.round_num)) <- Insert if too ez
+	total_health = total_health + (10 * infotransfer.round_num) #* (1 + (0.1 * infotransfer.round_num)) <- Insert if too ez
 	health = total_health
-	speed = rand_range(MIN_SPEED, MAX_SPEED)
-	
+	if move_state == "run":
+		speed = rand_range(MIN_SPEED, MAX_SPEED)
+	if move_state == "walk":
+		speed = rand_range(MIN_SPEED, MAX_SPEED) * 0.2
 	$Timer.start()
 	var knife_damaged = get_tree().get_root().find_node("Player", true, false)
 	knife_damaged.connect("knife_damage", self, "handle_knife_damage")
@@ -74,20 +93,25 @@ func _ready():
 signal walker
 signal runner
 
+func gurgle():
+	random_gurgle = rand_range(0, 10)
+	if random_gurgle <= chance_to_gurgle:
+		$Gurgle.set_pitch_scale(rand_range(0.5, 1.5) * .2 + (size_scale * 2))
+		$Gurgle.play()
+
 func play_animation(animation_name):
 	emit_signal(animation_name)
-	print(animation_name)
 
 func handle_shotgun_damage(object):
 	if not dead:
 		if $HeadHitBox == object:
-			health -= 30 + (10 * infotransfer.shotgun_upgrade_level)
+			health -= 40 + (20 * infotransfer.shotgun_upgrade_level)
 			stun()
-			infotransfer.blood_splatter = true
+			#infotransfer.blood_splatter = true
 		elif self == object:
-			health -= 15 + (5 * infotransfer.shotgun_upgrade_level)
+			health -= 20 + (10 * infotransfer.shotgun_upgrade_level)
 			stun()
-			infotransfer.blood_splatter = true
+			#infotransfer.blood_splatter = true
 	else:
 		pass
 
@@ -96,11 +120,11 @@ func handle_rifle_damage(object):
 		if $HeadHitBox == object:
 			health -= 75 + (25 * infotransfer.rifle_upgrade_level)
 			stun()
-			infotransfer.blood_splatter = true
+			#infotransfer.blood_splatter = true
 		elif self == object or $HitBox == object:
 			health -= 40 + (10 * infotransfer.rifle_upgrade_level)
 			stun()
-			infotransfer.blood_splatter = true
+			#infotransfer.blood_splatter = true
 	else:
 		pass
 
@@ -109,24 +133,21 @@ func handle_pistol_damage(object):
 		if $HeadHitBox == object:
 			health -= 50 + (20 * infotransfer.pistol_upgrade_level)
 			stun()
-			infotransfer.blood_splatter = true
+			#infotransfer.blood_splatter = true
 		elif self == object or $HitBox == object:
 			health -= 25 + (10 * infotransfer.pistol_upgrade_level)
 			stun()
-			infotransfer.blood_splatter = true
-	else:
-#		print(object)
-		pass
+			#infotransfer.blood_splatter = true
 
 func handle_knife_damage(object):
 	if $HeadHitBox == object:
 		health -= 100
 		
-		infotransfer.blood_splatter = true
+		#infotransfer.blood_splatter = true
 	elif self == object or $HitBox == object:
 		health -= 60
 		stun()
-		infotransfer.blood_splatter = true
+		#infotransfer.blood_splatter = true
 	else: 
 		pass
 
@@ -138,10 +159,8 @@ func die_animation():
 	die_animation = rand_range(0,2)
 	if die_animation <= 1:
 		emit_signal("forwards_death")
-		print("forwards")
 	elif die_animation <= 2:
 		emit_signal("backwards_death")
-		print("backwards")
 
 func player_die():
 	if not dead:
@@ -152,7 +171,7 @@ func player_die():
 		$CollisionShape2.disabled = true
 		$AttackArea.queue_free()
 		$Area.queue_free()
-		ammo_rng = 1#rand_range(0,10)
+		ammo_rng = rand_range(0,10)
 		die_animation()
 		if ammo_rng <= drop_ammo_box_rng:
 			money_earned = int(rand_range(75, 125))
@@ -161,12 +180,11 @@ func player_die():
 			infotransfer.zombies_alive -= 1
 			infotransfer.total_damage_dealt += total_health
 			infotransfer.total_zombies_killed += 1
-			infotransfer.blood_splatter = true
 			var c = ammobox.instance()
 			self.add_child(c)
 			c.global_transform.origin = self.global_transform.origin + Vector3(0,1,0)
 			c.look_at(self.global_transform.origin + Vector3(0,300,0), Vector3.UP)
-			#$AmmoBoxTimer.start()
+			$Zombie_Die.play()
 		else:
 			money_earned = int(rand_range(75,125))
 			infotransfer.money += money_earned
@@ -174,7 +192,7 @@ func player_die():
 			infotransfer.total_damage_dealt += total_health
 			infotransfer.zombies_alive -= 1
 			infotransfer.total_zombies_killed += 1
-			infotransfer.blood_splatter = true
+			$Zombie_Die.play()
 			yield(get_tree().create_timer(4), "timeout")
 			queue_free()
 
@@ -182,14 +200,12 @@ func player_die():
 func die():
 # warning-ignore:unsafe_method_access
 	infotransfer.zombies_alive -= 1
-	infotransfer.blood_splatter = true
 	queue_free()
 	#$AnimationPlayer.play("die")
 
 
 # warning-ignore:unused_argument
 func _process(delta):
-	var c = ammobox.instance()
 	if dead:
 		set_physics_process(false)
 		self.rotation = Vector3(0, self.rotation.y, 0)
@@ -197,9 +213,11 @@ func _process(delta):
 		player_die()
 		dead = true
 	if infotransfer.ammo_box_collected and dead:
-		c.queue_free()
-		yield(get_tree().create_timer(2), "timeout")
-		queue_free()
+		for i in self.get_children():
+			if i.is_in_group("AmmoBox"):
+				i.queue_free()
+	if not $Gurgle.is_playing() and not dead:
+		gurgle()
 
 func stun():
 # warning-ignore:standalone_expression
@@ -220,10 +238,9 @@ func _physics_process(delta):
 		var tickratedistance = tickrate * global_transform.origin.distance_to(Player.global_transform.origin) / 32
 		if tickratedistance < 1:
 			tickratedistance = 1
-		if tick > tickratedistance * infotransfer.zombies_alive / 2:
+		if tick > tickratedistance * infotransfer.zombies_alive / 5:
 			var prev_locat = self.global_transform 
-			move_and_slide(direction.normalized() * speed)#* tick * speed)
-			print(speed)
+			move_and_slide(direction.normalized() * tick * speed)
 			tick = 0
 
 func _quadratic_bezier(p0: Vector3, p1: Vector3, p2: Vector3, t: float):

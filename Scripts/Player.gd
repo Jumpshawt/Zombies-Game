@@ -4,7 +4,7 @@ extends KinematicBody
 const GRAVITY = -24.8 
 var vel = Vector3()
 var max_speed = 8
-const JUMP_SPEED = 10
+const JUMP_SPEED = 8
 const ACCEL= 4.5
 
 var dir = Vector3()
@@ -21,14 +21,14 @@ onready var camera = $"Rotation_Helper/Camera"
 var rotation_helper
 
 onready var Hud = $Control
-var velocity = 0
-var gravity = .5
-var gravity_eased = 0
-export var ease_ammount = 0.25
-export var kick_ammount = 0.2
-export var pistol_kick_ammount = 0.05
-export var shotgun_kick_ammount = 0.2
-export var rifle_kick_ammount = 0.1
+var velocity : float = 0
+var gravity : float = .5
+var gravity_eased : float = 0
+export var ease_ammount : float = 0.25
+export var kick_ammount : float = 0.2
+export var pistol_kick_ammount : float = 0.05
+export var shotgun_kick_ammount : float = 0.2
+export var rifle_kick_ammount : float = 0.1
 var blood_splatter = preload("res://Assets/Particles/Blood_particles.tscn")
 onready var rotationhelper = $Rotation_Helper
 onready var bullet_decal = preload("res://Assets/Guns/BulletHole.tscn")
@@ -138,13 +138,17 @@ func shoot_shotgun():
 	velocity = kick_ammount
 	for r in raycontainer.get_children():
 		var b = bullet_decal.instance()
+		var s = blood_splatter.instance()
 		r.cast_to.x = rand_range(-spread, spread)
 		r.cast_to.y = rand_range(-spread, spread)
 		shotgun_able_to_shoot = false
 		if not r.get_collider() == null:
 			r.get_collider().add_child(b)
+			if r.get_collider().is_in_group("Enemy"):
+				r.get_collider().add_child(s)
+				s.global_transform.origin = rifle_raycast.get_collision_point()
 			b.global_transform.origin = r.get_collision_point()
-			b.look_at(r.get_collision_point() + r.get_collision_normal() * 100, Vector3.DOWN) 
+			b.look_at(r.get_collision_point() + r.get_collision_normal() * 100, Vector3.DOWN)
 			if r.is_colliding():
 				emit_signal("shotgun_damage", r.get_collider())
 				emit_signal("bullet_hole_collider", r.get_collider())
@@ -158,11 +162,15 @@ func shoot_pistol():
 		velocity += kick_ammount / (2* camera.rotation.x + 1)
 		raycast.force_raycast_update()
 		var b = bullet_decal.instance()
+		var s = blood_splatter.instance()
 		if not raycast.get_collider() == null:
 			raycast.get_collider().add_child(b)
 			b.global_transform.origin = raycast.get_collision_point()
 			b.look_at(raycast.get_collision_point() + raycast.get_collision_normal() * 100, Vector3.DOWN)
 			if raycast.is_colliding():
+				if raycast.get_collider().is_in_group("Enemy"):
+					raycast.get_collider().add_child(s)
+					s.global_transform.origin = raycast.get_collision_point()
 				var obj = raycast.get_collider()
 				emit_signal("pistol_damage", raycast.get_collider())
 				emit_signal("bullet_hole_collider", raycast.get_collider())
@@ -175,6 +183,7 @@ func shoot_rifle():
 		$RifleSpreadTimer.start()
 		rifle_raycast.force_raycast_update()
 		var b = bullet_decal.instance()
+		var s = blood_splatter.instance()
 		if rifle_raycast.is_colliding():
 			if rifle_spread == false:
 				rifle_raycast.cast_to = rifle_original_spread
@@ -190,6 +199,9 @@ func shoot_rifle():
 			if rifle_raycast.is_colliding():
 				rifle_raycast.get_collider().add_child(b)
 				emit_signal("bullet_hole_collider", rifle_raycast.get_collider())
+				if rifle_raycast.get_collider().is_in_group("Enemy"):
+					rifle_raycast.get_collider().add_child(s)
+					s.global_transform.origin = rifle_raycast.get_collision_point()
 			b.global_transform.origin = rifle_raycast.get_collision_point()
 			b.look_at(raycast.get_collision_point() + raycast.get_collision_normal()* 100, Vector3.DOWN)
 			emit_signal("rifle_damage", rifle_raycast.get_collider())
@@ -215,7 +227,6 @@ func handle_blood_splatter():
 				if r.is_colliding():
 					r.get_collider().add_child(yos)
 					yos.global_transform.origin = r.get_collision_point()
-		infotransfer.blood_splatter = false
 
 func _physics_process(delta):
 	process_input(delta)
@@ -233,6 +244,7 @@ func process_movement(delta):
 	pass
 
 func _process(delta):
+	update_volume()
 	reset_the_camera_rotation()
 	ammo_box_check()
 	reset_camera_rotation()
@@ -249,7 +261,10 @@ func _process(delta):
 		yield(get_tree().create_timer(1), "timeout")
 		reloading = false
 
-
+func update_volume():
+	$HeartBeat.set_volume_db(-10 + (40 * (blood_opacity / 100)))
+	if health > 69:
+		$HeartBeat.stop()
 
 func _on_ReloadTimer_timeout():
 	reloading = false
@@ -275,9 +290,9 @@ func reset_camera_rotation():
 		#Checks if the velocity is less than or equal to 0, if it is  the gravity is low if not the gravity is high 
 		
 		if velocity <= 0:
-			gravity_eased = gravity * 1 * ease_ammount
+			gravity_eased = gravity * ease_ammount
 		else:
-			gravity_eased = gravity * 1 * ease_ammount
+			gravity_eased = gravity * ease_ammount
 		velocity = velocity - (gravity_eased * camera.rotation.x)
 		
 		
@@ -403,7 +418,7 @@ func player_hit_fade_out(del):
 var shake = 0
 var max_shakes = 2
 var normal_shake_amount = 5
-var dead_shake = 250
+var dead_shake = 100
 
 func screen_shake(shake_amount):
 	shake = 0

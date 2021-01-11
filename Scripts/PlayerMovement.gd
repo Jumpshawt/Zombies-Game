@@ -31,9 +31,9 @@ func process_input(delta):
 	if Input.is_action_pressed("D"):
 		input_movement_vector.x = 1
 	if Input.is_action_pressed("sprint") and Input.is_action_pressed("W") and Input.is_action_pressed("S") == false and not crouched:
-		max_speed = 15
+		max_speed = 10
 	elif not crouched:
-		max_speed = 8
+		max_speed = 6
 	
 	#dooors
 	if Input.is_action_just_pressed("interact"):
@@ -114,6 +114,7 @@ func process_movement(delta):
 
 func player_hit():
 	if infotransfer.player_hit == true:
+		$Ouch.play()
 		fade_out = 1
 		screen_shake(normal_shake_amount)
 		able_to_regen = false
@@ -123,6 +124,8 @@ func player_hit():
 		infotransfer.total_damage_taken += damage_taken
 		infotransfer.player_hit = false
 		health_display.set_text("Health = "+ str(health))
+		if health <= 50:
+			$HeartBeat.play()
 		if health <= 0:
 			health = 0
 			screen_shake(dead_shake)
@@ -131,3 +134,7 @@ func player_hit():
 
 func _on_RegenTimer_timeout():
 	able_to_regen = true
+
+func _on_HeartBeat_finished():
+	if health <= 50:
+		$HeartBeat.play()
