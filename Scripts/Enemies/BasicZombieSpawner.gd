@@ -16,6 +16,11 @@ export var active = true
 func _ready():
 	$Timer.start()
 
+func _process(delta):
+	if Input.is_action_just_pressed("interact") and active == true:
+		var e = better_zombie.instance()
+		self.add_child(e)
+
 func _on_Timer_timeout():
 	var e = better_zombie.instance()
 	if infotransfer.zombies_alive > infotransfer.zombies_to_spawn[infotransfer.round_num] * 0.5:

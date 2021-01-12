@@ -57,6 +57,8 @@ var random_gurgle = 0.0
 func _ready():
 	random_chance = rand_range(0, 10)
 	sound_chance += 2 - (infotransfer.round_num * 0.25)
+	if infotransfer.round_num > 3:
+		$Timer.set_wait_time(0.1 + (0.1 * infotransfer.round_num))
 	if sound_chance <= 1:
 		sound_chance = 1
 	if random_chance <= sound_chance:
@@ -206,6 +208,10 @@ func die():
 
 # warning-ignore:unused_argument
 func _process(delta):
+	if infotransfer.zombies_alive <= 5:
+		$Timer.set_wait_time(0.1)
+	else:
+		$Timer.set_wait_time(0.1 + (0.1 * infotransfer.round_num))
 	if dead:
 		set_physics_process(false)
 		self.rotation = Vector3(0, self.rotation.y, 0)

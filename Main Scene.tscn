@@ -3,6 +3,7 @@
 [ext_resource path="res://Scripts/Main Scene.gd" type="Script" id=1]
 [ext_resource path="res://Space.tres" type="Environment" id=2]
 [ext_resource path="res://Assets/Enemies/Zombie Spawner.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Environment/door2.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/Levels/TestLevel3.0.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/Environment/ShotgunMachine.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Assets/Environment/UpgradeMachine.tscn" type="PackedScene" id=7]
@@ -30,9 +31,6 @@ agent/max_climb = 1.0
 agent/max_slope = 40.0
 filter/ledge_spans = true
 filter/filter_walkable_low_height_spans = true
-
-[sub_resource type="BoxShape" id=2]
-extents = Vector3( 7.59813, 1, 1 )
 
 [node name="Main Scene" type="Spatial"]
 script = ExtResource( 1 )
@@ -72,17 +70,27 @@ transform = Transform( -0.272969, -1.53244e-09, -0.962023, -0.0168633, 0.999848,
 
 [node name="Zombie Spawner2" parent="Nav/NavigationMeshInstance" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -87.7078, -0.186139, 22.0147 )
+active = false
 
 [node name="Zombie Spawner3" parent="Nav/NavigationMeshInstance" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 70.6015, -3.89853, 1.97317 )
 MAXSPAWNTIME = 1
 MINSPAWNTIME = 0
+active = false
 
 [node name="Zombie Spawner4" parent="Nav/NavigationMeshInstance" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -22.8381, -9.30032, -7.36712 )
+active = false
 
 [node name="Zombie Spawner5" parent="Nav/NavigationMeshInstance" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -57.5096, 0.51907, 64.4547 )
+active = false
+
+[node name="Door" parent="Nav/NavigationMeshInstance" instance=ExtResource( 4 )]
+transform = Transform( 5.90104e-07, 0, -4.5, 0, 5, 0, 4.5, 0, 5.90104e-07, 0.698851, -4.27027, 1 )
+
+[node name="Door2" parent="Nav/NavigationMeshInstance" instance=ExtResource( 4 )]
+transform = Transform( -1.96701e-07, 0, 4.5, 0, 4.5, 0, -4.5, 0, -1.96701e-07, -41.8277, -10.6393, -28.5668 )
 
 [node name="Player" parent="Nav" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 1.33176, 0 )
@@ -129,9 +137,4 @@ autoplay = true
 [node name="Round Change" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 20 )
 autoplay = true
-
-[node name="Quick fix" type="StaticBody" parent="."]
-
-[node name="CollisionShape" type="CollisionShape" parent="Quick fix"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2265, -2.6127, 104.214 )
-shape = SubResource( 2 )
+[connection signal="finished" from="Round Change" to="." method="_on_Round_Change_finished"]

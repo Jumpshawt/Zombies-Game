@@ -105,6 +105,9 @@ onready var blood_overlay = $"Control/BloodOverlay"
 var blood_opacity : float = 0
 var distance_from_half : float = 0
 
+#=====Interact=====#
+signal interactee(object)
+
 func _ready():
 	var zombiehitfinder = get_tree().get_root().find_node("Enemy", true, false) 
 	zombiehitfinder.connect("player_hit", self, "handle_player_hit")
@@ -131,7 +134,11 @@ func _ready():
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-
+func interact():
+	interactraycast.force_raycast_update()
+	if interactraycast.is_colliding():
+		emit_signal("interactee", interactraycast.get_collider())
+	
 
 func shoot_shotgun():
 	kick_ammount = shotgun_kick_ammount
@@ -197,13 +204,14 @@ func shoot_rifle():
 					rifle_raycast.cast_to.x = rand_range(-rifle_spread_amount, rifle_spread_amount)
 					rifle_raycast.cast_to.y = rand_range(-rifle_spread_amount, rifle_spread_amount)
 			if rifle_raycast.is_colliding():
-				rifle_raycast.get_collider().add_child(b)
-				emit_signal("bullet_hole_collider", rifle_raycast.get_collider())
-				if rifle_raycast.get_collider().is_in_group("Enemy"):
-					rifle_raycast.get_collider().add_child(s)
-					s.global_transform.origin = rifle_raycast.get_collision_point()
-			b.global_transform.origin = rifle_raycast.get_collision_point()
-			b.look_at(raycast.get_collision_point() + raycast.get_collision_normal()* 100, Vector3.DOWN)
+				if not rifle_raycast.get_collider().is_in_group("Enemy"):
+					rifle_raycast.get_collider().add_child(b)
+					emit_signal("bullet_hole_collider", rifle_raycast.get_collider())
+					if rifle_raycast.get_collider().is_in_group("Enemy"):
+						rifle_raycast.get_collider().add_child(s)
+						s.global_transform.origin = rifle_raycast.get_collision_point()
+				b.global_transform.origin = rifle_raycast.get_collision_point()
+				b.look_at(raycast.get_collision_point() + raycast.get_collision_normal()* 100, Vector3.DOWN)
 			emit_signal("rifle_damage", rifle_raycast.get_collider())
 		elif not rifle_raycast.is_colliding() and x <= 1:
 			kick_ammount = rifle_kick_ammount
@@ -233,8 +241,6 @@ func _physics_process(delta):
 	process_movement(delta)
 	handle_blood_splatter()
 
-
-
 func process_input(delta):
 	#This is process on playermovement
 	pass
@@ -256,6 +262,9 @@ func _process(delta):
 		can_stand_up = false
 	else:
 		can_stand_up = true
+	
+	if Input.is_action_just_pressed("interact"):
+		interact()
 	
 	if reloading: 
 		yield(get_tree().create_timer(1), "timeout")
@@ -358,7 +367,7 @@ func _on_PickupArea_body_entered(body):
 func ammo_box_check():
 	if infotransfer.ammo_box_collected == true:
 		infotransfer.pistol_reserve_ammo += int(rand_range(16,32))
-		emit_signal("rifle_ammo")
+		infotransfer.rifle_reserve_ammo += int(rand_range(30, 60))
 		emit_signal("shotgun_ammo")
 		#ammo_box_rng = rand_range(0,4)
 		#if ammo_box_rng >= 1:
@@ -383,8 +392,6 @@ func player_die():
 	get_tree().change_scene("res://Assets/HUD/StatScreen.tscn")
 	infotransfer.pistol_reserve_ammo = 48
 	infotransfer.pistol_ammo_loaded = 16
-	$Die.set_volume_db(150)
-	$Die.play()
 
 #======Changes Blood Opacity Depending on the amount of health=====#
 func update_blood_overlay(): #run in process function
