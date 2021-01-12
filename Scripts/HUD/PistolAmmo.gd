@@ -26,7 +26,7 @@ func _process(delta):
 		if Input.is_action_just_pressed("shoot") and InfoTransfer.pistol_ammo_loaded > 0 and not infotransfer.game_paused:
 			InfoTransfer.pistol_ammo_loaded -= 1
 		self.set_text(str(InfoTransfer.pistol_ammo_loaded)+" / "+str(InfoTransfer.pistol_reserve_ammo))
-		if InfoTransfer.pistol_ammo_loaded <= 0 and InfoTransfer.pistol_reserve_ammo > 1 or  not infotransfer.gun_state == "pistol":
+		if InfoTransfer.pistol_ammo_loaded <= 3 and InfoTransfer.pistol_reserve_ammo > 1 or not infotransfer.gun_state == "pistol":
 			reload_popup.popup()
 			if Input.is_action_just_pressed("reload"):
 				reload_popup.hide()

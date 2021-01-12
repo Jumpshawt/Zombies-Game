@@ -9,7 +9,7 @@ var shop_open : bool = false
 
 #=====PRICES=====#
 var pistol_price = 500
-var pistol_ammo_price = 1000
+var pistol_ammo_price = 500
 
 #=====SIGNALS=====#
 #Amount of Ammo can be found in pistol HUD
@@ -17,14 +17,15 @@ signal pistol_ammo_bought
 
 #=====USELESS_CODE_DONT_TOUCH=====#
 func _process(_delta):
+	if infotransfer.pistol_activated == true:
+		$Popup/PistolBuy.set_text("No need for this button")
 	if infotransfer.game_paused == true and Input.is_action_just_pressed("escape") and shop_open:
 		resume_game()
 
 func _ready():
 	var detectopenshop = get_tree().get_root().find_node("PistolMachine", true, false)
 	detectopenshop.connect("pistol_shop_popup", self, "handle_shop_opened")
-	$Popup/PistolBuy.set_text("Buy Pistol: Price = 500")
-	$Popup/AmmoBuy.set_text("Buy 90 Pistol Ammo: Price = 1000")
+	$Popup/AmmoBuy.set_text("Buy 90 Pistol Ammo: Price = 500")
 
 func handle_shop_opened():
 	if infotransfer.game_paused == false:
@@ -37,7 +38,7 @@ func _on_AmmoBuy_pressed():
 		emit_signal("pistol_ammo_bought")
 
 func _on_PistolBuy_pressed():
-	if infotransfer.money >= pistol_price and not infotransfer.pistol_activated :
+	if infotransfer.money >= pistol_price and not infotransfer.pistol_activated:
 		infotransfer.money -= pistol_price
 		infotransfer.pistol_activated = true
 		$Popup/PistolBuy.set_text("Sold Out!")

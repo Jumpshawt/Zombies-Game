@@ -143,8 +143,7 @@ func player_die():
 			infotransfer.total_zombies_killed += 1
 			infotransfer.blood_splatter = true
 			queue_free()
-#func _pistol_damaged(object):
-#	print("epic")
+
 
 func die():
 # warning-ignore:unsafe_method_access
@@ -215,7 +214,6 @@ func move_to(target_pos):
 	if path.size() > 2 and not dead:
 		path[1] =  _quadratic_bezier(global_transform.origin, Vector3(global_transform.origin.x + rand_range(-2, 2),
 		Player.global_transform.origin.y, global_transform.origin.z + rand_range(-2, 2)), Player.global_transform.origin, 0.05)
-	
 	path_node = 0 
 	pass
 
@@ -278,17 +276,21 @@ func _on_AttackArea_body_entered(body):
 		$AttackTimer.start()  #Controls how long before zombie turns back on
 		$HitTimer.start() #Controls how long till zombie hits
 		$AnimationPlayer.play("Attack")
-		print("Player in danger zone")
 
 func _on_AttackArea_body_exited(body):
 	if body.is_in_group("Player"):
 		player_in_attack = false
-		print("Player left danger zone")
 
 func _on_AttackTimer_timeout():
 	set_physics_process(true)
+	if player_in_attack:
+		set_physics_process(false)
+		yield(get_tree().create_timer(0.5), "timeout")
+		$AttackTimer.start()
+		$HitTimer.start()
+		$AnimationPlayer.play("Attack")
+
 
 func _on_HitTimer_timeout():
 	if player_in_attack:
 		infotransfer.player_hit = true
-		print("Player hit")

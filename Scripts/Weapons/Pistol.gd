@@ -26,26 +26,42 @@ func _ready():
 	self.visible = false
 	$AnimationPlayer.play("unequip")
 
-func _input(event):
-	if Input.is_action_just_released("2"):
+#func _input(event):
+	#if Input.is_action_just_released("2"):
 		#print("pressed 2")
 		#print(equipped)
-		pass
-	if Input.is_action_just_released("2") and not equipped:
-		equipped = true
-		self.visible = true
+		#pass
+	#if Input.is_action_just_released("2") and not equipped:
+#		self.visible = true
 		#print("equiping")
-		$AnimationPlayer.play("equip")
-		yield(get_tree().create_timer(1), "timeout")
-		
+		#$AnimationPlayer.play("equip")
+		#yield(get_tree().create_timer(1), "timeout")
+		#equipped = true
 
+func equip_pistol():
+	if not equipped and infotransfer.gun_state == "pistol":
+		self.visible = true
+		equipped = true
+		$AnimationPlayer.play("equip")
+		yield(get_tree().create_timer(1, false), "timeout")
+
+
+func unequip_pistol():
+	if equipped and not infotransfer.gun_state == "pistol":
+		$AnimationPlayer.play("unequip")
+		yield(get_tree().create_timer(1, false), "timeout")
+		equipped = false
 
 func _process(delta):
-	if not infotransfer.gun_state == "pistol" and equipped and infotransfer.gun_changing == false:
+	equip_pistol()
+	unequip_pistol()
+	
+	#if not infotransfer.gun_state == "pistol" and equipped and infotransfer.gun_changing == true:
 		#print("unequiping pistol")
-		$AnimationPlayer.play("unequip")
-		yield(get_tree().create_timer(1), "timeout")
-		equipped = false
+		#$AnimationPlayer.play("unequip")
+		#yield(get_tree().create_timer(1), "timeout")
+		#self.visible = false
+		#equipped = false
 	if infotransfer.gun_state == "pistol" and equipped:
 		if Input.is_action_just_pressed("shoot") and !InfoTransfer.pistol_ammo_loaded == 0:
 			$AnimationPlayer.stop(true)
@@ -71,9 +87,6 @@ func _process(delta):
 			able_to_reload = true
 
 
-
-	
-
 func _on_Label_no_reload(help):
 	if help == 1:
 		cant_reload = true
@@ -96,14 +109,14 @@ func _on_AnimationPlayer_animation_finished(Animation_name):
 		#print("finished reload")
 		out_of_ammo = false
 		able_to_shoot = true
-		
+	if Animation_name == "equip":
+		$AnimationPlayer.stop()
 		
 	if Animation_name == "unequip":
 		self.visible = false
-	if Animation_name == "equip":
-		self.visible = true
-#	if Animation_name == "unequip":
-#		self.visible = false
-#	if Animation_name == "unequip":
-#		self.visible = false
+		able_to_shoot = false
+#	if Animation_name == "equip":
+	#	self.visible = true
+	#	able_to_shoot = false
+	#	yield(get_tree().create_timer(1), "timeout")
 	able_to_shoot = true

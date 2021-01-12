@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/Objects/Barrier.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Fonts/Black Ops One.theme" type="Theme" id=2]
 
 [sub_resource type="CubeMesh" id=1]
-size = Vector3( 0.25, 2, 2 )
+size = Vector3( 0.25, 1.5, 2 )
 
 [sub_resource type="BoxShape" id=2]
 
@@ -206,7 +207,7 @@ tracks/3/keys = {
 }
 
 [sub_resource type="BoxShape" id=8]
-extents = Vector3( 0.125, 1, 1 )
+extents = Vector3( 0.125, 0.75, 1 )
 
 [sub_resource type="BoxShape" id=9]
 extents = Vector3( 0.1, 1, 1 )
@@ -215,6 +216,7 @@ extents = Vector3( 0.1, 1, 1 )
 script = ExtResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0 )
 mesh = SubResource( 1 )
 material/0 = null
 
@@ -243,6 +245,7 @@ anims/BarrierHealth.3 = SubResource( 7 )
 collision_layer = 5
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0 )
 shape = SubResource( 8 )
 
 [node name="StaticBody2" type="StaticBody" parent="."]
@@ -252,6 +255,24 @@ collision_mask = 0
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0359069, 0, 0 )
 shape = SubResource( 9 )
+
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control"]
+margin_left = 805.576
+margin_top = 443.226
+margin_right = 1264.58
+margin_bottom = 677.226
+theme = ExtResource( 2 )
+text = "Press E to Repair"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="body_entered" from="ZombieArea" to="." method="_on_ZombieArea_body_entered"]
 [connection signal="body_exited" from="ZombieArea" to="." method="_on_ZombieArea_body_exited"]
 [connection signal="body_entered" from="RepairArea" to="." method="_on_RepairArea_body_entered"]
