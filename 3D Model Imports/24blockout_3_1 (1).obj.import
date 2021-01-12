@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/24blockout_3_1 (1).obj-5de09df6a45161827f81e32fa727797f.mesh"
+
+[deps]
+
+files=[ "res://.import/24blockout_3_1 (1).obj-5de09df6a45161827f81e32fa727797f.mesh" ]
+
+source_file="res://3D Model Imports/24blockout_3_1 (1).obj"
+dest_files=[ "res://.import/24blockout_3_1 (1).obj-5de09df6a45161827f81e32fa727797f.mesh", "res://.import/24blockout_3_1 (1).obj-5de09df6a45161827f81e32fa727797f.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true
