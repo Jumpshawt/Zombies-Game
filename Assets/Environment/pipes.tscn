@@ -20,7 +20,7 @@ surfaces/0 = {
 "vertex_count": 624
 }
 
-[sub_resource type="ArrayMesh" id=7]
+[sub_resource type="ArrayMesh" id=2]
 resource_name = "BezierCurve017"
 surfaces/0 = {
 "aabb": AABB( -27.2651, -17.535, -1.60132, 54.7749, 27.51, 6.39758 ),
@@ -35,7 +35,7 @@ surfaces/0 = {
 "vertex_count": 1840
 }
 
-[sub_resource type="ArrayMesh" id=8]
+[sub_resource type="ArrayMesh" id=3]
 resource_name = "BezierCurve018"
 surfaces/0 = {
 "aabb": AABB( -19.5297, 1.52523, -4.18153, 39.7326, 6.80322, 51.1464 ),
@@ -50,7 +50,7 @@ surfaces/0 = {
 "vertex_count": 16315
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=4]
 resource_name = "BezierCurve003Action"
 length = 8.20833
 tracks/0/type = "transform"
@@ -61,7 +61,7 @@ tracks/0/imported = true
 tracks/0/enabled = true
 tracks/0/keys = PoolRealArray( 0, 1, -2.99369, -6.21842, -9.23367, 0, 0, 0, 1, 1, 1, 1, 8.20833, 1, -2.99369, -6.21842, -9.23367, 0, 0, 0, 1, 1, 1, 1 )
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=5]
 resource_name = "BezierCurve004Action006"
 length = 8.20833
 tracks/0/type = "transform"
@@ -72,7 +72,7 @@ tracks/0/imported = true
 tracks/0/enabled = true
 tracks/0/keys = PoolRealArray( 0, 1, -3.83636, -5.33579, -9.23367, 0, 0, 0, 1, 1, 1, 1, 8.20833, 1, -3.83636, -5.33579, -9.23367, 0, 0, 0, 1, 1, 1, 1 )
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=6]
 resource_name = "Door"
 length = 3.0
 tracks/0/type = "transform"
@@ -104,23 +104,23 @@ tracks/3/imported = true
 tracks/3/enabled = true
 tracks/3/keys = PoolRealArray( 0, 1, -1.83912, 0.950626, 0, 0.707107, 0.707107, 2.66925e-08, -2.66925e-08, 1, 1, 1, 2.53333, 1, -1.83912, 0.950626, 0, 0.707107, 0.707107, 2.66925e-08, -2.66925e-08, 1, 1, 1, 2.6, 1, -1.82792, 0.950626, 0, 0.707107, 0.707107, 2.66925e-08, -2.66925e-08, 1, 1, 1, 2.66667, 1, -1.73512, 0.950626, 0, 0.707107, 0.707107, 2.66925e-08, -2.66925e-08, 1, 1, 1, 2.93333, 1, -0.912725, 0.950626, 0, 0.707107, 0.707107, 2.66925e-08, -2.66925e-08, 1, 1, 1, 3, 1, -0.839124, 0.950626, 0, 0.707107, 0.707107, 2.66925e-08, -2.66925e-08, 1, 1, 1 )
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=7]
 resource_name = "low_vent002Action"
 length = 8.20833
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=8]
 resource_name = "low_vent002Action001"
 length = 8.20833
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=9]
 resource_name = "low_vent002Action002"
 length = 8.20833
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=10]
 resource_name = "low_vent002Action003"
 length = 8.20833
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=11]
 resource_name = "low_vent002Action004"
 length = 8.20833
 
@@ -163,20 +163,20 @@ transform = Transform( 0.616831, 0, 0, 0, 0.616831, 0, 0, 0, 0.616831, 10.8003, 
 
 [node name="Wires" type="MeshInstance" parent="."]
 transform = Transform( 0, 1, -2.98023e-08, 2.98023e-08, 0, -1, -1, -2.98023e-08, 0, 1.97961, 0.157755, 14.7774 )
-mesh = SubResource( 7 )
+mesh = SubResource( 2 )
 material/0 = null
 
 [node name="Pipes" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.83636, -5.33579, -9.23367 )
-mesh = SubResource( 8 )
+mesh = SubResource( 3 )
 material/0 = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/BezierCurve003Action = SubResource( 9 )
-anims/BezierCurve004Action006 = SubResource( 10 )
-anims/Door = SubResource( 11 )
-anims/low_vent002Action = SubResource( 12 )
-anims/low_vent002Action001 = SubResource( 13 )
-anims/low_vent002Action002 = SubResource( 14 )
-anims/low_vent002Action003 = SubResource( 15 )
-anims/low_vent002Action004 = SubResource( 16 )
+anims/BezierCurve003Action = SubResource( 4 )
+anims/BezierCurve004Action006 = SubResource( 5 )
+anims/Door = SubResource( 6 )
+anims/low_vent002Action = SubResource( 7 )
+anims/low_vent002Action001 = SubResource( 8 )
+anims/low_vent002Action002 = SubResource( 9 )
+anims/low_vent002Action003 = SubResource( 10 )
+anims/low_vent002Action004 = SubResource( 11 )

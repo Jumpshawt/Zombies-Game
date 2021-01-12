@@ -506,6 +506,7 @@ scale = Vector2( 0.217083, 0.217083 )
 texture = ExtResource( 16 )
 
 [node name="cash" type="Sprite" parent="Control/Money2/health"]
+visible = false
 position = Vector2( 72.8176, -354.189 )
 scale = Vector2( 2.4388, 2.4388 )
 texture = ExtResource( 15 )
@@ -590,14 +591,14 @@ stream = ExtResource( 30 )
 [connection signal="out_of_reserve_ammo" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Camera/Shotgun" method="_on_Label4_out_of_reserve_ammo"]
 [connection signal="shoot" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Camera/Shotgun" method="_on_Label4_shoot"]
 [connection signal="spin" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Camera/Shotgun" method="_on_Label4_spin"]
-[connection signal="timeout" from="PistolReloadTimer" to="." method="_on_PistolReloadTimer_timeout"]
 [connection signal="timeout" from="PistolReloadTimer" to="Control/PistolAmmo/Label" method="_on_PistolReloadTimer_timeout"]
-[connection signal="timeout" from="RifleReloadTimer" to="." method="_on_RifleReloadTimer_timeout"]
+[connection signal="timeout" from="PistolReloadTimer" to="." method="_on_PistolReloadTimer_timeout"]
 [connection signal="timeout" from="RifleReloadTimer" to="Control/RifleAmmo/Label3" method="_on_RifleReloadTimer_timeout"]
-[connection signal="timeout" from="ShotgunShootTimer" to="." method="_on_ShotgunShootTimer_timeout"]
+[connection signal="timeout" from="RifleReloadTimer" to="." method="_on_RifleReloadTimer_timeout"]
 [connection signal="timeout" from="ShotgunShootTimer" to="Control/ShotgunAmmo/Label4" method="_on_ShotgunShootTimer_timeout"]
-[connection signal="timeout" from="RifleSpreadTimer" to="." method="_on_RifleSpreadTimer_timeout"]
+[connection signal="timeout" from="ShotgunShootTimer" to="." method="_on_ShotgunShootTimer_timeout"]
 [connection signal="timeout" from="RifleSpreadTimer" to="Control/RifleAmmo/Label3" method="_on_RifleSpreadTimer_timeout"]
+[connection signal="timeout" from="RifleSpreadTimer" to="." method="_on_RifleSpreadTimer_timeout"]
 [connection signal="timeout" from="KnifeStabTimer" to="." method="_on_KnifeStabTimer_timeout"]
 [connection signal="timeout" from="HalfSecond Timer" to="Control/ShotgunAmmo/Label4" method="_on_HalfSecond_Timer_timeout"]
 [connection signal="timeout" from="RegenTimer" to="." method="_on_RegenTimer_timeout"]
