@@ -55,13 +55,13 @@ func labelpopup():
 
 func check_health():
 	if barrier_health > (max_health * .75):
-		$AnimationPlayer.play("BarrierHealth.3") 
+		$AnimationPlayer.play("Wood_break1") 
 		barrier_alive = true
 	elif barrier_health > (max_health * .5):
-		$AnimationPlayer.play("BarrierHealth.2")
+		$AnimationPlayer.play("Wood_break2")
 		barrier_alive = true
 	elif barrier_health > (max_health * .25):
-		$AnimationPlayer.play("BarrierHealth.1")
+		$AnimationPlayer.play("Wood_break3")
 		barrier_alive = true
 	elif barrier_health < 0:
 		$AnimationPlayer.play("BarrierHealth.0")
