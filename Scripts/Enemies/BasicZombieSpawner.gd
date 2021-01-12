@@ -14,6 +14,9 @@ export var MINSPAWNTIME = 15
 export var active = true
 
 func _ready():
+	active = false
+	if self.is_in_group("Room1"):
+		active = true
 	$Timer.start()
 
 func _process(delta):
