@@ -235,7 +235,6 @@ func stun():
 	$StunTimer.start()
 
 func _physics_process(delta):
-
 	tick += 1
 	if  path_node < path.size() and not dead:
 		var direction = (path[path_node] - global_transform.origin)
@@ -268,32 +267,20 @@ func _on_Timer_timeout():
 		move_to(Vector3(Player.global_transform.origin.x + rand_range(-random_walking,
 		random_walking), Player.global_transform.origin.y,
 		Player.global_transform.origin.z + rand_range(-random_walking, random_walking)))
-	
-	elif not player_in_range and no_timer_spam == true:
-# warning-ignore:unsafe_method_access
-		$DieTimer.start()
-		no_timer_spam = false
 
 func _on_Area_body_entered(body):
 	if body.is_in_group("Player"):
 		player_in_range = true
 # warning-ignore:unsafe_method_access
-		$DieTimer.stop()
 		no_timer_spam = false
 
 func _on_Area_body_exited(body):
 	if body.is_in_group("Player"):
 		player_in_range = false
-		$DieTimer.set_wait_time(10)
-# warning-ignore:unsafe_method_access
-		$DieTimer.start()
 
 func _on_StunTimer_timeout():
 	stunned = false
 	set_physics_process(true)
-
-func _on_DieTimer_timeout():
-	die()
 
 func _on_AmmoBox_box_collected():
 	queue_free()

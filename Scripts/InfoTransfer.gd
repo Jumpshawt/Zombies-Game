@@ -166,6 +166,7 @@ func update_prices():
 func change_round():
 	spawn_zombies = true
 	round_num += 1
+	money += int(rand_range(100, 500))
 	rounds_survived += 1
 	changing_rounds = true
 
