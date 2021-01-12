@@ -1,39 +1,19 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/Objects/UpgradeMachine.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Environment/Upgradething.tscn" type="PackedScene" id=2]
 
-[sub_resource type="SpatialMaterial" id=1]
-albedo_color = Color( 0.458824, 0.796078, 0.498039, 1 )
-
-[sub_resource type="CubeMesh" id=2]
-material = SubResource( 1 )
-size = Vector3( 4, 2, 1 )
-
-[sub_resource type="CubeMesh" id=3]
-size = Vector3( 0.5, 0.5, 0.5 )
-
-[sub_resource type="BoxShape" id=4]
-extents = Vector3( 1.99655, 1, 0.487741 )
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 1.02781, 0.61695, 0.576665 )
 
 [node name="UpgradeMachine" type="Spatial"]
 script = ExtResource( 1 )
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-mesh = SubResource( 2 )
-material/0 = null
-
-[node name="MeshInstance2" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.08736, 0, 0.632476 )
-mesh = SubResource( 3 )
-material/0 = null
-
-[node name="MeshInstance3" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.04892, 0, 0.632476 )
-mesh = SubResource( 3 )
-material/0 = null
+[node name="Acutal machine " parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.374142, -0.259781 )
 
 [node name="StaticBody" type="StaticBody" parent="."]
 collision_layer = 4
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
-shape = SubResource( 4 )
+shape = SubResource( 1 )
