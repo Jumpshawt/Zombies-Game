@@ -32,7 +32,7 @@ var shotgun_just_shot = false
 #=====ZOMBIE_SPAWNER=====#
 var x = 0
 var y = 100
-export var round_num = 1
+export var round_num = 20
 var zombies_to_spawn = [0, 3, 4, 6, 9, 12, 13, 14, 14, 15,
 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 25, 25, 25, 25, 25,
 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25,

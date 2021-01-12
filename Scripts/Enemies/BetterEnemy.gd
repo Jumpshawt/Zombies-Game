@@ -1,6 +1,6 @@
 extends KinematicBody
 
-export var tickrate = .5
+export var tickrate = 5
 var tick = 1
 onready var nav = $"../../.."
 onready var Player = $"../../../Player"
@@ -229,7 +229,7 @@ func stun():
 	$StunTimer.start()
 
 func _physics_process(delta):
-	look_at(Vector3(Player.global_transform.origin.x, self.global_transform.origin.y, Player.global_transform.origin.z), Vector3.UP)
+
 	tick += 1
 	if  path_node < path.size() and not dead:
 		var direction = (path[path_node] - global_transform.origin)
@@ -240,6 +240,7 @@ func _physics_process(delta):
 			tickratedistance = 1
 		if tick > tickratedistance * infotransfer.zombies_alive / 5:
 			var prev_locat = self.global_transform 
+			look_at(Vector3(Player.global_transform.origin.x, self.global_transform.origin.y, Player.global_transform.origin.z), Vector3.UP)
 			move_and_slide(direction.normalized() * tick * speed)
 			tick = 0
 
