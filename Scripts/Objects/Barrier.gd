@@ -60,8 +60,7 @@ func labelpopup():
 	else:
 		$Control/Label.visible = false
 
-func check_health():
-	
+func check_health():	
 	if barrier_health < (max_health * .75) and state == 3:
 		$AnimationPlayer.play("Wood_break1") 
 		print("playing woodBreak3")
@@ -77,8 +76,8 @@ func check_health():
 		barrier_alive = true
 		print("playing woodBreak1")
 		state = 0
-	elif barrier_health < 0:
-		$AnimationPlayer.play("BarrierHealth.0")
-		barrier_alive = false
-		print("playing woodBreak0")
-		
+#	elif barrier_health < 0:
+#		$AnimationPlayer.play("BarrierHealth.0")
+#		barrier_alive = false
+#		print("playing woodBreak0")
+#
