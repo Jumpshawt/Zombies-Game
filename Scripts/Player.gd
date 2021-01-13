@@ -134,11 +134,11 @@ func _ready():
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
+
 func interact():
 	interactraycast.force_raycast_update()
 	if interactraycast.is_colliding():
 		emit_signal("interactee", interactraycast.get_collider())
-	
 
 func shoot_shotgun():
 	kick_ammount = shotgun_kick_ammount

@@ -8,7 +8,7 @@
 size = Vector3( 0.25, 1, 2 )
 
 [sub_resource type="BoxShape" id=2]
-extents = Vector3( 0.125, 0, 1 )
+extents = Vector3( 0.25, 0.25, 1 )
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 0.1, 1, 1 )
@@ -86,6 +86,18 @@ tracks/4/loop_wrap = true
 tracks/4/imported = true
 tracks/4/enabled = true
 tracks/4/keys = PoolRealArray( 0, 1, 0, 0, 0, 8.29604e-25, -4.5608e-13, 0, 1, 1, 1, 1, 0.416667, 1, 0, 0, 0, 8.29604e-25, -4.5608e-13, 0, 1, 1, 1, 1 )
+tracks/5/type = "value"
+tracks/5/path = NodePath("StaticBody/CollisionShape:translation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -0.617683, 0 ), Vector3( 0, -0.617683, 0 ) ]
+}
 
 [sub_resource type="Animation" id=9]
 length = 0.416667
@@ -124,6 +136,18 @@ tracks/4/loop_wrap = true
 tracks/4/imported = true
 tracks/4/enabled = true
 tracks/4/keys = PoolRealArray( 0, 1, 0, 0, 0, 8.29604e-25, -4.5608e-13, 0, 1, 1, 1, 1, 0.416667, 1, 0, 0, 0, 8.29604e-25, -4.5608e-13, 0, 1, 1, 1, 1 )
+tracks/5/type = "value"
+tracks/5/path = NodePath("StaticBody/CollisionShape:translation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -0.617683, 0 ), Vector3( 0, -0.617683, 0 ) ]
+}
 
 [sub_resource type="Animation" id=10]
 length = 0.416667
@@ -162,6 +186,18 @@ tracks/4/loop_wrap = true
 tracks/4/imported = true
 tracks/4/enabled = true
 tracks/4/keys = PoolRealArray( 0, 1, 0, 0, 0, 8.29604e-25, -4.5608e-13, 0, 1, 1, 1, 1, 0.416667, 1, 0, 0, 0, 8.29604e-25, -4.5608e-13, 0, 1, 1, 1, 1 )
+tracks/5/type = "value"
+tracks/5/path = NodePath("StaticBody/CollisionShape:translation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -0.617683, 0 ), Vector3( 0, -0.617683, 0 ), Vector3( 0, -2.54275, 0 ) ]
+}
 
 [sub_resource type="Animation" id=11]
 length = 0.416667
@@ -200,6 +236,18 @@ tracks/4/loop_wrap = true
 tracks/4/imported = true
 tracks/4/enabled = true
 tracks/4/keys = PoolRealArray( 0, 1, 0, 0, 0, 8.29604e-25, -4.5608e-13, 0, 1, 1, 1, 1, 0.416667, 1, 0, 0, 0, 8.29604e-25, -4.5608e-13, 0, 1, 1, 1, 1 )
+tracks/5/type = "value"
+tracks/5/path = NodePath("StaticBody/CollisionShape:translation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -0.617683, 0 ), Vector3( 0, -0.617683, 0 ) ]
+}
 
 [sub_resource type="Animation" id=12]
 length = 0.416667
@@ -238,6 +286,18 @@ tracks/4/loop_wrap = true
 tracks/4/imported = true
 tracks/4/enabled = true
 tracks/4/keys = PoolRealArray( 0, 1, 0, 0, 0, 8.29604e-25, -4.5608e-13, 0, 1, 1, 1, 1, 0.416667, 1, 0, 0, 0, 8.29604e-25, -4.5608e-13, 0, 1, 1, 1, 1 )
+tracks/5/type = "value"
+tracks/5/path = NodePath("StaticBody/CollisionShape:translation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -0.617683, 0 ), Vector3( 0, -0.617683, 0 ) ]
+}
 
 [sub_resource type="Animation" id=13]
 length = 0.416667
@@ -276,6 +336,18 @@ tracks/4/loop_wrap = true
 tracks/4/imported = true
 tracks/4/enabled = true
 tracks/4/keys = PoolRealArray( 0, 1, 0, 0, 0, 8.29604e-25, -4.5608e-13, 0, 1, 1, 1, 1, 0.416667, 1, 0, 0, 0, 8.29604e-25, -4.5608e-13, 0, 1, 1, 1, 1 )
+tracks/5/type = "value"
+tracks/5/path = NodePath("StaticBody/CollisionShape:translation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -2.39261, 0 ), Vector3( 0, -0.617683, 0 ), Vector3( 0, -0.617683, 0 ) ]
+}
 
 [node name="Barrier" type="Spatial"]
 transform = Transform( 0.256294, 0, 0, 0, 0.256294, 0, 0, 0, 0.256294, 0, 0, 0 )
@@ -288,10 +360,9 @@ material/0 = null
 
 [node name="StaticBody" type="StaticBody" parent="."]
 transform = Transform( 3.90176, 0, 0, 0, 3.90176, 0, 0, 0, 3.90176, 0, 0, 0 )
-collision_layer = 5
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1000.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00147343, -2.54275, 0.00803139 )
 shape = SubResource( 2 )
 
 [node name="StaticBody2" type="StaticBody" parent="."]

@@ -1,6 +1,6 @@
 extends KinematicBody
 
-export var tickrate = 5
+export var tickrate = 7
 var tick = 1
 onready var nav = $"../../.."
 onready var Player = $"../../../Player"
@@ -179,6 +179,7 @@ func player_die():
 			money_earned = int(rand_range(75, 125))
 			infotransfer.money += money_earned
 			infotransfer.total_money_earned += money_earned
+			print("zombies_alive -= 1")
 			infotransfer.zombies_alive -= 1
 			infotransfer.total_damage_dealt += total_health
 			infotransfer.total_zombies_killed += 1
@@ -193,17 +194,11 @@ func player_die():
 			infotransfer.total_money_earned += money_earned
 			infotransfer.total_damage_dealt += total_health
 			infotransfer.zombies_alive -= 1
+			print("zombies_alive -= 1")
 			infotransfer.total_zombies_killed += 1
 			$Zombie_Die.play()
 			yield(get_tree().create_timer(4), "timeout")
 			queue_free()
-
-
-func die():
-# warning-ignore:unsafe_method_access
-	infotransfer.zombies_alive -= 1
-	queue_free()
-	#$AnimationPlayer.play("die")
 
 
 # warning-ignore:unused_argument
@@ -216,6 +211,7 @@ func _process(delta):
 		set_physics_process(false)
 		self.rotation = Vector3(0, self.rotation.y, 0)
 	if health <= 0 and not dead:
+		print("zombie dead")
 		player_die()
 		dead = true
 	if infotransfer.ammo_box_collected and dead:
@@ -241,9 +237,10 @@ func _physics_process(delta):
 		if direction.length() < 1 and not dead:
 			path_node = 2
 		var tickratedistance = tickrate * global_transform.origin.distance_to(Player.global_transform.origin) / 32
+		#print(tickratedistance * infotransfer.zombies_alive / 3)
 		if tickratedistance < 1:
 			tickratedistance = 1
-		if tick > tickratedistance * infotransfer.zombies_alive / 5:
+		if tick > tickratedistance * infotransfer.zombies_alive / 3:
 			var prev_locat = self.global_transform 
 			look_at(Vector3(Player.global_transform.origin.x, self.global_transform.origin.y, Player.global_transform.origin.z), Vector3.UP)
 			move_and_slide(direction.normalized() * tick * speed)
