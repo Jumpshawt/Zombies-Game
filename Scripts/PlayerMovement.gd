@@ -31,10 +31,7 @@ func process_input(delta):
 	if Input.is_action_pressed("D"):
 		input_movement_vector.x = 1
 	if Input.is_action_pressed("sprint") and Input.is_action_pressed("W") and Input.is_action_pressed("S") == false and not crouched:
-		$AnimationPlayer3.play("Sprint")
 		max_speed = 8
-	if Input.is_action_just_released("sprint"):
-		$AnimationPlayer3.stop(true)
 	elif not crouched:
 		max_speed = 6
 	
@@ -92,6 +89,7 @@ func process_input(delta):
 		vel.y = JUMP_SPEED
 
 func process_movement(delta):
+	door_popup()
 	dir.y = 0
 	dir = dir.normalized()
 	
@@ -141,3 +139,9 @@ func _on_RegenTimer_timeout():
 func _on_HeartBeat_finished():
 	if health <= 50:
 		$HeartBeat.play()
+
+signal door_popup()
+
+func door_popup():
+	if interactraycast.is_colliding():
+		emit_signal("door_popup", interactraycast.get_collider())

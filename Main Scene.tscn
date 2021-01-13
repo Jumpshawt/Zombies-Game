@@ -64,6 +64,45 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -39, -3
 [node name="Barrier" parent="Nav/NavigationMeshInstance" instance=ExtResource( 19 )]
 transform = Transform( 0.9, 0, 0, 0, 1, 0, 0, 0, 0.875, 29.798, -1.17997, 0.820045 )
 
+[node name="Barrier2" parent="Nav/NavigationMeshInstance" instance=ExtResource( 19 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.725, 40.1427, -1.56266, 26.0026 )
+
+[node name="Barrier3" parent="Nav/NavigationMeshInstance" instance=ExtResource( 19 )]
+transform = Transform( -1, 0, -6.33815e-08, 0, 1, 0, 8.74228e-08, 0, -0.725, 9.26417, -1.56266, 12.2017 )
+
+[node name="Barrier4" parent="Nav/NavigationMeshInstance" instance=ExtResource( 19 )]
+transform = Transform( 1.31134e-07, 0, -0.725, 0, 1, 0, 1, 0, 9.50723e-08, -35.3933, -1.56266, 5.48702 )
+
+[node name="Barrier5" parent="Nav/NavigationMeshInstance" instance=ExtResource( 19 )]
+transform = Transform( 1.31134e-07, 0, -0.725, 0, 1, 0, 1, 0, 9.50723e-08, -23.806, -11.057, -4.54749 )
+
+[node name="Barrier6" parent="Nav/NavigationMeshInstance" instance=ExtResource( 19 )]
+transform = Transform( 1, 0, 1.20643e-07, 0, 1, 0, -1.74846e-07, 0, 0.69, -0.0142643, -7.85754, -29.191 )
+
+[node name="Barrier7" parent="Nav/NavigationMeshInstance" instance=ExtResource( 19 )]
+transform = Transform( 1, 0, 1.20643e-07, 0, 1, 0, -1.74846e-07, 0, 0.69, -40.7017, 0.694017, 19.63 )
+
+[node name="Barrier8" parent="Nav/NavigationMeshInstance" instance=ExtResource( 19 )]
+transform = Transform( -1, 0, -1.43446e-07, 0, 1, 0, 1.50996e-07, 0, -0.95, -60.4134, 2.42701, 21.6294 )
+
+[node name="Barrier9" parent="Nav/NavigationMeshInstance" instance=ExtResource( 19 )]
+transform = Transform( -1, 0, -1.05697e-07, 0, 1, 0, 1.50996e-07, 0, -0.7, -60.0609, 1.79797, 42.88 )
+
+[node name="Barrier10" parent="Nav/NavigationMeshInstance" instance=ExtResource( 19 )]
+transform = Transform( 1.94707e-07, 0, -0.72, 0, 1, 0, 1, 0, 1.40189e-07, -44.1345, 1.79797, 66.6894 )
+
+[node name="Barrier11" parent="Nav/NavigationMeshInstance" instance=ExtResource( 19 )]
+transform = Transform( -1, 0, -1.08717e-07, 0, 1, 0, 1.50996e-07, 0, -0.72, -54.5751, -2.0382, 116.544 )
+
+[node name="Barrier12" parent="Nav/NavigationMeshInstance" instance=ExtResource( 19 )]
+transform = Transform( 1.94707e-07, 0, -0.85, 0, 1, 0, 1, 0, 1.65501e-07, -9.16115, -2.0382, 124.553 )
+
+[node name="Barrier13" parent="Nav/NavigationMeshInstance" instance=ExtResource( 19 )]
+transform = Transform( 1, 0, 1.71661e-07, 0, 1, 0, -2.38419e-07, 0, 0.72, 47.949, -2.0382, 85.4386 )
+
+[node name="Barrier14" parent="Nav/NavigationMeshInstance" instance=ExtResource( 19 )]
+transform = Transform( -2.8213e-07, 0, 0.72, 0, 1, 0, -1, 0, -2.03134e-07, 33.3893, -2.0382, 66.251 )
+
 [node name="HordeSpawner" parent="Nav/NavigationMeshInstance" instance=ExtResource( 18 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -31.4989, -11.6317, 13.6869 )
 
