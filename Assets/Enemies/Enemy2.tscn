@@ -126,6 +126,8 @@ stream = ExtResource( 3 )
 stream = ExtResource( 4 )
 volume_db = -10.0
 pitch_scale = 1.5
+
+[node name="RayCast" type="RayCast" parent="."]
 [connection signal="attack1" from="." to="Full" method="_on_Enemy_attack1"]
 [connection signal="attack2" from="." to="Full" method="_on_Enemy_attack2"]
 [connection signal="backwards_death" from="." to="Full" method="_on_Enemy_backwards_death"]
@@ -137,8 +139,6 @@ pitch_scale = 1.5
 [connection signal="body_exited" from="Area" to="." method="_on_Area_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="StunTimer" to="." method="_on_StunTimer_timeout"]
-[connection signal="timeout" from="DieTimer" to="." method="_on_DieTimer_timeout"]
-[connection signal="timeout" from="AmmoBoxTimer" to="." method="_on_AmmoBoxTimer_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
 [connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
 [connection signal="body_entered" from="AttackArea" to="." method="_on_AttackArea_body_entered"]
