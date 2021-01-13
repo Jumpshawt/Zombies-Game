@@ -360,10 +360,9 @@ material/0 = null
 
 [node name="StaticBody" type="StaticBody" parent="."]
 transform = Transform( 3.90176, 0, 0, 0, 3.90176, 0, 0, 0, 3.90176, 0, 0, 0 )
-collision_layer = 5
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.54275, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00147343, -2.54275, 0.00803139 )
 shape = SubResource( 2 )
 
 [node name="StaticBody2" type="StaticBody" parent="."]

@@ -76,6 +76,22 @@ func check_health():
 		barrier_alive = true
 		print("playing woodBreak1")
 		state = 0
+	if zombies_in_area == 0:
+		if barrier_health < (max_health * .75) and state == 3 and Input.is_action_pressed("interact"):
+			$AnimationPlayer.play("Wood_break1" , -1, -1, true) 
+			print("playing woodBreak3")
+			barrier_alive = true
+			state = 2 
+		if barrier_health < (max_health * .5) and state == 2 and Input.is_action_pressed("interact"):
+			$AnimationPlayer.play("Wood_break2", -1, -1, true)
+			print("playing woodBreak2")
+			barrier_alive = true
+			state = 1
+		if barrier_health < (max_health * .25) and state == 1 and Input.is_action_pressed("interact"):
+			$AnimationPlayer.play("Wood_break3", -1, -1, true)
+			barrier_alive = true
+			print("playing woodBreak1")
+			state = 0
 #	elif barrier_health < 0:
 #		$AnimationPlayer.play("BarrierHealth.0")
 #		barrier_alive = false

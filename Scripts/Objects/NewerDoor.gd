@@ -8,6 +8,7 @@ var open : bool = false
 var things_in_area : int = 0
 
 func _ready():
+	$AudioStreamPlayer3D.set_unit_db(-10)
 	$AnimationPlayer.set_speed_scale(0.5)
 	$Control/NotEnoughMoney.visible = false
 	$Control/DoorPopup.visible = false
