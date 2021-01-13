@@ -32,7 +32,7 @@ var shotgun_just_shot = false
 #=====ZOMBIE_SPAWNER=====#
 var x = 0
 var y = 100
-export var round_num = 20
+export var round_num = 1#20
 var zombies_to_spawn = [0, 3, 4, 6, 9, 12, 13, 14, 14, 15,
 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 25, 25, 25, 25, 25,
 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25,
@@ -76,6 +76,15 @@ var total_money_earned = 0
 var total_hours_taken = 0
 var total_mins_taken = 0
 var total_seconds_taken = 0
+
+#=====Doors=====#
+var Room1Open = true
+var Room2Open = false
+var Room3Open = false
+var Room4Open = false
+var Room5Open = false
+var Room6Open = false
+
 
 #=====ACTUAL_CODE=====#
 func _ready():

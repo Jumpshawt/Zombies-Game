@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://Scripts/PlayerMovement.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Guns/GoodShotgun.tscn" type="PackedScene" id=2]
@@ -32,7 +32,7 @@
 [ext_resource path="res://Sounds/Grunting-from-Being-Hit-A1-www.fesliyanstudios.com.wav" type="AudioStream" id=30]
 
 [sub_resource type="CapsuleShape" id=1]
-height = 3.0
+height = 1.8
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 1, 0.762568, 1 )
@@ -164,6 +164,23 @@ tracks/2/keys = {
 "values": [ Vector3( 0, -1.5, 0 ), Vector3( 0, 0, 0 ) ]
 }
 
+[sub_resource type="Animation" id=10]
+resource_name = "Sprint"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Rotation_Helper/Camera:translation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0.841964, 0 ), Vector3( 0.1, 0.792406, 0 ), Vector3( 0.2, 0.842, 0 ), Vector3( 0.1, 0.792406, 0 ), Vector3( 0, 0.841964, 0 ) ]
+}
+
 [node name="Player" type="KinematicBody" groups=[
 "Player",
 ]]
@@ -171,7 +188,7 @@ collision_mask = 9
 script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.598477, 0 )
 shape = SubResource( 1 )
 
 [node name="CollisionShape2" type="CollisionShape" parent="."]
@@ -185,6 +202,7 @@ collision_mask = 2
 collide_with_areas = true
 
 [node name="Rotation_Helper" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.2, 0 )
 
 [node name="InteractRaycast" type="RayCast" parent="Rotation_Helper"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.860374, -0.0766677 )
@@ -539,6 +557,9 @@ anims/Hitmarker = ExtResource( 26 )
 anims/Idle = SubResource( 8 )
 anims/UnCrouch = SubResource( 9 )
 
+[node name="AnimationPlayer3" type="AnimationPlayer" parent="."]
+anims/Sprint = SubResource( 10 )
+
 [node name="PistolReloadTimer" type="Timer" parent="."]
 pause_mode = 1
 wait_time = 1.542
@@ -579,14 +600,14 @@ stream = ExtResource( 29 )
 [node name="Ouch" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 30 )
 [connection signal="body_entered" from="PickupArea" to="." method="_on_PickupArea_body_entered"]
-[connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="." method="_on_Label_need_to_reload"]
 [connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/Camera/Pistol" method="_on_Label_need_to_reload"]
-[connection signal="no_ammo" from="Control/PistolAmmo/Label" to="." method="_on_Label_no_ammo"]
+[connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="." method="_on_Label_need_to_reload"]
 [connection signal="no_ammo" from="Control/PistolAmmo/Label" to="Rotation_Helper/Camera/Pistol" method="_on_Label_no_ammo"]
+[connection signal="no_ammo" from="Control/PistolAmmo/Label" to="." method="_on_Label_no_ammo"]
 [connection signal="no_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/Camera/Pistol" method="_on_Label_no_reload"]
 [connection signal="dont_need_to_reload_no_more" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Camera/Rifle" method="_on_Label3_dont_need_to_reload_no_more"]
-[connection signal="need_to_reload" from="Control/RifleAmmo/Label3" to="." method="_on_Label3_need_to_reload"]
 [connection signal="need_to_reload" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Camera/Rifle" method="_on_Label3_need_to_reload"]
+[connection signal="need_to_reload" from="Control/RifleAmmo/Label3" to="." method="_on_Label3_need_to_reload"]
 [connection signal="no_ammo" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Camera/Rifle" method="_on_Label3_no_ammo"]
 [connection signal="out_of_reserve_ammo" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Camera/Shotgun" method="_on_Label4_out_of_reserve_ammo"]
 [connection signal="shoot" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Camera/Shotgun" method="_on_Label4_shoot"]

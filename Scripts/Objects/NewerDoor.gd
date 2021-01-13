@@ -1,5 +1,7 @@
 extends Spatial
 
+onready var infotransfer = $"/root/InfoTransfer"
+
 #=====Door Stuff=====#
 var unlocked : bool = false
 var open : bool = false
@@ -14,6 +16,20 @@ func handle_interacted(object):
 	if object == $StaticBody and not unlocked:
 		$AnimationPlayer.play("door1_open")
 		unlocked = true
+
+func open_rooms():
+	if self.is_in_group("Room1"):
+		infotransfer.Room1Open = true
+	if self.is_in_group("Room2"):
+		infotransfer.Room2Open = true
+	if self.is_in_group("Room3"):
+		infotransfer.Room3Open = true
+	if self.is_in_group("Room4"):
+		infotransfer.Room4Open = true
+	if self.is_in_group("Room5"):
+		infotransfer.Room5Open = true
+	if self.is_in_group("Room6"):
+		infotransfer.Room6Open = true
 
 func _process(_delta):
 	open_and_close()
