@@ -10,11 +10,6 @@ func _ready():
 	hand.set_as_toplevel(true)
 	pass
 
-
-
-
-
-
 func _process(delta):
 	hand.global_transform.origin = handloc.global_transform.origin
 	hand.rotation.y = lerp_angle(hand.rotation.y, rotation.y, SWAY * delta)
@@ -33,6 +28,7 @@ func _input(event):
 func process_input(delta):
 	if Input.is_action_just_pressed("shoot") and infotransfer.gun_state == "shotgun" and shotgunammo.ammo_loaded >= 1 and shotgun_able_to_shoot:
 		shoot_shotgun()
+
 
 	dir = Vector3()
 	var cam_xform = camera.get_global_transform()

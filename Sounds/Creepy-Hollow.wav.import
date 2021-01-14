@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Creepy-Hollow.wav-52d4fa14da55f169c7a00d48814fe714.sample"
+
+[deps]
+
+source_file="res://Sounds/Creepy-Hollow.wav"
+dest_files=[ "res://.import/Creepy-Hollow.wav-52d4fa14da55f169c7a00d48814fe714.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
