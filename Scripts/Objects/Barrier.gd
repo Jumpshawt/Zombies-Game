@@ -55,7 +55,7 @@ func _on_ZombieArea_body_exited(body):
 func update_health(delta2):
 	#Check if zombies are near the barrier if they are reduce the health of barrier, 
 	if zombies_in_area > 0:
-		barrier_health -= (10 * zombies_in_area) * delta2
+		barrier_health -= (7.5 * zombies_in_area) * delta2
 	#Player repairing barrier 
 	if player_in_area == true and Input.is_action_pressed("interact"):
 		is_repairing = true

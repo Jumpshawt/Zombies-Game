@@ -75,7 +75,7 @@ func _on_InteractArea_body_exited(body):
 
 func _on_CloseTimer_timeout():
 	$AnimationPlayer.play("door1_open", -1, -1, true)
-	#$AudioStreamPlayer3D.play()
+	$Door_Close.play()
 	open = false
 
 

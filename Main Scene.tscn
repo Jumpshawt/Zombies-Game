@@ -106,8 +106,30 @@ transform = Transform( 1, 0, 1.71661e-07, 0, 1, 0, -2.38419e-07, 0, 0.72, 47.949
 [node name="Barrier14" parent="Nav/NavigationMeshInstance" instance=ExtResource( 19 )]
 transform = Transform( -2.8213e-07, 0, 0.72, 0, 1, 0, -1, 0, -2.03134e-07, 33.3893, -2.0382, 66.251 )
 
-[node name="HordeSpawner" parent="Nav/NavigationMeshInstance" instance=ExtResource( 18 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -31.4989, -11.6317, 13.6869 )
+[node name="HordeSpawner" parent="Nav/NavigationMeshInstance" groups=[
+"Room1",
+] instance=ExtResource( 18 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -31.4989, -13.4003, 11.828 )
+
+[node name="HordeSpawner2" parent="Nav/NavigationMeshInstance" groups=[
+"Room2",
+] instance=ExtResource( 18 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 44.4672, -4.45608, 12.2552 )
+
+[node name="HordeSpawner3" parent="Nav/NavigationMeshInstance" groups=[
+"Room5",
+] instance=ExtResource( 18 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 51.8079, -4.45608, 69.474 )
+
+[node name="HordeSpawner4" parent="Nav/NavigationMeshInstance" groups=[
+"Room4",
+] instance=ExtResource( 18 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20.8113, -4.45608, 129.789 )
+
+[node name="HordeSpawner5" parent="Nav/NavigationMeshInstance" groups=[
+"Room3",
+] instance=ExtResource( 18 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -58.1242, -0.0784615, 73.1324 )
 
 [node name="Zombie Spawner" parent="Nav/NavigationMeshInstance" groups=[
 "Room1",
@@ -121,61 +143,73 @@ transform = Transform( 0.962028, -1.4571e-08, -0.272971, -0.00478485, 0.999851, 
 "Room3",
 ] instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -81.5114, -0.186139, 6.04201 )
+active = false
 
 [node name="Zombie Spawner6" parent="Nav/NavigationMeshInstance" groups=[
 "Room3",
 ] instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -65.9073, -0.186139, 52.2442 )
+active = false
 
 [node name="Zombie Spawner3" parent="Nav/NavigationMeshInstance" groups=[
 "Room2",
 ] instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.2072, -4.06263, -24.0153 )
+active = false
 
 [node name="Zombie Spawner7" parent="Nav/NavigationMeshInstance" groups=[
 "Room2",
 ] instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 42.2204, -4.06263, 12.2349 )
+active = false
 
 [node name="Zombie Spawner8" parent="Nav/NavigationMeshInstance" groups=[
 "Room2",
 ] instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 42.8089, -4.06263, 34.4705 )
+active = false
 
 [node name="Zombie Spawner4" parent="Nav/NavigationMeshInstance" groups=[
 "Room1",
 ] instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -32.6538, -13.5296, 9.54484 )
+active = false
 
 [node name="Zombie Spawner12" parent="Nav/NavigationMeshInstance" groups=[
 "Room1",
 ] instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -28.4604, -4.35681, 11.0887 )
+active = false
 
 [node name="Zombie Spawner5" parent="Nav/NavigationMeshInstance" groups=[
 "Room3",
 ] instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -63.1727, -0.361291, 74.0132 )
+active = false
 
 [node name="Zombie Spawner9" parent="Nav/NavigationMeshInstance" groups=[
 "Room4",
 ] instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 0.99999, -0.00446803, 0, 0.00446803, 0.99999, -59.3714, -4.2042, 135.809 )
+active = false
 
 [node name="Zombie Spawner10" parent="Nav/NavigationMeshInstance" groups=[
 "Room4",
 ] instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 0.99999, -0.00446803, 0, 0.00446803, 0.99999, 1.42535, -4.2042, 129.371 )
+active = false
 
 [node name="Zombie Spawner11" parent="Nav/NavigationMeshInstance" groups=[
 "Room5",
 ] instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 0.99999, -0.00446803, 0, 0.00446803, 0.99999, 52.2638, -4.2042, 96.1424 )
+active = false
 
 [node name="Zombie Spawner13" parent="Nav/NavigationMeshInstance" groups=[
 "Room5",
 ] instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 0.99999, -0.00446803, 0, 0.00446803, 0.99999, 40.8734, -4.2042, 62.8574 )
+active = false
 
 [node name="Door" parent="Nav/NavigationMeshInstance" groups=[
 "Room1",
