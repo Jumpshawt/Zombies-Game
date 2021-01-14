@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://Scripts/PlayerMovement.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Guns/GoodShotgun.tscn" type="PackedScene" id=2]
@@ -81,10 +81,12 @@ shader_param/offset = 1.641
 material = SubResource( 4 )
 size = Vector2( 1.783, 1 )
 
-[sub_resource type="BoxShape" id=6]
+[sub_resource type="CubeMesh" id=6]
+
+[sub_resource type="BoxShape" id=7]
 extents = Vector3( 1.779, 1.945, 1.742 )
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("CollisionShape:translation")
@@ -123,9 +125,9 @@ tracks/2/keys = {
 "values": [ 3.0, 1.5 ]
 }
 
-[sub_resource type="Animation" id=8]
-
 [sub_resource type="Animation" id=9]
+
+[sub_resource type="Animation" id=10]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("CollisionShape:shape:height")
@@ -202,9 +204,6 @@ far = 500.0
 
 [node name="Shotgun" parent="Rotation_Helper/Camera" instance=ExtResource( 2 )]
 transform = Transform( -1.22023e-07, 6.39496e-09, 0.75, 0.039252, 0.748972, 0, -0.748972, 0.039252, -1.22191e-07, 0.555128, -0.547244, -0.689429 )
-
-[node name="Pistol" parent="Rotation_Helper/Camera" instance=ExtResource( 3 )]
-transform = Transform( -3.78364e-08, -3.53163e-08, 1, 0.0591495, 0.998249, 3.74924e-08, -0.998249, 0.0591495, -3.56812e-08, -0.389, -1.77549, 0.721752 )
 
 [node name="Rifle" parent="Rotation_Helper/Camera" instance=ExtResource( 4 )]
 transform = Transform( -1.89276e-08, 1.09278e-08, 0.5, 0.25, 0.433013, 1.5558e-14, -0.433013, 0.25, -2.18557e-08, 1.20726, -0.15297, -0.998107 )
@@ -290,6 +289,25 @@ collide_with_areas = true
 transform = Transform( 1.0025, 0, 0, 0, 1.0025, 0, 0, 0, 1.0025, -0.00563608, -5.96046e-08, -0.497982 )
 mesh = SubResource( 5 )
 
+[node name="HandLoc" type="Spatial" parent="Rotation_Helper"]
+transform = Transform( -0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, -0.25, 0.621872, 0.171869, -0.993432 )
+
+[node name="Hand" type="Spatial" parent="Rotation_Helper/HandLoc"]
+
+[node name="Pistol" parent="Rotation_Helper/HandLoc/Hand" instance=ExtResource( 3 )]
+transform = Transform( -6.51683e-07, 0, -4, 0, 4, 0, 4, 0, -6.51683e-07, 4.04349, -4.42158, -6.86074 )
+
+[node name="Armature002" parent="Rotation_Helper/HandLoc/Hand/Pistol" index="3"]
+transform = Transform( 0, 4.37113e-06, 100, -1.77636e-13, 100, -4.37113e-06, -100, 0, 0, 0.311477, -1.03852, 0.186095 )
+
+[node name="Armature" parent="Rotation_Helper/HandLoc/Hand/Pistol" index="4"]
+transform = Transform( 19.4316, 0, 25.6151, -25.6151, 1.91638e-06, 19.4316, 0, -32.1515, 1.91638e-06, 1.56603, 1.51357, 1.00149 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Rotation_Helper/HandLoc/Hand"]
+transform = Transform( 0.697, 0, 2.47547e-07, 0, 0.649, 0, -1.00665e-07, 0, 1.714, 0, 1.38092, 0 )
+mesh = SubResource( 6 )
+material/0 = null
+
 [node name="Knife" parent="Rotation_Helper" instance=ExtResource( 5 )]
 transform = Transform( -0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, -0.25, 0.621872, 0.522834, -1.07371 )
 
@@ -305,7 +323,7 @@ collision_layer = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="PickupArea"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.701089, 0 )
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="Control" type="Control" parent="."]
 pause_mode = 2
@@ -535,10 +553,10 @@ __meta__ = {
 anims/Hitmarker = ExtResource( 26 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Crouch = SubResource( 7 )
+anims/Crouch = SubResource( 8 )
 anims/Hitmarker = ExtResource( 26 )
-anims/Idle = SubResource( 8 )
-anims/UnCrouch = SubResource( 9 )
+anims/Idle = SubResource( 9 )
+anims/UnCrouch = SubResource( 10 )
 
 [node name="PistolReloadTimer" type="Timer" parent="."]
 pause_mode = 1
@@ -581,13 +599,13 @@ stream = ExtResource( 29 )
 stream = ExtResource( 30 )
 [connection signal="body_entered" from="PickupArea" to="." method="_on_PickupArea_body_entered"]
 [connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="." method="_on_Label_need_to_reload"]
-[connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/Camera/Pistol" method="_on_Label_need_to_reload"]
+[connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/HandLoc/Hand/Pistol" method="_on_Label_need_to_reload"]
 [connection signal="no_ammo" from="Control/PistolAmmo/Label" to="." method="_on_Label_no_ammo"]
-[connection signal="no_ammo" from="Control/PistolAmmo/Label" to="Rotation_Helper/Camera/Pistol" method="_on_Label_no_ammo"]
-[connection signal="no_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/Camera/Pistol" method="_on_Label_no_reload"]
+[connection signal="no_ammo" from="Control/PistolAmmo/Label" to="Rotation_Helper/HandLoc/Hand/Pistol" method="_on_Label_no_ammo"]
+[connection signal="no_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/HandLoc/Hand/Pistol" method="_on_Label_no_reload"]
 [connection signal="dont_need_to_reload_no_more" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Camera/Rifle" method="_on_Label3_dont_need_to_reload_no_more"]
-[connection signal="need_to_reload" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Camera/Rifle" method="_on_Label3_need_to_reload"]
 [connection signal="need_to_reload" from="Control/RifleAmmo/Label3" to="." method="_on_Label3_need_to_reload"]
+[connection signal="need_to_reload" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Camera/Rifle" method="_on_Label3_need_to_reload"]
 [connection signal="no_ammo" from="Control/RifleAmmo/Label3" to="Rotation_Helper/Camera/Rifle" method="_on_Label3_no_ammo"]
 [connection signal="out_of_reserve_ammo" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Camera/Shotgun" method="_on_Label4_out_of_reserve_ammo"]
 [connection signal="shoot" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/Camera/Shotgun" method="_on_Label4_shoot"]
@@ -604,3 +622,5 @@ stream = ExtResource( 30 )
 [connection signal="timeout" from="HalfSecond Timer" to="Control/ShotgunAmmo/Label4" method="_on_HalfSecond_Timer_timeout"]
 [connection signal="timeout" from="RegenTimer" to="." method="_on_RegenTimer_timeout"]
 [connection signal="finished" from="HeartBeat" to="." method="_on_HeartBeat_finished"]
+
+[editable path="Rotation_Helper/HandLoc/Hand/Pistol"]

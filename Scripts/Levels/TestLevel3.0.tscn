@@ -588,6 +588,7 @@ data = PoolVector3Array( -4.1418, 0.5533, -2.5399, -4.1711, 3.6332, -2.5692, -4.
 
 [node name="GIProbe" parent="." instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, -1, 5.7146, -8.19843, 47.6 )
+visible = false
 
 [node name="CSGBox" type="CSGBox" parent="."]
 transform = Transform( 0.0397852, -0.000564813, 0.999207, 0.0195445, 0.999807, -0.000213176, -0.999017, 0.019537, 0.0397883, -24.659, 53.8037, -34.597 )

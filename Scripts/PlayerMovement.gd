@@ -1,9 +1,24 @@
 extends "res://Scripts/Player.gd"
 
+#gun sway variables 
+const SWAY = 30 
+onready var head = $Rotation_Helper
+onready var hand = $Rotation_Helper/HandLoc/Hand
+onready var handloc = $Rotation_Helper/HandLoc
+
 func _ready():
+	hand.set_as_toplevel(true)
 	pass
 
-func _process(_delta):
+
+
+
+
+
+func _process(delta):
+	hand.global_transform.origin = handloc.global_transform.origin
+	hand.rotation.y = lerp_angle(hand.rotation.y, rotation.y, SWAY * delta)
+	hand.rotation.x = lerp_angle(hand.rotation.x, head.rotation.x, SWAY * delta)
 	player_hit()
 
 func _input(event):

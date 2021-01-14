@@ -308,7 +308,7 @@ func reset_camera_rotation():
 		#add velocity 
 		
 		if infotransfer.gun_state == "pistol":
-			$Rotation_Helper/Camera/Pistol.rotation.x = velocity * 2
+			$Rotation_Helper/HandLoc/Hand/Pistol.rotation.x = velocity * 2
 		if infotransfer.gun_state == "rifle":
 			$Rotation_Helper/Camera/Rifle.rotation.x = velocity * 2
 		if infotransfer.gun_state == "shotgun":

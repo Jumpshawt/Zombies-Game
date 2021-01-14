@@ -181,7 +181,7 @@ transform = Transform( 1, 0, 0, 0, 0.99999, -0.00446803, 0, 0.00446803, 0.99999,
 "Room1",
 "Room2",
 ] instance=ExtResource( 4 )]
-transform = Transform( -1.96701e-07, 0, 4.5, 0, 4.5, 0, -4.5, 0, -1.96701e-07, 1.00672, -4.30458, 0.843889 )
+transform = Transform( -1.96701e-07, 0, 4.5, 0, 4.5, 0, -4.5, 0, -1.96701e-07, 1.00672, -4.59184, 0.843889 )
 
 [node name="Door2" parent="Nav/NavigationMeshInstance" groups=[
 "Room1",
@@ -211,7 +211,7 @@ transform = Transform( 4.5, 0, 0, 0, 4.5, 0, 0, 0, 4.5, 14.7134, -4.33971, 103.3
 transform = Transform( -4.5, 0, -3.93403e-07, 0, 4.5, 0, 3.93403e-07, 0, -4.5, 14.7134, -4.25931, 36.1555 )
 
 [node name="Player" parent="Nav" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 1.33176, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14, -0.95242, 0 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 2 )
