@@ -44,7 +44,6 @@ func _input(event):
 		if Input.is_action_just_pressed("shoot") and able_to_shoot and ammo_loaded > 0 and infotransfer.game_paused == false:
 			shotguntimer.start()
 			emit_signal("shoot")
-			ammo_loaded -= 1
 			able_to_shoot = false
 			able_to_reload = false
 			reloading = false
@@ -106,4 +105,4 @@ func _on_HalfSecond_Timer_timeout():
 
 
 func _on_Player_shotgun_ammo():
-	reserve_ammo += int(rand_range(7,14))
+	reserve_ammo += int(rand_range(14,21))

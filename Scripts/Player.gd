@@ -143,6 +143,7 @@ func interact():
 func shoot_shotgun():
 	kick_ammount = shotgun_kick_ammount
 	velocity = kick_ammount
+	shotgunammo.ammo_loaded -= 1 
 	for r in raycontainer.get_children():
 		var b = bullet_decal.instance()
 		var s = blood_splatter.instance()
@@ -191,31 +192,32 @@ func shoot_rifle():
 		rifle_raycast.force_raycast_update()
 		var b = bullet_decal.instance()
 		var s = blood_splatter.instance()
-		if rifle_raycast.is_colliding():
-			if rifle_spread == false:
-				rifle_raycast.cast_to = rifle_original_spread
-				rifle_spread = true
-			elif rifle_spread == true:
-				yield(get_tree().create_timer(0.1), "timeout")
-				if x <= 1:
-					kick_ammount = rifle_kick_ammount
-					velocity += kick_ammount / (2 * camera.rotation.x + 1)
-				#camera.rotation.x = camera.rotation.x + rand_range(-rcs,rcs)
-					rifle_raycast.cast_to.x = rand_range(-rifle_spread_amount, rifle_spread_amount)
-					rifle_raycast.cast_to.y = rand_range(-rifle_spread_amount, rifle_spread_amount)
+		if not rifle_raycast.get_collider() == null:
 			if rifle_raycast.is_colliding():
-				if not rifle_raycast.get_collider().is_in_group("Enemy"):
-					rifle_raycast.get_collider().add_child(b)
-					emit_signal("bullet_hole_collider", rifle_raycast.get_collider())
-					if rifle_raycast.get_collider().is_in_group("Enemy"):
-						rifle_raycast.get_collider().add_child(s)
-						s.global_transform.origin = rifle_raycast.get_collision_point()
-				b.global_transform.origin = rifle_raycast.get_collision_point()
-				b.look_at(raycast.get_collision_point() + raycast.get_collision_normal()* 100, Vector3.DOWN)
-			emit_signal("rifle_damage", rifle_raycast.get_collider())
-		elif not rifle_raycast.is_colliding() and x <= 1:
-			kick_ammount = rifle_kick_ammount
-			velocity += kick_ammount / (2 * camera.rotation.x + 1)
+				if rifle_spread == false:
+					rifle_raycast.cast_to = rifle_original_spread
+					rifle_spread = true
+				elif rifle_spread == true:
+					yield(get_tree().create_timer(0.1), "timeout")
+					if x <= 1:
+						kick_ammount = rifle_kick_ammount
+						velocity += kick_ammount / (2 * camera.rotation.x + 1)
+					#camera.rotation.x = camera.rotation.x + rand_range(-rcs,rcs)
+						rifle_raycast.cast_to.x = rand_range(-rifle_spread_amount, rifle_spread_amount)
+						rifle_raycast.cast_to.y = rand_range(-rifle_spread_amount, rifle_spread_amount)
+				if rifle_raycast.is_colliding():
+					if not rifle_raycast.get_collider().is_in_group("Enemy"):
+						rifle_raycast.get_collider().add_child(b)
+						emit_signal("bullet_hole_collider", rifle_raycast.get_collider())
+						if rifle_raycast.get_collider().is_in_group("Enemy"):
+							rifle_raycast.get_collider().add_child(s)
+							s.global_transform.origin = rifle_raycast.get_collision_point()
+					b.global_transform.origin = rifle_raycast.get_collision_point()
+					b.look_at(raycast.get_collision_point() + raycast.get_collision_normal()* 100, Vector3.DOWN)
+				emit_signal("rifle_damage", rifle_raycast.get_collider())
+			elif not rifle_raycast.is_colliding() and x <= 1:
+				kick_ammount = rifle_kick_ammount
+				velocity += kick_ammount / (2 * camera.rotation.x + 1)
 
 func handle_blood_splatter():
 	if infotransfer.blood_splatter:

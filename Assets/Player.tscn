@@ -297,9 +297,6 @@ transform = Transform( 4.36933e-07, -1.00176e-06, -3, 0.157008, 2.99589, -9.7752
 [node name="Pistol" parent="Rotation_Helper/HandLoc/Hand" instance=ExtResource( 3 )]
 transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 6.27576, -6.00181, 5.71607 )
 
-[node name="Armature002" parent="Rotation_Helper/HandLoc/Hand/Pistol/Spatial" index="0"]
-transform = Transform( 0, 4.37113e-06, 100, -1.77636e-13, 100, -4.37113e-06, -100, 0, 0, 0.311477, -1.03852, 0.186095 )
-
 [node name="MeshInstance" type="MeshInstance" parent="Rotation_Helper/HandLoc/Hand"]
 transform = Transform( 0.697, 0, 2.47547e-07, 0, 0.649, 0, -1.00665e-07, 0, 1.714, 0, 1.38092, 0 )
 visible = false
@@ -610,14 +607,14 @@ stream = ExtResource( 30 )
 [connection signal="out_of_reserve_ammo" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/HandLoc/Hand/Shotgun" method="_on_Label4_out_of_reserve_ammo"]
 [connection signal="shoot" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/HandLoc/Hand/Shotgun" method="_on_Label4_shoot"]
 [connection signal="spin" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/HandLoc/Hand/Shotgun" method="_on_Label4_spin"]
-[connection signal="timeout" from="PistolReloadTimer" to="." method="_on_PistolReloadTimer_timeout"]
 [connection signal="timeout" from="PistolReloadTimer" to="Control/PistolAmmo/Label" method="_on_PistolReloadTimer_timeout"]
-[connection signal="timeout" from="RifleReloadTimer" to="." method="_on_RifleReloadTimer_timeout"]
+[connection signal="timeout" from="PistolReloadTimer" to="." method="_on_PistolReloadTimer_timeout"]
 [connection signal="timeout" from="RifleReloadTimer" to="Control/RifleAmmo/Label3" method="_on_RifleReloadTimer_timeout"]
-[connection signal="timeout" from="ShotgunShootTimer" to="." method="_on_ShotgunShootTimer_timeout"]
+[connection signal="timeout" from="RifleReloadTimer" to="." method="_on_RifleReloadTimer_timeout"]
 [connection signal="timeout" from="ShotgunShootTimer" to="Control/ShotgunAmmo/Label4" method="_on_ShotgunShootTimer_timeout"]
-[connection signal="timeout" from="RifleSpreadTimer" to="." method="_on_RifleSpreadTimer_timeout"]
+[connection signal="timeout" from="ShotgunShootTimer" to="." method="_on_ShotgunShootTimer_timeout"]
 [connection signal="timeout" from="RifleSpreadTimer" to="Control/RifleAmmo/Label3" method="_on_RifleSpreadTimer_timeout"]
+[connection signal="timeout" from="RifleSpreadTimer" to="." method="_on_RifleSpreadTimer_timeout"]
 [connection signal="timeout" from="KnifeStabTimer" to="." method="_on_KnifeStabTimer_timeout"]
 [connection signal="timeout" from="HalfSecond Timer" to="Control/ShotgunAmmo/Label4" method="_on_HalfSecond_Timer_timeout"]
 [connection signal="timeout" from="RegenTimer" to="." method="_on_RegenTimer_timeout"]
