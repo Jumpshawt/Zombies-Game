@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Objects/PistolMachine.gd" type="Script" id=1]
 [ext_resource path="res://3D Model Imports/wallbuyforpistol.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Fonts/Black Ops One.theme" type="Theme" id=3]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1.8861, 0.800718, 0.113817 )
@@ -17,3 +18,34 @@ collision_layer = 4
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 shape = SubResource( 1 )
+
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control"]
+margin_left = 706.114
+margin_top = 672.574
+margin_right = 1373.11
+margin_bottom = 881.574
+theme = ExtResource( 3 )
+text = "E to buy 120 Ammo
+Cost = 500"
+
+[node name="Label2" type="Label" parent="Control"]
+margin_left = 679.408
+margin_top = 803.225
+margin_right = 1383.41
+margin_bottom = 861.225
+theme = ExtResource( 3 )
+text = "Not enough Money!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelTimer" type="Timer" parent="."]
+one_shot = true
+[connection signal="timeout" from="LabelTimer" to="." method="_on_LabelTimer_timeout"]

@@ -370,10 +370,10 @@ __meta__ = {
 }
 
 [node name="NotEnoughMoney" type="Label" parent="Control"]
-margin_left = 767.532
-margin_top = 414.032
-margin_right = 1119.53
-margin_bottom = 460.032
+margin_left = 760.858
+margin_top = 438.059
+margin_right = 1439.86
+margin_bottom = 496.059
 theme = ExtResource( 4 )
 text = "Not enough Money"
 __meta__ = {
