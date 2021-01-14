@@ -366,8 +366,8 @@ func _on_PickupArea_body_entered(body):
 
 func ammo_box_check():
 	if infotransfer.ammo_box_collected == true:
-		infotransfer.pistol_reserve_ammo += int(rand_range(16,32))
-		infotransfer.rifle_reserve_ammo += int(rand_range(30, 60))
+		infotransfer.pistol_reserve_ammo += int(rand_range(32,64))
+		infotransfer.rifle_reserve_ammo += int(rand_range(60, 120))
 		emit_signal("shotgun_ammo")
 		#ammo_box_rng = rand_range(0,4)
 		#if ammo_box_rng >= 1:

@@ -128,9 +128,9 @@ func _input(event):
 		gun_state = "shotgun"
 		gun_changing = true
 	
-	if Input.is_action_just_pressed("4") and not gun_state == "knife" and not gun_reloading and not gun_changing:
-		gun_state = "knife"
-		gun_changing = true
+	#if Input.is_action_just_pressed("4") and not gun_state == "knife" and not gun_reloading and not gun_changing:
+	#	gun_state = "knife"
+	#	gun_changing = true
 
 func _process(delta):
 	fix_negative_zombies()

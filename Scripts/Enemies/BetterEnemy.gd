@@ -25,7 +25,7 @@ var total_health : float = 80
 export var dead : bool = false
 var drop_ammo_box_rng = 2 #ex 2 = 20% chance
 var ammo_rng = 0
-var random_size_min = 0.3
+var random_size_min = 0.3 # 0.4 is a good size, with a little variation
 var random_size_max = 0.5
 var size_scale = null
 #=====Damage=====#

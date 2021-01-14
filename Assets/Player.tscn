@@ -32,7 +32,7 @@
 [ext_resource path="res://Sounds/Grunting-from-Being-Hit-A1-www.fesliyanstudios.com.wav" type="AudioStream" id=30]
 
 [sub_resource type="CapsuleShape" id=1]
-height = 1.8
+height = 3.0
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 1, 0.762568, 1 )
@@ -81,12 +81,12 @@ shader_param/offset = 1.641
 material = SubResource( 4 )
 size = Vector2( 1.783, 1 )
 
-[sub_resource type="CubeMesh" id=11]
+[sub_resource type="CubeMesh" id=6]
 
-[sub_resource type="BoxShape" id=12]
+[sub_resource type="BoxShape" id=7]
 extents = Vector3( 1.779, 1.945, 1.742 )
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=8]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("CollisionShape:translation")
@@ -125,7 +125,7 @@ tracks/2/keys = {
 "values": [ 3.0, 1.5 ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=9]
 
 [sub_resource type="Animation" id=10]
 length = 0.5
@@ -173,7 +173,7 @@ collision_mask = 9
 script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.598477, 0 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
 shape = SubResource( 1 )
 
 [node name="CollisionShape2" type="CollisionShape" parent="."]
@@ -187,7 +187,6 @@ collision_mask = 2
 collide_with_areas = true
 
 [node name="Rotation_Helper" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.2, 0 )
 
 [node name="InteractRaycast" type="RayCast" parent="Rotation_Helper"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.860374, -0.0766677 )
@@ -298,17 +297,22 @@ transform = Transform( 4.36933e-07, -1.00176e-06, -3, 0.157008, 2.99589, -9.7752
 [node name="Pistol" parent="Rotation_Helper/HandLoc/Hand" instance=ExtResource( 3 )]
 transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 6.27576, -6.00181, 5.71607 )
 
+[node name="Armature002" parent="Rotation_Helper/HandLoc/Hand/Pistol/Spatial" index="0"]
+transform = Transform( 0, 4.37113e-06, 100, -1.77636e-13, 100, -4.37113e-06, -100, 0, 0, 0.311477, -1.03852, 0.186095 )
+
 [node name="MeshInstance" type="MeshInstance" parent="Rotation_Helper/HandLoc/Hand"]
 transform = Transform( 0.697, 0, 2.47547e-07, 0, 0.649, 0, -1.00665e-07, 0, 1.714, 0, 1.38092, 0 )
 visible = false
-mesh = SubResource( 11 )
+mesh = SubResource( 6 )
 material/0 = null
 
 [node name="Knife" parent="Rotation_Helper" instance=ExtResource( 5 )]
 transform = Transform( -0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, -0.25, 0.621872, 0.522834, -1.07371 )
+visible = false
 
 [node name="KnifeRaycast" type="RayCast" parent="Rotation_Helper"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.843074, 0 )
+visible = false
 enabled = true
 cast_to = Vector3( 0, 0, -6 )
 collision_mask = 6
@@ -319,7 +323,7 @@ collision_layer = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="PickupArea"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.701089, 0 )
-shape = SubResource( 12 )
+shape = SubResource( 7 )
 
 [node name="Control" type="Control" parent="."]
 pause_mode = 2
@@ -549,9 +553,9 @@ __meta__ = {
 anims/Hitmarker = ExtResource( 26 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Crouch = SubResource( 13 )
+anims/Crouch = SubResource( 8 )
 anims/Hitmarker = ExtResource( 26 )
-anims/Idle = SubResource( 14 )
+anims/Idle = SubResource( 9 )
 anims/UnCrouch = SubResource( 10 )
 
 [node name="PistolReloadTimer" type="Timer" parent="."]
@@ -606,14 +610,14 @@ stream = ExtResource( 30 )
 [connection signal="out_of_reserve_ammo" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/HandLoc/Hand/Shotgun" method="_on_Label4_out_of_reserve_ammo"]
 [connection signal="shoot" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/HandLoc/Hand/Shotgun" method="_on_Label4_shoot"]
 [connection signal="spin" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/HandLoc/Hand/Shotgun" method="_on_Label4_spin"]
-[connection signal="timeout" from="PistolReloadTimer" to="Control/PistolAmmo/Label" method="_on_PistolReloadTimer_timeout"]
 [connection signal="timeout" from="PistolReloadTimer" to="." method="_on_PistolReloadTimer_timeout"]
-[connection signal="timeout" from="RifleReloadTimer" to="Control/RifleAmmo/Label3" method="_on_RifleReloadTimer_timeout"]
+[connection signal="timeout" from="PistolReloadTimer" to="Control/PistolAmmo/Label" method="_on_PistolReloadTimer_timeout"]
 [connection signal="timeout" from="RifleReloadTimer" to="." method="_on_RifleReloadTimer_timeout"]
-[connection signal="timeout" from="ShotgunShootTimer" to="Control/ShotgunAmmo/Label4" method="_on_ShotgunShootTimer_timeout"]
+[connection signal="timeout" from="RifleReloadTimer" to="Control/RifleAmmo/Label3" method="_on_RifleReloadTimer_timeout"]
 [connection signal="timeout" from="ShotgunShootTimer" to="." method="_on_ShotgunShootTimer_timeout"]
-[connection signal="timeout" from="RifleSpreadTimer" to="Control/RifleAmmo/Label3" method="_on_RifleSpreadTimer_timeout"]
+[connection signal="timeout" from="ShotgunShootTimer" to="Control/ShotgunAmmo/Label4" method="_on_ShotgunShootTimer_timeout"]
 [connection signal="timeout" from="RifleSpreadTimer" to="." method="_on_RifleSpreadTimer_timeout"]
+[connection signal="timeout" from="RifleSpreadTimer" to="Control/RifleAmmo/Label3" method="_on_RifleSpreadTimer_timeout"]
 [connection signal="timeout" from="KnifeStabTimer" to="." method="_on_KnifeStabTimer_timeout"]
 [connection signal="timeout" from="HalfSecond Timer" to="Control/ShotgunAmmo/Label4" method="_on_HalfSecond_Timer_timeout"]
 [connection signal="timeout" from="RegenTimer" to="." method="_on_RegenTimer_timeout"]
