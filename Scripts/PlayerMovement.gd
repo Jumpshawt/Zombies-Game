@@ -49,7 +49,6 @@ func process_input(delta):
 	#dooors
 	if Input.is_action_just_pressed("interact"):
 		interact()
-		print("e pressed")
 	
 	if infotransfer.gun_state == "knife" and Input.is_action_just_pressed("shoot") and able_to_stab:
 		stab_knife()
