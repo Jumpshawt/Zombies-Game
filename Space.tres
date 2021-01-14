@@ -41,7 +41,6 @@ dof_blur_near_quality = 2
 glow_intensity = 0.0
 glow_strength = 1.5
 glow_bloom = 0.5
-adjustment_enabled = true
 adjustment_brightness = 0.68
 adjustment_contrast = 1.16
 adjustment_saturation = 0.95

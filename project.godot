@@ -127,4 +127,5 @@ interact={
 
 [rendering]
 
+quality/filters/msaa=2
 environment/default_environment="res://Space.tres"
