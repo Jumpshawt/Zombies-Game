@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/HUD/StatScreen.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Fonts/Black Ops One.theme" type="Theme" id=2]
+[ext_resource path="res://Assets/HUD/Supermassive_blackhole_planet.jpg" type="Texture" id=3]
 
 [node name="Stats" type="Control"]
 anchor_right = 1.0
@@ -11,75 +12,108 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Supermassive_blackhole_planet" type="Sprite" parent="."]
+position = Vector2( 962.677, 537.862 )
+scale = Vector2( 1.50057, 1.51049 )
+texture = ExtResource( 3 )
+
 [node name="Label" type="Label" parent="."]
-margin_left = 39.6427
-margin_top = 88.7242
-margin_right = 311.643
-margin_bottom = 191.724
+show_behind_parent = true
+margin_left = 1272.72
+margin_top = -308.638
+margin_right = 1645.72
+margin_bottom = -229.638
+rect_scale = Vector2( 1.88, 2.2 )
 theme = ExtResource( 2 )
-text = "eee"
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label2" type="Label" parent="."]
-margin_left = 37.755
-margin_top = 217.091
-margin_right = 309.755
-margin_bottom = 320.091
-theme = ExtResource( 2 )
-text = "aaa"
-
 [node name="Label3" type="Label" parent="."]
-margin_left = 43.4182
-margin_top = 336.019
-margin_right = 315.418
-margin_bottom = 439.019
+margin_left = 74.8471
+margin_top = 398.877
+margin_right = 346.847
+margin_bottom = 501.877
 theme = ExtResource( 2 )
 text = "iii"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label4" type="Label" parent="."]
-margin_left = 44.3953
-margin_top = 432.926
-margin_right = 316.395
-margin_bottom = 535.926
+margin_left = 51.1301
+margin_top = 491.294
+margin_right = 323.13
+margin_bottom = 594.294
 theme = ExtResource( 2 )
 text = "ooo"
 
 [node name="Label5" type="Label" parent="."]
-margin_left = 49.0824
-margin_top = 560.47
-margin_right = 321.082
-margin_bottom = 663.47
+margin_left = 51.3273
+margin_top = 616.593
+margin_right = 323.327
+margin_bottom = 719.593
 theme = ExtResource( 2 )
 text = "uuu"
 
 [node name="Label6" type="Label" parent="."]
-margin_left = 53.0456
-margin_top = 685.64
-margin_right = 325.046
-margin_bottom = 788.64
+margin_left = 46.3108
+margin_top = 752.988
+margin_right = 318.311
+margin_bottom = 855.988
 theme = ExtResource( 2 )
 text = "yyy"
 
 [node name="Label7" type="Label" parent="."]
-margin_left = 52.6104
-margin_top = 772.351
-margin_right = 384.61
-margin_bottom = 909.351
+margin_left = 32.4061
+margin_top = 916.026
+margin_right = 364.406
+margin_bottom = 1053.03
 theme = ExtResource( 2 )
-text = "Rank"
+text = "Rank:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Button" type="Button" parent="."]
-margin_left = 906.0
-margin_top = 80.0
-margin_right = 1642.0
-margin_bottom = 912.0
+margin_left = 1271.0
+margin_top = 387.59
+margin_right = 1834.0
+margin_bottom = 772.59
 theme = ExtResource( 2 )
-text = "OK."
+text = "Back to menu"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label8" type="Label" parent="."]
+margin_left = 617.572
+margin_top = 100.918
+margin_right = 1136.57
+margin_bottom = 158.918
+rect_scale = Vector2( 1.24, 2.18623 )
+theme = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "YOU DIED"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 48.9796
+margin_top = 288.929
+margin_right = 320.98
+margin_bottom = 391.929
+theme = ExtResource( 2 )
+text = "aaa"
 __meta__ = {
 "_edit_use_anchors_": false
 }
