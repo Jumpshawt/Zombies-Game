@@ -107,10 +107,10 @@ params_cull_mode = 2
 albedo_texture = SubResource( 10 )
 
 [node name="shotgun" type="Spatial"]
-transform = Transform( 0.756148, 0, -0.654401, 0, 1, 0, 0.654401, 0, 0.756148, 0, 0, 0 )
+transform = Transform( -0.48234, 0, 0.875984, 0, 1, 0, -0.875984, 0, -0.48234, 0, 0, 0 )
 
 [node name="Cylinder006" type="MeshInstance" parent="."]
-transform = Transform( 0.651855, -0.756878, -0.0471115, 0.758053, 0.652065, 0.0128825, 0.0209693, -0.0441106, 0.998806, -2.1775, 2.3716, 0 )
+transform = Transform( 0.651855, -0.756878, -0.0471115, 0.758053, 0.652065, 0.0128825, 0.0209693, -0.0441106, 0.998806, -2.1775, 2.22938, 0 )
 cast_shadow = 0
 mesh = ExtResource( 5 )
 skin = SubResource( 1 )

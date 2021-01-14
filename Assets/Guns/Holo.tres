@@ -1,13 +1,8 @@
-[gd_resource type="ShaderMaterial" load_steps=74 format=2]
+[gd_resource type="ShaderMaterial" load_steps=66 format=2]
 
-[ext_resource path="res://Assets/Guns/new_streamtexture.tres" type="Texture" id=1]
 [ext_resource path="res://Assets/Guns/depositphotos_238020980-stock-video-abstract-black-white-texture-motion.jpg" type="Texture" id=2]
 [ext_resource path="res://Assets/Guns/6.refl_.gradinv.jpg" type="Texture" id=3]
 [ext_resource path="res://Assets/Guns/unnamed.png" type="Texture" id=4]
-
-[sub_resource type="VisualShaderNodeTexture" id=1]
-output_port_for_preview = 0
-texture = ExtResource( 1 )
 
 [sub_resource type="VisualShaderNodeInput" id=2]
 input_name = "world"
@@ -132,8 +127,6 @@ output_port_for_preview = 0
 [sub_resource type="VisualShaderNodeScalarOp" id=37]
 output_port_for_preview = 0
 
-[sub_resource type="VisualShaderNodeCubeMap" id=38]
-
 [sub_resource type="VisualShaderNodeScalarOp" id=39]
 output_port_for_preview = 0
 default_input_values = [ 0, 0.0, 1, 1.0 ]
@@ -167,18 +160,12 @@ input_name = "fragcoord"
 [sub_resource type="VisualShaderNodeInput" id=47]
 input_name = "vertex"
 
-[sub_resource type="VisualShaderNodeInput" id=48]
-input_name = "view"
-
 [sub_resource type="VisualShaderNodeTexture" id=49]
 output_port_for_preview = 0
 texture = ExtResource( 4 )
 
 [sub_resource type="VisualShaderNodeInput" id=50]
 input_name = "screen_uv"
-
-[sub_resource type="VisualShaderNodeInput" id=51]
-input_name = "uv"
 
 [sub_resource type="VisualShaderNodeVectorCompose" id=52]
 default_input_values = [ 0, 0.1, 1, 0.3, 2, 0.5 ]
@@ -194,15 +181,8 @@ operator = 2
 output_port_for_preview = 0
 default_input_values = [ 0, 0.0, 1, 0.0, 2, 0.2 ]
 
-[sub_resource type="VisualShaderNodeScalarFunc" id=56]
-function = 31
-
 [sub_resource type="VisualShaderNodeScalarFunc" id=57]
 function = 21
-
-[sub_resource type="VisualShaderNodeScalarOp" id=58]
-default_input_values = [ 0, 0.0, 1, 8.0 ]
-operator = 5
 
 [sub_resource type="VisualShaderNodeVectorCompose" id=59]
 output_port_for_preview = 0
@@ -232,9 +212,6 @@ operator = 2
 [sub_resource type="VisualShaderNodeScalarOp" id=66]
 default_input_values = [ 0, 0.0, 1, 3213.24 ]
 operator = 2
-
-[sub_resource type="VisualShaderNodeInput" id=67]
-input_name = "tangent"
 
 [sub_resource type="VisualShaderNodeInput" id=68]
 input_name = "screen_texture"
@@ -324,7 +301,7 @@ void light() {
 
 }
 "
-graph_offset = Vector2( -831, -364 )
+graph_offset = Vector2( -3035, 48 )
 nodes/fragment/0/position = Vector2( 1380, -60 )
 nodes/fragment/2/node = SubResource( 7 )
 nodes/fragment/2/position = Vector2( -1100, 340 )
@@ -332,16 +309,10 @@ nodes/fragment/3/node = SubResource( 17 )
 nodes/fragment/3/position = Vector2( -1440, 140 )
 nodes/fragment/4/node = SubResource( 28 )
 nodes/fragment/4/position = Vector2( -1600, 420 )
-nodes/fragment/5/node = SubResource( 38 )
-nodes/fragment/5/position = Vector2( 160, -360 )
 nodes/fragment/7/node = SubResource( 57 )
 nodes/fragment/7/position = Vector2( -220, 380 )
-nodes/fragment/8/node = SubResource( 67 )
-nodes/fragment/8/position = Vector2( -1160, -180 )
 nodes/fragment/9/node = SubResource( 68 )
 nodes/fragment/9/position = Vector2( -900, 240 )
-nodes/fragment/10/node = SubResource( 1 )
-nodes/fragment/10/position = Vector2( 220, 140 )
 nodes/fragment/12/node = SubResource( 2 )
 nodes/fragment/12/position = Vector2( -1280, 340 )
 nodes/fragment/13/node = SubResource( 3 )
@@ -426,14 +397,10 @@ nodes/fragment/58/node = SubResource( 46 )
 nodes/fragment/58/position = Vector2( -1180.5, 747 )
 nodes/fragment/59/node = SubResource( 47 )
 nodes/fragment/59/position = Vector2( 572.5, 210.5 )
-nodes/fragment/60/node = SubResource( 48 )
-nodes/fragment/60/position = Vector2( -2660, 280 )
 nodes/fragment/62/node = SubResource( 49 )
 nodes/fragment/62/position = Vector2( -1700, -320 )
 nodes/fragment/63/node = SubResource( 50 )
 nodes/fragment/63/position = Vector2( -2840, 180 )
-nodes/fragment/64/node = SubResource( 51 )
-nodes/fragment/64/position = Vector2( -2800, 240 )
 nodes/fragment/65/node = SubResource( 52 )
 nodes/fragment/65/position = Vector2( 680, -80 )
 nodes/fragment/66/node = SubResource( 53 )
@@ -442,10 +409,6 @@ nodes/fragment/67/node = SubResource( 54 )
 nodes/fragment/67/position = Vector2( 880, 0 )
 nodes/fragment/68/node = SubResource( 55 )
 nodes/fragment/68/position = Vector2( -320, -480 )
-nodes/fragment/69/node = SubResource( 56 )
-nodes/fragment/69/position = Vector2( -820, -280 )
-nodes/fragment/70/node = SubResource( 58 )
-nodes/fragment/70/position = Vector2( -600, -300 )
 nodes/fragment/71/node = SubResource( 59 )
 nodes/fragment/71/position = Vector2( -2000, -180 )
 nodes/fragment/72/node = SubResource( 60 )
@@ -462,7 +425,7 @@ nodes/fragment/77/node = SubResource( 65 )
 nodes/fragment/77/position = Vector2( -2620, -380 )
 nodes/fragment/78/node = SubResource( 66 )
 nodes/fragment/78/position = Vector2( -3000, -320 )
-nodes/fragment/connections = PoolIntArray( 3, 0, 4, 0, 2, 0, 13, 0, 13, 2, 14, 2, 4, 0, 16, 0, 13, 0, 23, 0, 21, 0, 23, 2, 22, 0, 23, 1, 22, 0, 24, 1, 21, 0, 25, 1, 26, 0, 22, 0, 26, 0, 21, 0, 13, 0, 27, 0, 13, 1, 27, 1, 28, 0, 25, 0, 28, 0, 24, 0, 24, 0, 29, 0, 25, 0, 29, 1, 4, 0, 26, 0, 31, 0, 22, 1, 31, 0, 21, 1, 27, 0, 32, 0, 13, 2, 32, 1, 32, 0, 28, 0, 13, 1, 16, 1, 16, 0, 33, 0, 13, 1, 34, 1, 4, 0, 34, 0, 34, 0, 33, 1, 35, 0, 36, 0, 30, 0, 14, 1, 13, 1, 30, 0, 41, 0, 42, 0, 13, 1, 40, 0, 13, 1, 38, 0, 42, 0, 43, 0, 36, 0, 43, 1, 43, 0, 30, 1, 13, 0, 14, 0, 37, 0, 38, 1, 37, 0, 40, 1, 43, 0, 50, 0, 46, 2, 47, 2, 46, 0, 48, 1, 46, 0, 54, 1, 4, 0, 56, 0, 4, 0, 54, 0, 46, 1, 47, 1, 52, 0, 35, 0, 47, 0, 44, 0, 44, 0, 45, 0, 54, 0, 53, 0, 46, 2, 53, 2, 46, 1, 53, 1, 63, 0, 46, 0, 62, 0, 68, 0, 46, 1, 69, 0, 69, 0, 70, 0, 38, 0, 39, 0, 40, 0, 39, 1, 39, 0, 41, 0, 62, 0, 67, 0, 55, 0, 52, 0, 47, 0, 55, 0, 52, 0, 68, 1, 46, 2, 71, 2, 71, 0, 62, 0, 4, 0, 72, 0, 46, 0, 73, 1, 73, 0, 47, 0, 72, 0, 74, 0, 74, 0, 48, 0, 4, 0, 75, 0, 75, 0, 73, 0, 68, 0, 0, 1, 48, 0, 71, 0, 46, 1, 76, 1, 46, 1, 71, 1, 74, 0, 77, 1, 77, 0, 76, 0, 72, 0, 78, 0, 78, 0, 77, 0, 65, 0, 0, 0 )
+nodes/fragment/connections = PoolIntArray( 3, 0, 4, 0, 2, 0, 13, 0, 13, 2, 14, 2, 4, 0, 16, 0, 13, 0, 23, 0, 21, 0, 23, 2, 22, 0, 23, 1, 22, 0, 24, 1, 21, 0, 25, 1, 26, 0, 22, 0, 26, 0, 21, 0, 13, 0, 27, 0, 13, 1, 27, 1, 28, 0, 25, 0, 28, 0, 24, 0, 24, 0, 29, 0, 25, 0, 29, 1, 4, 0, 26, 0, 31, 0, 22, 1, 31, 0, 21, 1, 27, 0, 32, 0, 13, 2, 32, 1, 32, 0, 28, 0, 13, 1, 16, 1, 16, 0, 33, 0, 13, 1, 34, 1, 4, 0, 34, 0, 34, 0, 33, 1, 35, 0, 36, 0, 30, 0, 14, 1, 13, 1, 30, 0, 41, 0, 42, 0, 13, 1, 40, 0, 13, 1, 38, 0, 42, 0, 43, 0, 36, 0, 43, 1, 43, 0, 30, 1, 13, 0, 14, 0, 37, 0, 38, 1, 37, 0, 40, 1, 43, 0, 50, 0, 46, 2, 47, 2, 46, 0, 48, 1, 46, 0, 54, 1, 4, 0, 56, 0, 4, 0, 54, 0, 46, 1, 47, 1, 52, 0, 35, 0, 47, 0, 44, 0, 44, 0, 45, 0, 54, 0, 53, 0, 46, 2, 53, 2, 46, 1, 53, 1, 63, 0, 46, 0, 62, 0, 68, 0, 38, 0, 39, 0, 40, 0, 39, 1, 39, 0, 41, 0, 62, 0, 67, 0, 55, 0, 52, 0, 47, 0, 55, 0, 52, 0, 68, 1, 46, 2, 71, 2, 71, 0, 62, 0, 4, 0, 72, 0, 46, 0, 73, 1, 73, 0, 47, 0, 72, 0, 74, 0, 74, 0, 48, 0, 4, 0, 75, 0, 75, 0, 73, 0, 68, 0, 0, 1, 48, 0, 71, 0, 46, 1, 76, 1, 46, 1, 71, 1, 74, 0, 77, 1, 77, 0, 76, 0, 72, 0, 78, 0, 78, 0, 77, 0, 65, 0, 0, 0 )
 
 [resource]
 shader = SubResource( 69 )
