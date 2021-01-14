@@ -81,12 +81,12 @@ shader_param/offset = 1.641
 material = SubResource( 4 )
 size = Vector2( 1.783, 1 )
 
-[sub_resource type="CubeMesh" id=6]
+[sub_resource type="CubeMesh" id=11]
 
-[sub_resource type="BoxShape" id=7]
+[sub_resource type="BoxShape" id=12]
 extents = Vector3( 1.779, 1.945, 1.742 )
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=13]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("CollisionShape:translation")
@@ -125,7 +125,7 @@ tracks/2/keys = {
 "values": [ 3.0, 1.5 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=14]
 
 [sub_resource type="Animation" id=10]
 length = 0.5
@@ -295,17 +295,12 @@ transform = Transform( -0.25, 0, -2.18557e-08, 0, 0.25, 0, 2.18557e-08, 0, -0.25
 [node name="Hand" type="Spatial" parent="Rotation_Helper/HandLoc"]
 
 [node name="Pistol" parent="Rotation_Helper/HandLoc/Hand" instance=ExtResource( 3 )]
-transform = Transform( -6.51683e-07, 0, -4, 0, 4, 0, 4, 0, -6.51683e-07, 4.04349, -4.42158, -6.86074 )
-
-[node name="Armature002" parent="Rotation_Helper/HandLoc/Hand/Pistol" index="3"]
-transform = Transform( 0, 4.37113e-06, 100, -1.77636e-13, 100, -4.37113e-06, -100, 0, 0, 0.311477, -1.03852, 0.186095 )
-
-[node name="Armature" parent="Rotation_Helper/HandLoc/Hand/Pistol" index="4"]
-transform = Transform( 19.4316, 0, 25.6151, -25.6151, 1.91638e-06, 19.4316, 0, -32.1515, 1.91638e-06, 1.56603, 1.51357, 1.00149 )
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 6.27576, -6.00181, 5.71607 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Rotation_Helper/HandLoc/Hand"]
 transform = Transform( 0.697, 0, 2.47547e-07, 0, 0.649, 0, -1.00665e-07, 0, 1.714, 0, 1.38092, 0 )
-mesh = SubResource( 6 )
+visible = false
+mesh = SubResource( 11 )
 material/0 = null
 
 [node name="Knife" parent="Rotation_Helper" instance=ExtResource( 5 )]
@@ -323,7 +318,7 @@ collision_layer = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="PickupArea"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.701089, 0 )
-shape = SubResource( 7 )
+shape = SubResource( 12 )
 
 [node name="Control" type="Control" parent="."]
 pause_mode = 2
@@ -553,9 +548,9 @@ __meta__ = {
 anims/Hitmarker = ExtResource( 26 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Crouch = SubResource( 8 )
+anims/Crouch = SubResource( 13 )
 anims/Hitmarker = ExtResource( 26 )
-anims/Idle = SubResource( 9 )
+anims/Idle = SubResource( 14 )
 anims/UnCrouch = SubResource( 10 )
 
 [node name="PistolReloadTimer" type="Timer" parent="."]
