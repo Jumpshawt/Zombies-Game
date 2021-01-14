@@ -54,6 +54,8 @@ func check_activated():
 	if self.is_in_group("Room6") and infotransfer.Room6Open == true:
 		active = true
 		activated_areas += 1
+	else:
+		active = false
 
 func _on_DetectArea_body_entered(body):
 	if body.is_in_group("Player"):

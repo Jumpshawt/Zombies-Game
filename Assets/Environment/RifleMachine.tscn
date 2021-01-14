@@ -39,6 +39,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Label2" type="Label" parent="Control"]
+margin_left = 810.624
+margin_top = 787.078
+margin_right = 1077.62
+margin_bottom = 892.078
+theme = ExtResource( 3 )
+text = "Not Enough Money!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="DisappearTimer" type="Timer" parent="."]
 wait_time = 0.5
+one_shot = true
 [connection signal="timeout" from="DisappearTimer" to="." method="_on_DisappearTimer_timeout"]
