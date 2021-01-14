@@ -1,7 +1,7 @@
 extends "res://Scripts/Player.gd"
 
 #gun sway variables 
-const SWAY = 30 
+const SWAY = 30
 onready var head = $Rotation_Helper
 onready var hand = $Rotation_Helper/HandLoc/Hand
 onready var handloc = $Rotation_Helper/HandLoc
