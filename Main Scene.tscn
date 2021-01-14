@@ -47,7 +47,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.87937, 0, 0 )
 navmesh = SubResource( 1 )
 
 [node name="Level" parent="Nav/NavigationMeshInstance" instance=ExtResource( 5 )]
-transform = Transform( 2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, -1.87937, 5.43766, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.879, 5.438, 0 )
 
 [node name="ShotgunMachine" parent="Nav/NavigationMeshInstance" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -24.8835, 0, -3.2403 )
@@ -71,10 +71,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.725, 40.1427, -1.56266, 26.0026
 transform = Transform( -1, 0, -6.33815e-08, 0, 1, 0, 8.74228e-08, 0, -0.725, 9.26417, -1.56266, 12.2017 )
 
 [node name="Barrier4" parent="Nav/NavigationMeshInstance" instance=ExtResource( 19 )]
-transform = Transform( -2.18557e-07, 0, 0.725, 0, 1, 0, -1, 0, -1.58454e-07, -35.3933, -1.56266, 5.78702 )
+transform = Transform( -1.62921e-07, 0, -0.725, 0, 1, 0, 1, 0, -1.18117e-07, -35.3933, -1.56266, 5.78702 )
 
 [node name="Barrier5" parent="Nav/NavigationMeshInstance" instance=ExtResource( 19 )]
-transform = Transform( -2.18557e-07, 0, 0.725, 0, 1, 0, -1, 0, -1.58454e-07, -23.806, -11.057, -4.54749 )
+transform = Transform( 3.0598e-07, 0, -0.725, 0, 1, 0, 1, 0, 2.21836e-07, -23.806, -11.057, -4.54749 )
 
 [node name="Barrier6" parent="Nav/NavigationMeshInstance" instance=ExtResource( 19 )]
 transform = Transform( 1, 0, 1.20643e-07, 0, 1, 0, -1.74846e-07, 0, 0.69, -0.0142643, -7.85754, -29.191 )
