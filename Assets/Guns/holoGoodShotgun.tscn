@@ -21,7 +21,7 @@ bind/4/name = "slide"
 bind/4/bone = -1
 bind/4/pose = Transform( 0.0501158, -0.0253002, -0.998423, -0.689014, -0.724566, -0.0162246, -0.723013, 0.688741, -0.0537445, 0.0612639, -2.0417, 1.67114 )
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=2]
 resource_name = "Rotate"
 length = 6.0
 loop = true
@@ -74,23 +74,23 @@ tracks/3/keys = {
 "values": [ Transform( 0.651855, -0.756878, -0.0471112, 0.758053, 0.652065, 0.0128827, 0.0209693, -0.0441106, 0.998806, -2.1775, 2.44433, 0 ), Transform( 0.651855, -0.756878, -0.0471115, 0.758053, 0.652065, 0.0128825, 0.0209693, -0.0441106, 0.998806, -2.1775, 2.11876, 0 ), Transform( 0.651855, -0.756878, -0.0471112, 0.758053, 0.652065, 0.0128827, 0.0209693, -0.0441106, 0.998806, -2.1775, 2.44433, 0 ) ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=3]
 length = 1.58333
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=4]
 length = 0.417
 loop = true
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=5]
 length = 0.916667
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=6]
 length = 0.875
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=7]
 length = 0.625
 
-[sub_resource type="Animation" id=18]
+[sub_resource type="Animation" id=8]
 length = 1.20833
 
 [sub_resource type="Gradient" id=9]
@@ -107,10 +107,10 @@ params_cull_mode = 2
 albedo_texture = SubResource( 10 )
 
 [node name="shotgun" type="Spatial"]
-transform = Transform( 0.860333, 0, -0.509732, 0, 1, 0, 0.509732, 0, 0.860333, 0, 0, 0 )
+transform = Transform( 0.756148, 0, -0.654401, 0, 1, 0, 0.654401, 0, 0.756148, 0, 0, 0 )
 
 [node name="Cylinder006" type="MeshInstance" parent="."]
-transform = Transform( 0.651855, -0.756878, -0.0471115, 0.758053, 0.652065, 0.0128825, 0.0209693, -0.0441106, 0.998806, -2.1775, 2.39026, 0 )
+transform = Transform( 0.651855, -0.756878, -0.0471115, 0.758053, 0.652065, 0.0128825, 0.0209693, -0.0441106, 0.998806, -2.1775, 2.3716, 0 )
 cast_shadow = 0
 mesh = ExtResource( 5 )
 skin = SubResource( 1 )
@@ -121,13 +121,13 @@ transform = Transform( 0.0723439, -0.841798, 0.534922, 0.881263, -0.197203, -0.4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Rotate"
-anims/Rotate = SubResource( 12 )
-anims/reload_end = SubResource( 13 )
-anims/reload_middle = SubResource( 14 )
-anims/reload_start = SubResource( 15 )
-anims/shotgun_equip = SubResource( 16 )
-anims/shotgun_shoot = SubResource( 17 )
-anims/shotgun_unequip = SubResource( 18 )
+anims/Rotate = SubResource( 2 )
+anims/reload_end = SubResource( 3 )
+anims/reload_middle = SubResource( 4 )
+anims/reload_start = SubResource( 5 )
+anims/shotgun_equip = SubResource( 6 )
+anims/shotgun_shoot = SubResource( 7 )
+anims/shotgun_unequip = SubResource( 8 )
 
 [node name="cone" type="MeshInstance" parent="."]
 transform = Transform( 2.62672, 0, 0, 0, 1.04007, 0, 0, 0, 0.809456, -0.0523219, -0.952328, 0.0144857 )
