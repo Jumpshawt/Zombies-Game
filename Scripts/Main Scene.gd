@@ -14,4 +14,12 @@ func _process(_delta):
 
 func _on_Round_Change_finished():
 	a = 1
- 
+
+func _on_AudioStreamPlayer_finished():
+	$AudioStreamPlayer2.play()
+
+func _on_AudioStreamPlayer2_finished():
+	$AudioStreamPlayer3.play()
+
+func _on_AudioStreamPlayer3_finished():
+	$AudioStreamPlayer.play()
