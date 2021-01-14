@@ -362,7 +362,7 @@ material/0 = null
 transform = Transform( 3.90176, 0, 0, 0, 3.90176, 0, 0, 0, 3.90176, 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00147343, -2.54275, 0.00803139 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.617683, 0 )
 shape = SubResource( 2 )
 
 [node name="StaticBody2" type="StaticBody" parent="."]
@@ -439,6 +439,7 @@ bones/4/enabled = true
 bones/4/bound_children = [  ]
 
 [node name="Cube004" type="MeshInstance" parent="Armature/Skeleton"]
+use_in_baked_light = true
 mesh = SubResource( 6 )
 skin = SubResource( 7 )
 material/0 = null

@@ -8,7 +8,7 @@ onready var infotransfer = $"/root/InfoTransfer"
 #3 = finished
 #2 = repairing 
 #1 = destroying 
-var repaired = 3
+var is_repairing = false
 var state = 3
 var barrier_health = 100
 var max_health = 100
@@ -30,29 +30,38 @@ func _process(delta):
 	labelpopup()
 
 func _on_RepairArea_body_entered(body):
+	#If the player enters this turns on
 	if body.is_in_group("Player"):
 		player_in_area = true
 
 func _on_RepairArea_body_exited(body):
+	#If the player exits this turns on
 	if body.is_in_group("Player"):
 		player_in_area = false
 
 
 func _on_ZombieArea_body_entered(body):
+	#If the zombie enters this turns on
 	if body.is_in_group("Enemy"):
 		zombies_in_area += 1
 	if barrier_alive == true:
 		emit_signal("zombie_pause", body)
 
 func _on_ZombieArea_body_exited(body):
+	#If the zombie exits this turns on
 	if body.is_in_group("Enemy"):
 		zombies_in_area -= 1
 
 func update_health(delta2):
+	#Check if zombies are near the barrier if they are reduce the health of barrier, 
 	if zombies_in_area > 0:
 		barrier_health -= (10 * zombies_in_area) * delta2
+	#Player repairing barrier 
 	if player_in_area == true and Input.is_action_pressed("interact"):
+		is_repairing = true
 		barrier_health += 20 * delta2
+	if player_in_area == true and Input.is_action_just_released("interact"):
+		is_repairing = false
 
 func labelpopup():
 	if player_in_area and barrier_health <= 50:
@@ -61,37 +70,43 @@ func labelpopup():
 		$Control/Label.visible = false
 
 func check_health():	
-	if barrier_health < (max_health * .75) and state == 3:
-		$AnimationPlayer.play("Wood_break1") 
-		print("playing woodBreak3")
-		barrier_alive = true
-		state = 2 
-	if barrier_health < (max_health * .5) and state == 2:
-		$AnimationPlayer.play("Wood_break2")
-		print("playing woodBreak2")
-		barrier_alive = true
-		state = 1
-	if barrier_health < (max_health * .25) and state == 1:
-		$AnimationPlayer.play("Wood_break3")
-		barrier_alive = true
-		print("playing woodBreak1")
-		state = 0
-	if zombies_in_area == 0:
-		if barrier_health < (max_health * .75) and state == 3 and Input.is_action_pressed("interact"):
-			$AnimationPlayer.play("Wood_break1" , -1, -1, true) 
-			print("playing woodBreak3")
-			barrier_alive = true
-			state = 2 
-		if barrier_health < (max_health * .5) and state == 2 and Input.is_action_pressed("interact"):
-			$AnimationPlayer.play("Wood_break2", -1, -1, true)
+	#If the player isn't repairing excecute line, otherwise go to else function
+	if is_repairing == false:
+		
+		if barrier_health < (max_health * .75):
+			if state == 3:
+				$AnimationPlayer.play("Wood_break1") 
+				print("playing woodBreak3")
+				barrier_alive = true
+				state = 2
+		if barrier_health < (max_health * .5) and state == 2:
+			$AnimationPlayer.play("Wood_break2")
 			print("playing woodBreak2")
 			barrier_alive = true
 			state = 1
-		if barrier_health < (max_health * .25) and state == 1 and Input.is_action_pressed("interact"):
-			$AnimationPlayer.play("Wood_break3", -1, -1, true)
+		if barrier_health < (max_health * .25) and state == 1:
+			$AnimationPlayer.play("Wood_break3")
 			barrier_alive = true
 			print("playing woodBreak1")
 			state = 0
+	#If player repairing true, excecute 
+	else:
+		if barrier_health > (max_health * .75) and state == 2:
+			
+			$AnimationPlayer.play("Wood_repair1") 
+			print("playing woodrepair3")
+			barrier_alive = true
+			state = 3 
+		if barrier_health > (max_health * .5) and state == 1:
+			$AnimationPlayer.play("Wood_repair2")
+			print("playing woodrepair2")
+			barrier_alive = true
+			state = 2
+		if barrier_health > (max_health * .25) and state == 0:
+			$AnimationPlayer.play("Wood_repair3")
+			barrier_alive = true
+			print("playing woodrepair1")
+			state = 1
 #	elif barrier_health < 0:
 #		$AnimationPlayer.play("BarrierHealth.0")
 #		barrier_alive = false
