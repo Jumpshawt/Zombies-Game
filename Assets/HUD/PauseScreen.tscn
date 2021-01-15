@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scripts/HUD/PauseScreen.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Fonts/Black Ops One.theme" type="Theme" id=2]
 
 [node name="PauseScreen" type="CanvasLayer"]
 pause_mode = 2
@@ -21,20 +22,31 @@ margin_left = 397.0
 margin_top = 637.0
 margin_right = 731.0
 margin_bottom = 817.0
+theme = ExtResource( 2 )
+custom_colors/font_color_hover = Color( 1, 0, 0, 1 )
 text = "Quit"
+flat = true
 
 [node name="Resume" type="Button" parent="Popup"]
 margin_left = 1097.0
 margin_top = 626.0
 margin_right = 1472.0
 margin_bottom = 817.0
+theme = ExtResource( 2 )
+custom_colors/font_color_hover = Color( 1, 0, 0, 1 )
 text = "Resume"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label" type="Label" parent="Popup"]
 margin_left = 427.0
 margin_top = 209.0
 margin_right = 1436.0
 margin_bottom = 387.0
+theme = ExtResource( 2 )
 text = "GAME PAUSED"
+align = 1
 [connection signal="pressed" from="Popup/Quit" to="." method="_on_Quit_pressed"]
 [connection signal="pressed" from="Popup/Resume" to="." method="_on_Resume_pressed"]

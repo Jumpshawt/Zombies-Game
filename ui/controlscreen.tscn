@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Assets/Fonts/Black Ops One.theme" type="Theme" id=1]
-[ext_resource path="res://Assets/HUD/bfr_separation_2500-2500x1350.jpg" type="Texture" id=2]
-[ext_resource path="res://Scripts/HUD/controlscreen.gd" type="Script" id=3]
+[ext_resource path="res://ui/bfr_separation_2500-2500x1350.jpg" type="Texture" id=2]
+[ext_resource path="res://Scripts/controlscreen.gd" type="Script" id=3]
 
 [node name="Control" type="Control"]
 margin_left = 2.0
