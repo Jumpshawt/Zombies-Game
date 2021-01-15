@@ -158,3 +158,5 @@ unit_db = 10.0
 [connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
 [connection signal="body_entered" from="AttackArea" to="." method="_on_AttackArea_body_entered"]
 [connection signal="body_exited" from="AttackArea" to="." method="_on_AttackArea_body_exited"]
+
+[editable path="Full"]

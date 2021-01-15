@@ -20,7 +20,7 @@ export var MIN_SPEED = 13
 var player_in_range = false
 var random_walking = 2
 var stunned = false
-var health : float = 80
+export var health : float = 80
 var total_health : float = 80
 export var dead : bool = false
 var drop_ammo_box_rng = 2 #ex 2 = 20% chance
@@ -74,7 +74,7 @@ func _ready():
 		move_state = "run"
 		emit_signal("runner")
 	
-	total_health = total_health + (10 * infotransfer.round_num) #* (1 + (0.1 * infotransfer.round_num)) <- Insert if too ez
+	total_health = total_health + (40 * infotransfer.round_num) #* (1 + (0.1 * infotransfer.round_num)) <- Insert if too ez
 	health = total_health
 	if move_state == "run":
 		speed = rand_range(MIN_SPEED, MAX_SPEED)
@@ -172,7 +172,7 @@ func die_animation():
 	die_animation = rand_range(0,2)
 	if die_animation <= 1:
 		emit_signal("forwards_death")
-	elif die_animation <= 2:
+	else:
 		emit_signal("backwards_death")
 
 func player_die():
@@ -303,13 +303,13 @@ func attack():
 	attack_chosen = rand_range(0,3)
 	if attack_chosen <= 1:
 		play_animation("attack1")
-		$HitTimer.set_wait_time(1.3)
+		$HitTimer.set_wait_time(1.3 / 2)
 	elif attack_chosen <= 2:
 		play_animation("attack2")
-		$HitTimer.set_wait_time(1.26)
+		$HitTimer.set_wait_time(1.26 / 2)
 	elif attack_chosen <= 3:
 		play_animation("kick")
-		$HitTimer.set_wait_time(0.8)
+		$HitTimer.set_wait_time(0.8 / 2)
 
 func _on_AttackArea_body_entered(body):
 	if body.is_in_group("Player"):
