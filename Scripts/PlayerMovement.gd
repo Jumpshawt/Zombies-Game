@@ -41,16 +41,22 @@ func process_input(delta):
 		walking = true
 	if Input.is_action_pressed("S"):
 		input_movement_vector.y -= 1
+		walking = true
 	if Input.is_action_pressed("A"):
 		input_movement_vector.x -= 1
+		walking = true
 	if Input.is_action_pressed("D"):
 		input_movement_vector.x = 1
-	if Input.is_action_pressed("sprint") and Input.is_action_pressed("W") and Input.is_action_pressed("S") == false and not crouched:
+		walking = true
+	if Input.is_action_pressed("sprint") and Input.is_action_pressed("W") and not crouched:
 		max_speed = 8
-	elif not crouched:
+	elif Input.is_action_pressed("S"):
+		max_speed = 4
+	else:
 		max_speed = 6
 	if is_on_floor() and not Input.is_action_pressed("W") and not Input.is_action_pressed("A") and not Input.is_action_pressed("S") and not Input.is_action_pressed("D"):
 		walking = false
+		$Footsteps.stop()
 	$GroundCast.force_raycast_update()
 	if $GroundCast.get_collider() == null:
 		$Footsteps.stop()

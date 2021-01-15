@@ -7,32 +7,39 @@ var spawnTimeAmplifier = .5
 onready var infotransfer = $"/root/InfoTransfer"
 
 var player_in_area = true 
-var grace_period_over = true
+var grace_period_over = false
 var activated_areas = 1
 
 var spawn_zombies
-export var MAXSPAWNTIME = 20
-export var MINSPAWNTIME = 10
-export var active = true
+var MAXSPAWNTIME = 20
+var MINSPAWNTIME = 10
+var active = false
 
-func _process(_delta):
-	if infotransfer.changing_rounds:
-		grace_period_over = false
-		$RoundTimer.start()
+func _ready():
+	if self.is_in_group("Room1"):
+		active = true
+	$RoundTimer.start()
 
 func _on_Timer_timeout():
-	print("timer timeout")
+	check_activated()
 	var e = better_zombie.instance()
 	if infotransfer.zombies_alive > infotransfer.zombies_to_spawn[infotransfer.round_num] * 0.5:
 		spawnTimeAmplifier = 0.25
 	else:
-		spawnTimeAmplifier = 1 + (infotransfer.round_num * 0.05) + (0.1 * activated_areas)
-	$Timer.set_wait_time(rand_range(MINSPAWNTIME, MAXSPAWNTIME)* spawnTimeAmplifier)
-	if infotransfer.spawn_zombies == true and active == true and grace_period_over:
+		spawnTimeAmplifier = 0.5 + (infotransfer.round_num * 0.05) + (0.2 * activated_areas)
+	if infotransfer.spawn_zombies == true and active == true and grace_period_over == true:
 		if infotransfer.zombies_alive < infotransfer.zombies_to_spawn[infotransfer.round_num]:
 			infotransfer.zombies_alive += 1
 			add_child(e)
+	$Timer.set_wait_time(rand_range(MINSPAWNTIME, MAXSPAWNTIME)* spawnTimeAmplifier)
 	$Timer.start()
+
+func _process(delta):
+	if infotransfer.changing_rounds == true:
+		grace_period_over = false
+	if grace_period_over == false and not $RoundTimer.is_stopped():
+		$RoundTimer.start()
+	check_activated()
 
 func check_activated():
 	activated_areas = 0.0
@@ -54,15 +61,11 @@ func check_activated():
 	if self.is_in_group("Room6") and infotransfer.Room6Open == true:
 		active = true
 		activated_areas += 1
-	else:
-		active = false
 
 func _on_RoundTimer_timeout():
 	grace_period_over = true
 	$Timer.set_wait_time(rand_range(MINSPAWNTIME, MAXSPAWNTIME)* spawnTimeAmplifier)
 	$Timer.start()
-	check_activated()
-
 
 func _on_5_Second_Timer_timeout():
 	check_activated()

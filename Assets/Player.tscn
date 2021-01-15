@@ -354,7 +354,7 @@ texture = ExtResource( 28 )
 
 [node name="3thing" type="Sprite" parent="Control"]
 modulate = Color( 0, 0, 0, 0.878431 )
-position = Vector2( 1008.54, 76.4408 )
+position = Vector2( 960, 92.922 )
 z_index = -1
 texture = ExtResource( 17 )
 
@@ -539,10 +539,10 @@ scale = Vector2( 2.4388, 2.4388 )
 texture = ExtResource( 15 )
 
 [node name="Round" type="Label" parent="Control"]
-margin_left = 928.831
-margin_top = 53.1673
-margin_right = 1112.83
-margin_bottom = 154.167
+margin_left = 844.0
+margin_top = 43.616
+margin_right = 1028.0
+margin_bottom = 144.616
 theme = ExtResource( 19 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -644,14 +644,14 @@ stream = ExtResource( 34 )
 [node name="Rampage9" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 33 )
 [connection signal="body_entered" from="PickupArea" to="." method="_on_PickupArea_body_entered"]
-[connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/HandLoc/Hand/Pistol" method="_on_Label_need_to_reload"]
 [connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="." method="_on_Label_need_to_reload"]
-[connection signal="no_ammo" from="Control/PistolAmmo/Label" to="Rotation_Helper/HandLoc/Hand/Pistol" method="_on_Label_no_ammo"]
+[connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/HandLoc/Hand/Pistol" method="_on_Label_need_to_reload"]
 [connection signal="no_ammo" from="Control/PistolAmmo/Label" to="." method="_on_Label_no_ammo"]
+[connection signal="no_ammo" from="Control/PistolAmmo/Label" to="Rotation_Helper/HandLoc/Hand/Pistol" method="_on_Label_no_ammo"]
 [connection signal="no_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/HandLoc/Hand/Pistol" method="_on_Label_no_reload"]
 [connection signal="dont_need_to_reload_no_more" from="Control/RifleAmmo/Label3" to="Rotation_Helper/HandLoc/Hand/Rifle" method="_on_Label3_dont_need_to_reload_no_more"]
-[connection signal="need_to_reload" from="Control/RifleAmmo/Label3" to="Rotation_Helper/HandLoc/Hand/Rifle" method="_on_Label3_need_to_reload"]
 [connection signal="need_to_reload" from="Control/RifleAmmo/Label3" to="." method="_on_Label3_need_to_reload"]
+[connection signal="need_to_reload" from="Control/RifleAmmo/Label3" to="Rotation_Helper/HandLoc/Hand/Rifle" method="_on_Label3_need_to_reload"]
 [connection signal="no_ammo" from="Control/RifleAmmo/Label3" to="Rotation_Helper/HandLoc/Hand/Rifle" method="_on_Label3_no_ammo"]
 [connection signal="out_of_reserve_ammo" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/HandLoc/Hand/Shotgun" method="_on_Label4_out_of_reserve_ammo"]
 [connection signal="shoot" from="Control/ShotgunAmmo/Label4" to="Rotation_Helper/HandLoc/Hand/Shotgun" method="_on_Label4_shoot"]

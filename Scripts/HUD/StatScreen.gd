@@ -74,4 +74,10 @@ func _on_Button_pressed():
 	infotransfer.pistol_ammo_loaded = 16
 	infotransfer.pistol_reserve_ammo = 48
 	infotransfer.gun_state = "Pistol"
+	infotransfer.Room1Open = true
+	infotransfer.Room2Open = false
+	infotransfer.Room3Open = false
+	infotransfer.Room4Open = false
+	infotransfer.Room5Open = false
+	infotransfer.Room6Open = false
 	get_tree().change_scene("res://Main Scene.tscn")
