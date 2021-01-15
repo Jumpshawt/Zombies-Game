@@ -147,7 +147,7 @@ func player_hit():
 		screen_shake(normal_shake_amount)
 		able_to_regen = false
 		$RegenTimer.start()
-		damage_taken = rand_range(min_damage, max_damage) * ((0.2 * infotransfer.round_num) + 1) 
+		damage_taken = rand_range(min_damage, max_damage) * ((0.025 * infotransfer.round_num) + 1) 
 		health -= int(damage_taken)
 		infotransfer.total_damage_taken += damage_taken
 		infotransfer.player_hit = false
