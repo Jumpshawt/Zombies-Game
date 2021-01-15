@@ -1,0 +1,120 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scripts/HUD/StatScreen.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Fonts/Black Ops One.theme" type="Theme" id=2]
+[ext_resource path="res://Assets/HUD/Supermassive_blackhole_planet.jpg" type="Texture" id=3]
+
+[node name="Stats" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Supermassive_blackhole_planet" type="Sprite" parent="."]
+position = Vector2( 962.677, 537.862 )
+scale = Vector2( 1.50057, 1.51049 )
+texture = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="."]
+show_behind_parent = true
+margin_left = 1272.72
+margin_top = -308.638
+margin_right = 1645.72
+margin_bottom = -229.638
+rect_scale = Vector2( 1.88, 2.2 )
+theme = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="."]
+margin_left = 74.8471
+margin_top = 398.877
+margin_right = 346.847
+margin_bottom = 501.877
+theme = ExtResource( 2 )
+text = "iii"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="."]
+margin_left = 51.1301
+margin_top = 491.294
+margin_right = 323.13
+margin_bottom = 594.294
+theme = ExtResource( 2 )
+text = "ooo"
+
+[node name="Label5" type="Label" parent="."]
+margin_left = 51.3273
+margin_top = 616.593
+margin_right = 323.327
+margin_bottom = 719.593
+theme = ExtResource( 2 )
+text = "uuu"
+
+[node name="Label6" type="Label" parent="."]
+margin_left = 46.3108
+margin_top = 752.988
+margin_right = 318.311
+margin_bottom = 855.988
+theme = ExtResource( 2 )
+text = "yyy"
+
+[node name="Label7" type="Label" parent="."]
+margin_left = 32.4061
+margin_top = 916.026
+margin_right = 364.406
+margin_bottom = 1053.03
+theme = ExtResource( 2 )
+text = "Rank:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+margin_left = 1271.0
+margin_top = 387.59
+margin_right = 1834.0
+margin_bottom = 772.59
+theme = ExtResource( 2 )
+text = "Back to menu"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label8" type="Label" parent="."]
+margin_left = 617.572
+margin_top = 100.918
+margin_right = 1136.57
+margin_bottom = 158.918
+rect_scale = Vector2( 1.24, 2.18623 )
+theme = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "YOU DIED"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 48.9796
+margin_top = 288.929
+margin_right = 320.98
+margin_bottom = 391.929
+theme = ExtResource( 2 )
+text = "aaa"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
