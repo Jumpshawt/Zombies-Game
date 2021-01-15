@@ -1,0 +1,138 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Fonts/Black Ops One.theme" type="Theme" id=1]
+[ext_resource path="res://ui/iRtrBOr.png" type="Texture" id=2]
+[ext_resource path="res://ui/creditscreen.gd" type="Script" id=3]
+
+[node name="Control" type="Control"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -81.0
+margin_top = 9.0
+margin_right = 4.0
+margin_bottom = -1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 741.888
+margin_top = 193.357
+margin_right = 1239.89
+margin_bottom = 300.357
+theme = ExtResource( 1 )
+text = "Made by "
+align = 1
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label8" type="Label" parent="."]
+margin_left = 1661.01
+margin_top = 978.877
+margin_right = 2159.01
+margin_bottom = 1077.88
+rect_scale = Vector2( 0.64, 0.69199 )
+theme = ExtResource( 1 )
+text = "ESC to menu"
+align = 1
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 151.0
+margin_top = 362.0
+margin_right = 1034.0
+margin_bottom = 463.0
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0, 0.843137, 1 )
+text = "Level design:  Geordie"
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="."]
+margin_left = 170.0
+margin_top = 493.0
+margin_right = 1253.0
+margin_bottom = 605.0
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0, 0.843137, 1 )
+text = "Coding: Geordie and Micheal"
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="."]
+margin_left = 166.0
+margin_top = 613.0
+margin_right = 741.0
+margin_bottom = 725.0
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0, 0.843137, 1 )
+text = "Sound: Jamaal"
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label5" type="Label" parent="."]
+margin_left = 132.0
+margin_top = 732.0
+margin_right = 1273.0
+margin_bottom = 844.0
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0, 0.843137, 1 )
+text = "Modeling: Geordie and Jamaal"
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label6" type="Label" parent="."]
+margin_left = 129.0
+margin_top = 858.0
+margin_right = 1347.0
+margin_bottom = 970.0
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0, 0.843137, 1 )
+text = "Omtization: Geordie and Micheal"
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label7" type="Label" parent="."]
+margin_left = 559.338
+margin_top = 268.939
+margin_right = 1513.34
+margin_bottom = 380.939
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Micheal, Geordie, Jamaal"
+align = 1
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="iRtrBOr" type="Sprite" parent="."]
+show_behind_parent = true
+position = Vector2( 1041.24, 530.769 )
+scale = Vector2( 2.18292, 2.24839 )
+texture = ExtResource( 2 )

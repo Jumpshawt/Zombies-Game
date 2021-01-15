@@ -1,0 +1,99 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Fonts/Black Ops One.theme" type="Theme" id=1]
+[ext_resource path="res://Assets/HUD/bfr_separation_2500-2500x1350.jpg" type="Texture" id=2]
+[ext_resource path="res://Scripts/HUD/controlscreen.gd" type="Script" id=3]
+
+[node name="Control" type="Control"]
+margin_left = 2.0
+margin_right = 1917.0
+margin_bottom = 1079.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bfr_separation_2500-2500x1350" type="Sprite" parent="."]
+position = Vector2( 960.22, 540.524 )
+scale = Vector2( 0.768613, 0.802234 )
+texture = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 644.085
+margin_top = 159.233
+margin_right = 1175.09
+margin_bottom = 291.233
+theme = ExtResource( 1 )
+text = "WASD to move"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 639.53
+margin_top = 293.213
+margin_right = 1172.53
+margin_bottom = 425.213
+theme = ExtResource( 1 )
+text = "SHIFT = sprint"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="."]
+margin_left = 648.782
+margin_top = 423.64
+margin_right = 1181.78
+margin_bottom = 555.64
+theme = ExtResource( 1 )
+text = "SPACE = jump"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="."]
+margin_left = 583.902
+margin_top = 559.955
+margin_right = 1234.9
+margin_bottom = 666.955
+theme = ExtResource( 1 )
+text = "Left Click = shoot"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label5" type="Label" parent="."]
+margin_left = 555.875
+margin_top = 830.417
+margin_right = 1318.88
+margin_bottom = 962.417
+theme = ExtResource( 1 )
+text = "E = interact"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label6" type="Label" parent="."]
+margin_left = 571.911
+margin_top = 696.782
+margin_right = 1334.91
+margin_bottom = 828.782
+theme = ExtResource( 1 )
+text = "1-3 = swap weapons"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Label" parent="."]
+margin_left = 28.2529
+margin_top = 953.561
+margin_right = 691.253
+margin_bottom = 1089.56
+rect_scale = Vector2( 0.52, 0.6 )
+theme = ExtResource( 1 )
+text = "ESC back to menu"
+__meta__ = {
+"_edit_use_anchors_": false
+}
