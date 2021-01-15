@@ -268,8 +268,8 @@ func _process(delta):
 	else:
 		can_stand_up = true
 	
-	if Input.is_action_just_pressed("interact"):
-		interact()
+	#if Input.is_action_just_pressed("interact"):
+	#	interact()
 	
 	if reloading: 
 		yield(get_tree().create_timer(1), "timeout")

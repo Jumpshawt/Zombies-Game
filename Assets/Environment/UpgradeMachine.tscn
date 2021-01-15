@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Objects/UpgradeMachine.gd" type="Script" id=1]
 [ext_resource path="res://3D Model Imports/a.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Fonts/Black Ops One.theme" type="Theme" id=3]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1.13375, 0.53965, 0.310591 )
@@ -17,3 +18,37 @@ collision_layer = 4
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 shape = SubResource( 1 )
+
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control"]
+margin_left = 729.092
+margin_top = 672.854
+margin_right = 1364.09
+margin_bottom = 805.854
+theme = ExtResource( 3 )
+text = "E to Buy Upgrade"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Control"]
+margin_left = 727.31
+margin_top = 777.98
+margin_right = 1409.31
+margin_bottom = 910.98
+theme = ExtResource( 3 )
+text = "Not Enough Money"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
