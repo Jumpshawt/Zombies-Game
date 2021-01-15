@@ -2,7 +2,8 @@
 
 [ext_resource path="res://Scripts/Objects/PistolMachine.gd" type="Script" id=1]
 [ext_resource path="res://3D Model Imports/wallbuyforpistol.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Assets/Fonts/Black Ops One.theme" type="Theme" id=3]
+[ext_resource path="res://Assets/Black Ops One.theme" type="Theme" id=3]
+
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1.8861, 0.800718, 0.113817 )

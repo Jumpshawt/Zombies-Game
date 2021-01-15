@@ -18,7 +18,7 @@
 [ext_resource path="res://Assets/HUD/health.png" type="Texture" id=16]
 [ext_resource path="res://Assets/HUD/3thing.png" type="Texture" id=17]
 [ext_resource path="res://Assets/Fonts/Smaller black ops.tres" type="Theme" id=18]
-[ext_resource path="res://Assets/Fonts/Black Ops One.theme" type="Theme" id=19]
+[ext_resource path="res://Assets/Black Ops One.theme" type="Theme" id=19]
 [ext_resource path="res://Assets/HUD/Ammo.png" type="Texture" id=20]
 [ext_resource path="res://Assets/HUD/thing.png" type="Texture" id=21]
 [ext_resource path="res://Assets/HUD/Weapons/Ak.png" type="Texture" id=22]
@@ -41,6 +41,7 @@
 [ext_resource path="res://Sounds/Voice_lines/Player1_KillingSpree.wav" type="AudioStream" id=39]
 [ext_resource path="res://Sounds/Voice_lines/Player1_Melee_Dominate.wav" type="AudioStream" id=40]
 [ext_resource path="res://Sounds/Voice_lines/Player1_OnFire.wav" type="AudioStream" id=41]
+
 
 [sub_resource type="CapsuleShape" id=1]
 height = 3.0

@@ -54,7 +54,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.879, 5.438, 0 )
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -35.2457, -6.94047, 101.804 )
 
 [node name="UpgradeMachine" parent="Nav/NavigationMeshInstance" instance=ExtResource( 7 )]
-transform = Transform( 1, -1.53243e-09, 1.74832e-07, -1.53243e-09, 0.999846, 0.017529, -1.74832e-07, -0.017529, 0.999846, -42.8048, 0.960331, 7.08797 )
+transform = Transform( -2.18543e-07, -0.017529, 0.999846, -1.53243e-09, 0.999846, 0.017529, -1, 2.29865e-09, -2.18537e-07, -27.9826, -7.99498, 92.3057 )
 
 [node name="RifleMachine" parent="Nav/NavigationMeshInstance" instance=ExtResource( 8 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 7.07413, -1.83177, 101.996 )

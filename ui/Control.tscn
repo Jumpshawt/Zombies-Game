@@ -11,9 +11,10 @@
 [ext_resource path="res://Assets/HUD/Ammo.png" type="Texture" id=9]
 [ext_resource path="res://Assets/HUD/thing.png" type="Texture" id=10]
 [ext_resource path="res://Assets/HUD/3thing.png" type="Texture" id=11]
-[ext_resource path="res://Assets/Fonts/Black Ops One.theme" type="Theme" id=12]
+[ext_resource path="res://Assets/Black Ops One.theme" type="Theme" id=12]
 [ext_resource path="res://Assets/HUD/BlackOpsOne-Regular.ttf" type="DynamicFontData" id=13]
 [ext_resource path="res://Sprites/Temporary hitmarker.png" type="Texture" id=14]
+
 
 [sub_resource type="DynamicFont" id=1]
 outline_size = 1
