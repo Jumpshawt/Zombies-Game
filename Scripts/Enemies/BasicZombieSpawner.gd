@@ -6,36 +6,36 @@ var spawnTimeAmplifier = .5
 
 onready var infotransfer = $"/root/InfoTransfer"
 
-var player_in_area = false 
-var grace_period_over = false
+var player_in_area = true 
+var grace_period_over = true
 var activated_areas = 1
 
 var spawn_zombies
-export var MAXSPAWNTIME = 30
-export var MINSPAWNTIME = 15
+export var MAXSPAWNTIME = 20
+export var MINSPAWNTIME = 10
 export var active = true
 
-func _ready():
-	$Timer.set_wait_time(rand_range(MINSPAWNTIME, MAXSPAWNTIME)* spawnTimeAmplifier)
-	$Timer.start()
-	if not grace_period_over:
+func _process(_delta):
+	if infotransfer.changing_rounds:
+		grace_period_over = false
 		$RoundTimer.start()
 
 func _on_Timer_timeout():
+	print("timer timeout")
 	var e = better_zombie.instance()
 	if infotransfer.zombies_alive > infotransfer.zombies_to_spawn[infotransfer.round_num] * 0.5:
 		spawnTimeAmplifier = 0.25
 	else:
 		spawnTimeAmplifier = 1 + (infotransfer.round_num * 0.05) + (0.1 * activated_areas)
 	$Timer.set_wait_time(rand_range(MINSPAWNTIME, MAXSPAWNTIME)* spawnTimeAmplifier)
-	if infotransfer.spawn_zombies == true and active == true and player_in_area == true and grace_period_over:
+	if infotransfer.spawn_zombies == true and active == true and grace_period_over:
 		if infotransfer.zombies_alive < infotransfer.zombies_to_spawn[infotransfer.round_num]:
 			infotransfer.zombies_alive += 1
 			add_child(e)
 	$Timer.start()
 
 func check_activated():
-	activated_areas = 0.001
+	activated_areas = 0.0
 	if self.is_in_group("Room1") and infotransfer.Room1Open == true:
 		active = true
 		activated_areas += 1
@@ -57,17 +57,11 @@ func check_activated():
 	else:
 		active = false
 
-func _on_DetectArea_body_entered(body):
-	if body.is_in_group("Player"):
-		player_in_area = true
-
-func _on_DetectArea_body_exited(body):
-	if body.is_in_group("Player"):
-		player_in_area = false
-
-
 func _on_RoundTimer_timeout():
 	grace_period_over = true
+	$Timer.set_wait_time(rand_range(MINSPAWNTIME, MAXSPAWNTIME)* spawnTimeAmplifier)
+	$Timer.start()
+	check_activated()
 
 
 func _on_5_Second_Timer_timeout():

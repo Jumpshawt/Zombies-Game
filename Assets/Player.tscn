@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://Scripts/PlayerMovement.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Guns/GoodShotgun.tscn" type="PackedScene" id=2]
@@ -30,6 +30,17 @@
 [ext_resource path="res://Sprites/bloodOverlay.png" type="Texture" id=28]
 [ext_resource path="res://Sounds/Heartbeat_Noise.wav" type="AudioStream" id=29]
 [ext_resource path="res://Sounds/Grunting-from-Being-Hit-A1-www.fesliyanstudios.com.wav" type="AudioStream" id=30]
+[ext_resource path="res://Sounds/jump.wav" type="AudioStream" id=31]
+[ext_resource path="res://Sounds/footsteps-4.wav" type="AudioStream" id=32]
+[ext_resource path="res://Sounds/Voice_lines/chewing gum.wav" type="AudioStream" id=33]
+[ext_resource path="res://Sounds/Voice_lines/i love death.wav" type="AudioStream" id=34]
+[ext_resource path="res://Sounds/Voice_lines/Player1_Dominate-2.wav" type="AudioStream" id=35]
+[ext_resource path="res://Sounds/Voice_lines/Player1_Dominate-3.wav" type="AudioStream" id=36]
+[ext_resource path="res://Sounds/Voice_lines/Player1_Dominate-4.wav" type="AudioStream" id=37]
+[ext_resource path="res://Sounds/Voice_lines/Player1_Dominate-5.wav" type="AudioStream" id=38]
+[ext_resource path="res://Sounds/Voice_lines/Player1_KillingSpree.wav" type="AudioStream" id=39]
+[ext_resource path="res://Sounds/Voice_lines/Player1_Melee_Dominate.wav" type="AudioStream" id=40]
+[ext_resource path="res://Sounds/Voice_lines/Player1_OnFire.wav" type="AudioStream" id=41]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 3.0
@@ -594,6 +605,44 @@ stream = ExtResource( 29 )
 
 [node name="Ouch" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 30 )
+
+[node name="Jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 31 )
+
+[node name="Footsteps" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 32 )
+
+[node name="GroundCast" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.90841, 0 )
+enabled = true
+collision_mask = 15
+
+[node name="Rampage1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 35 )
+
+[node name="Rampage2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 36 )
+
+[node name="Rampage3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 37 )
+
+[node name="Rampage4" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 38 )
+
+[node name="Rampage5" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 39 )
+
+[node name="Rampage6" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 40 )
+
+[node name="Rampage7" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 41 )
+
+[node name="Rampage8" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 34 )
+
+[node name="Rampage9" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 33 )
 [connection signal="body_entered" from="PickupArea" to="." method="_on_PickupArea_body_entered"]
 [connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="Rotation_Helper/HandLoc/Hand/Pistol" method="_on_Label_need_to_reload"]
 [connection signal="need_to_reload" from="Control/PistolAmmo/Label" to="." method="_on_Label_need_to_reload"]

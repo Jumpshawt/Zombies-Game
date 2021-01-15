@@ -69,30 +69,36 @@ func labelpopup():
 	else:
 		$Control/Label.visible = false
 
+func play_break():
+	$AudioStreamPlayer3D.set_pitch_scale(rand_range(.75, 1.25))
+	$AudioStreamPlayer3D.set_unit_db(rand_range(0, 20))
+	$AudioStreamPlayer3D.play()
+
 func check_health():	
 	#If the player isn't repairing excecute line, otherwise go to else function
 	if is_repairing == false:
 		
-		if barrier_health < (max_health * .75):
-			if state == 3:
-				$AnimationPlayer.play("Wood_break1") 
-				print("playing woodBreak3")
-				barrier_alive = true
-				state = 2
+		if barrier_health < (max_health * .75) and state == 3:
+			$AnimationPlayer.play("Wood_break1") 
+			print("playing woodBreak3")
+			play_break()
+			barrier_alive = true
+			state = 2
 		if barrier_health < (max_health * .5) and state == 2:
 			$AnimationPlayer.play("Wood_break2")
 			print("playing woodBreak2")
+			play_break()
 			barrier_alive = true
 			state = 1
 		if barrier_health < (max_health * .25) and state == 1:
 			$AnimationPlayer.play("Wood_break3")
+			play_break()
 			barrier_alive = true
 			print("playing woodBreak1")
 			state = 0
 	#If player repairing true, excecute 
 	else:
 		if barrier_health > (max_health * .75) and state == 2:
-			
 			$AnimationPlayer.play("Wood_repair1") 
 			print("playing woodrepair3")
 			barrier_alive = true

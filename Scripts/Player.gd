@@ -38,6 +38,8 @@ onready var infotransfer = $"/root/InfoTransfer"
 onready var rifle_raycast = $"Rotation_Helper/Camera/RifleRayCast"
 onready var interactraycast = $"Rotation_Helper/InteractRaycast"
 onready var groundcast = $GroundCast
+
+
 #gun = 1 :rifle
 #gun = 2 : pistol
 #gun = 3 :shotgun
@@ -252,6 +254,7 @@ func process_movement(delta):
 	pass
 
 func _process(delta):
+	on_a_rampage()
 	update_volume()
 	reset_the_camera_rotation()
 	ammo_box_check()
@@ -440,3 +443,27 @@ func screen_shake(shake_amount):
 func reset_the_camera_rotation():
 	$Rotation_Helper/Camera.rotation = lerp($Rotation_Helper/Camera.rotation, Vector3(0,0,0), 0.1)
 
+var rampage_choice :float
+
+func on_a_rampage():
+	if infotransfer.play_rampage_sound == true:
+		rampage_choice = rand_range(0, 9)
+		if rampage_choice <= 1:
+			$Rampage1.play()
+		elif rampage_choice <= 2:
+			$Rampage2.play()
+		elif rampage_choice <= 3:
+			$Rampage3.play()
+		elif rampage_choice <= 4:
+			$Rampage4.play()
+		elif rampage_choice <= 5:
+			$Rampage5.play()
+		elif rampage_choice <= 6:
+			$Rampage6.play()
+		elif rampage_choice <= 7:
+			$Rampage7.play()
+		elif rampage_choice <= 8:
+			$Rampage8.play()
+		elif rampage_choice <= 9:
+			$Rampage9.play()
+		infotransfer.play_rampage_sound = false
