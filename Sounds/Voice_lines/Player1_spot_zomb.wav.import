@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Player1_spot_zomb.wav-0adbff86666d63a3d93a79ef7c5b1d4c.sample"
+
+[deps]
+
+source_file="res://Sounds/Voice_lines/Player1_spot_zomb.wav"
+dest_files=[ "res://.import/Player1_spot_zomb.wav-0adbff86666d63a3d93a79ef7c5b1d4c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

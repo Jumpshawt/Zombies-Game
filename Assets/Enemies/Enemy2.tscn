@@ -1,10 +1,13 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/Enemies/BetterEnemy.gd" type="Script" id=1]
 [ext_resource path="res://3D Model Imports/Zombies/Zombie2/Full.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Sounds/534602__jollygreenz__zombiedeath.wav" type="AudioStream" id=3]
 [ext_resource path="res://Sounds/315847__gneube__zombie-growling.wav" type="AudioStream" id=4]
 [ext_resource path="res://Sounds/445983__breviceps__zombie-gargles.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sounds/demon growl.wav" type="AudioStream" id=6]
+[ext_resource path="res://Sounds/zombie groan again.wav" type="AudioStream" id=7]
+[ext_resource path="res://Sounds/nasal zombie growl.wav" type="AudioStream" id=8]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 200, 15, 200 )
@@ -119,13 +122,33 @@ stream = ExtResource( 5 )
 unit_size = 100.0
 max_db = 6.0
 
-[node name="Zombie_Die" type="AudioStreamPlayer" parent="."]
+[node name="Zombie_Die" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 3 )
+unit_db = 25.0
 
-[node name="ZombieSpawn" type="AudioStreamPlayer" parent="."]
+[node name="ZombieSpawn" type="AudioStreamPlayer3D" parent="."]
+transform = Transform( 1, 0, -9.9476e-14, 0, 1, 0, 0, 0, 1, 0, 8.13296, 0 )
 stream = ExtResource( 4 )
-volume_db = -10.0
+unit_db = 15.0
 pitch_scale = 1.5
+max_distance = 25.0
+
+[node name="NasalGrowl" type="AudioStreamPlayer3D" parent="."]
+transform = Transform( 1, 0, -9.9476e-14, 0, 1, 0, 0, 0, 1, 0, 9.38134, 0 )
+stream = ExtResource( 8 )
+unit_db = 10.0
+
+[node name="AnotherGroan" type="AudioStreamPlayer3D" parent="."]
+transform = Transform( 1, 0, -9.9476e-14, 0, 1, 0, 0, 0, 1, 0, 9.50933, 0 )
+stream = ExtResource( 7 )
+unit_db = 10.0
+
+[node name="AudioStreamPlayer3D3" type="AudioStreamPlayer3D" parent="."]
+transform = Transform( 1, 0, -9.9476e-14, 0, 1, 0, 0, 0, 1, 0, 8.021, 0 )
+stream = ExtResource( 6 )
+unit_db = 40.0
+
+[node name="AudioStreamPlayer3D4" type="AudioStreamPlayer3D" parent="."]
 [connection signal="attack1" from="." to="Full" method="_on_Enemy_attack1"]
 [connection signal="attack2" from="." to="Full" method="_on_Enemy_attack2"]
 [connection signal="backwards_death" from="." to="Full" method="_on_Enemy_backwards_death"]

@@ -388,7 +388,7 @@ margin_top = 443.226
 margin_right = 1264.58
 margin_bottom = 677.226
 theme = ExtResource( 2 )
-text = "Press E to Repair"
+text = "Hold E to Repair"
 __meta__ = {
 "_edit_use_anchors_": false
 }
