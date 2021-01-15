@@ -57,6 +57,7 @@ func find_rank():
 		rank = "POG"
 
 func _on_Button_pressed():
+	infotransfer.zombies_alive = 0
 	infotransfer.total_damage_dealt = 0
 	infotransfer.total_zombies_killed = 0
 	infotransfer.rounds_survived = 0
