@@ -192,6 +192,7 @@ func player_die():
 		die_animation()
 		if ammo_rng <= drop_ammo_box_rng:
 			money_earned = int(rand_range(75, 125))
+			
 			infotransfer.money += money_earned
 			infotransfer.total_money_earned += money_earned
 			infotransfer.zombies_alive -= 1
