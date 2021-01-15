@@ -25,6 +25,7 @@ func _ready():
 
 func _process(_delta):
 	new_round_check()
+	check_groups()
 
 func spawn_horde():
 	if spawned_hordes < hordes_to_spawn and infotransfer.spawn_zombies == true:

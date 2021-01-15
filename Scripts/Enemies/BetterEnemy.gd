@@ -52,7 +52,8 @@ var random_chance
 var sound_chance = 1.0 #x out of 10
 var chance_to_gurgle = 0.02 # x out of 10, called every second
 var random_gurgle = 0.0
-
+var chance_to_rampage = .5
+var rampage_rng = 0.0
 
 func _ready():
 	random_chance = rand_range(0, 10)
@@ -81,7 +82,7 @@ func _ready():
 		speed = rand_range(MIN_SPEED, MAX_SPEED) * 0.2
 	$Timer.start()
 	var knife_damaged = get_tree().get_root().find_node("Player", true, false)
-	knife_damaged.connect("knife_damage", self, "handle_knife_damage")
+	knife_damaged.connect("knife_damage", self, "handle_knife_damage") 
 	
 	var pistol_damaged = get_tree().get_root().find_node("Player", true, false) 
 	pistol_damaged.connect("pistol_damage", self, "handle_pistol_damage")
@@ -95,11 +96,21 @@ func _ready():
 signal walker
 signal runner
 
+var sound_choice : float 
+
 func gurgle():
 	random_gurgle = rand_range(0, 10)
 	if random_gurgle <= chance_to_gurgle:
-		$Gurgle.set_pitch_scale(rand_range(0.5, 1.5) * .2 + (size_scale * 2))
-		$Gurgle.play()
+		sound_choice = rand_range(0, 3)
+		if sound_choice <= 1:
+			$Gurgle.set_pitch_scale(rand_range(0.5, 1.5) * .2 + (size_scale * 2))
+			$Gurgle.play()
+		if sound_choice <= 2:
+			$NasalGrowl.set_pitch_scale(rand_range(0.5, 1.5) * .2 + (size_scale * 2))
+			$NasalGrowl.play()
+		if sound_choice <= 3:
+			$AnotherGroan.set_pitch_scale(rand_range(0.5, 1.5) * .2 + (size_scale * 2))
+			$AnotherGroan.play()
 
 func play_animation(animation_name):
 	emit_signal(animation_name)
@@ -107,11 +118,11 @@ func play_animation(animation_name):
 func handle_shotgun_damage(object):
 	if not dead:
 		if $HeadHitBox == object:
-			health -= 40 + (20 * infotransfer.shotgun_upgrade_level)
+			health -= 80 + (25 * infotransfer.shotgun_upgrade_level)
 			stun()
 			#infotransfer.blood_splatter = true
 		elif self == object:
-			health -= 20 + (10 * infotransfer.shotgun_upgrade_level)
+			health -= 40 + (15 * infotransfer.shotgun_upgrade_level)
 			stun()
 			#infotransfer.blood_splatter = true
 	else:
@@ -124,7 +135,7 @@ func handle_rifle_damage(object):
 			stun()
 			#infotransfer.blood_splatter = true
 		elif self == object or $HitBox == object:
-			health -= 40 + (10 * infotransfer.rifle_upgrade_level)
+			health -= 40 + (15 * infotransfer.rifle_upgrade_level)
 			stun()
 			#infotransfer.blood_splatter = true
 	else:
@@ -166,6 +177,10 @@ func die_animation():
 
 func player_die():
 	if not dead:
+		rampage_rng = rand_range(0, 10)
+		if rampage_rng <= chance_to_rampage:
+			infotransfer.play_rampage_sound = true
+			print(infotransfer.play_rampage_sound)
 		set_physics_process(false)
 		$HitBox.queue_free()
 		$HeadHitBox.queue_free()
@@ -179,7 +194,6 @@ func player_die():
 			money_earned = int(rand_range(75, 125))
 			infotransfer.money += money_earned
 			infotransfer.total_money_earned += money_earned
-			print("zombies_alive -= 1")
 			infotransfer.zombies_alive -= 1
 			infotransfer.total_damage_dealt += total_health
 			infotransfer.total_zombies_killed += 1
@@ -194,7 +208,6 @@ func player_die():
 			infotransfer.total_money_earned += money_earned
 			infotransfer.total_damage_dealt += total_health
 			infotransfer.zombies_alive -= 1
-			print("zombies_alive -= 1")
 			infotransfer.total_zombies_killed += 1
 			$Zombie_Die.play()
 			yield(get_tree().create_timer(4), "timeout")
@@ -301,6 +314,7 @@ func attack():
 func _on_AttackArea_body_entered(body):
 	if body.is_in_group("Player"):
 		player_in_attack = true
+		yield(get_tree().create_timer(0.5), "timeout")
 		attack()
 		set_physics_process(false) #Turns off zombie
 		$AttackTimer.start()  #Controls how long before zombie turns back on

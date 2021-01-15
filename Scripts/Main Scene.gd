@@ -6,6 +6,8 @@ var a = 1
 func _ready():
 	$"Round Change".play()
 	$"Round Change".set_volume_db(-10)
+	yield(get_tree().create_timer(2.5), "timeout")
+	$Intro.play()
 
 func _process(_delta):
 	if infotransfer.changing_rounds == true and a == 1:

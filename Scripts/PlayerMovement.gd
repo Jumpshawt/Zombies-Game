@@ -5,6 +5,8 @@ const SWAY = 20
 onready var head = $Rotation_Helper
 onready var hand = $Rotation_Helper/HandLoc/Hand
 onready var handloc = $Rotation_Helper/HandLoc
+var jumping = false
+
 
 func _ready():
 	hand.set_as_toplevel(true)
@@ -25,6 +27,7 @@ func _input(event):
 		camera_rot.x = clamp(camera_rot.x, -70, 70)
 		rotation_helper.rotation_degrees = camera_rot
 
+var walking = false
 func process_input(delta):
 	if Input.is_action_just_pressed("shoot") and infotransfer.gun_state == "shotgun" and shotgunammo.ammo_loaded >= 1 and shotgun_able_to_shoot:
 		shoot_shotgun()
@@ -35,6 +38,7 @@ func process_input(delta):
 	var input_movement_vector = Vector2()
 	if Input.is_action_pressed("W"):
 		input_movement_vector.y += 1
+		walking = true
 	if Input.is_action_pressed("S"):
 		input_movement_vector.y -= 1
 	if Input.is_action_pressed("A"):
@@ -45,7 +49,11 @@ func process_input(delta):
 		max_speed = 8
 	elif not crouched:
 		max_speed = 6
-	
+	if is_on_floor() and not Input.is_action_pressed("W") and not Input.is_action_pressed("A") and not Input.is_action_pressed("S") and not Input.is_action_pressed("D"):
+		walking = false
+	$GroundCast.force_raycast_update()
+	if $GroundCast.get_collider() == null:
+		$Footsteps.stop()
 	#dooors
 	if Input.is_action_just_pressed("interact"):
 		interact()
@@ -97,9 +105,12 @@ func process_input(delta):
 	
 	if Input.is_action_pressed("Jump") and is_on_floor():
 		vel.y = JUMP_SPEED
+		jumping = true
+		$Jump.play()
 
 func process_movement(delta):
 	door_popup()
+	walking_sounds()
 	dir.y = 0
 	dir = dir.normalized()
 	
@@ -130,7 +141,7 @@ func player_hit():
 		screen_shake(normal_shake_amount)
 		able_to_regen = false
 		$RegenTimer.start()
-		damage_taken = rand_range(min_damage, max_damage)
+		damage_taken = rand_range(min_damage, max_damage) * ((0.2 * infotransfer.round_num) + 1) 
 		health -= int(damage_taken)
 		infotransfer.total_damage_taken += damage_taken
 		infotransfer.player_hit = false
@@ -151,6 +162,10 @@ func _on_HeartBeat_finished():
 		$HeartBeat.play()
 
 signal door_popup()
+
+func walking_sounds():
+	if walking and not $Footsteps.is_playing():
+		$Footsteps.play()
 
 func door_popup():
 	if interactraycast.is_colliding():

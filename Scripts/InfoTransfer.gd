@@ -65,6 +65,7 @@ var blood_splatter = false
 
 #=====Sounds=====#
 var hitmarkersound = false
+var play_rampage_sound = false
 
 #=====Stats=====#
 var total_zombies_killed = 0
