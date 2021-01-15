@@ -1,9 +1,11 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Scripts/Objects/Barrier.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Fonts/Black Ops One.theme" type="Theme" id=2]
 [ext_resource path="res://3D Model Imports/Level Assets/Wooden_barrier.material" type="Material" id=3]
 [ext_resource path="res://Sounds/barricade_break.wav" type="AudioStream" id=4]
+[ext_resource path="res://Sounds/Hammering_Soung_6-Lisa_Redfern-411383436.wav" type="AudioStream" id=5]
+[ext_resource path="res://Sounds/Cupboard_Door_Close-SoundBible.com-399662278.wav" type="AudioStream" id=6]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 0.25, 1, 2 )
@@ -457,6 +459,12 @@ anims/Wood_repair3 = SubResource( 13 )
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 4 )
 max_distance = 25.0
+
+[node name="Slam" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 6 )
+
+[node name="HammeringSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 5 )
 [connection signal="body_entered" from="RepairArea" to="." method="_on_RepairArea_body_entered"]
 [connection signal="body_exited" from="RepairArea" to="." method="_on_RepairArea_body_exited"]
 [connection signal="body_entered" from="ZombieArea" to="." method="_on_ZombieArea_body_entered"]

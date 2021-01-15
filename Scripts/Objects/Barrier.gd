@@ -28,6 +28,10 @@ func _process(delta):
 	check_health()
 	update_health(delta)
 	labelpopup()
+	if player_in_area and Input.is_action_just_pressed("interact"):
+		$HammeringSound.play()
+	elif player_in_area == false or Input.is_action_just_released("interact") or barrier_health == 100:
+		$HammeringSound.stop()
 
 func _on_RepairArea_body_entered(body):
 	#If the player enters this turns on
@@ -55,7 +59,7 @@ func _on_ZombieArea_body_exited(body):
 func update_health(delta2):
 	#Check if zombies are near the barrier if they are reduce the health of barrier, 
 	if zombies_in_area > 0:
-		barrier_health -= (7.5 * zombies_in_area) * delta2
+		barrier_health -= (5 * zombies_in_area) * delta2
 	#Player repairing barrier 
 	if player_in_area == true and Input.is_action_pressed("interact"):
 		is_repairing = true
@@ -68,6 +72,11 @@ func labelpopup():
 		$Control/Label.visible = true
 	else:
 		$Control/Label.visible = false
+
+func slam():
+	$Slam.set_pitch_scale(rand_range(.75, 1.25))
+	$Slam.set_unit_db(rand_range(0, 20))
+	$Slam.play()
 
 func play_break():
 	$AudioStreamPlayer3D.set_pitch_scale(rand_range(.75, 1.25))
@@ -99,22 +108,27 @@ func check_health():
 	#If player repairing true, excecute 
 	else:
 		if barrier_health > (max_health * .75) and state == 2:
-			$AnimationPlayer.play("Wood_repair1") 
+			$AnimationPlayer.play("Wood_repair1")
+			slam()
 			print("playing woodrepair3")
+			infotransfer.money += 10
 			barrier_alive = true
 			state = 3 
 		if barrier_health > (max_health * .5) and state == 1:
 			$AnimationPlayer.play("Wood_repair2")
+			slam()
 			print("playing woodrepair2")
+			infotransfer.money += 10
 			barrier_alive = true
 			state = 2
 		if barrier_health > (max_health * .25) and state == 0:
 			$AnimationPlayer.play("Wood_repair3")
+			slam()
 			barrier_alive = true
+			infotransfer.money += 10
 			print("playing woodrepair1")
 			state = 1
 #	elif barrier_health < 0:
 #		$AnimationPlayer.play("BarrierHealth.0")
 #		barrier_alive = false
 #		print("playing woodBreak0")
-#

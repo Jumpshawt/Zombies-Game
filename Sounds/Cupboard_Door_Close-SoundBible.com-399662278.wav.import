@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Cupboard_Door_Close-SoundBible.com-399662278.wav-fd0047a8f9dd7bb6075766883ed94949.sample"
+
+[deps]
+
+source_file="res://Sounds/Cupboard_Door_Close-SoundBible.com-399662278.wav"
+dest_files=[ "res://.import/Cupboard_Door_Close-SoundBible.com-399662278.wav-fd0047a8f9dd7bb6075766883ed94949.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
