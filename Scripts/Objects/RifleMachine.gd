@@ -14,7 +14,6 @@ func _ready():
 	popup.connect("door_popup", self, "handle_interactee")
 
 func handle_interacted(eee):
-	print("signal recieved")
 	if eee == static_body:
 		if not infotransfer.rifle_activated:
 			if infotransfer.money >= 1500:

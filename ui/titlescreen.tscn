@@ -1,16 +1,17 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://Assets/HUD/2thing.png" type="Texture" id=2]
 [ext_resource path="res://Assets/HUD/3thing.png" type="Texture" id=3]
 [ext_resource path="res://ui/png-divider-lines-divider-line-png-2665.png" type="Texture" id=4]
 [ext_resource path="res://ui/EastSeaDokdo-Regular.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Scripts/HUD/TitleScreen.gd" type="Script" id=6]
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=1]
 size = 130
 font_data = ExtResource( 5 )
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=2]
 size = 130
 font_data = ExtResource( 5 )
 
@@ -21,6 +22,7 @@ anchor_bottom = 1.0
 margin_left = -2.0
 margin_right = 1.0
 margin_bottom = -2.0
+script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -30,7 +32,7 @@ margin_left = -1.09109
 margin_top = 325.175
 margin_right = 370.909
 margin_bottom = 462.175
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "Play"
 flat = true
@@ -46,6 +48,7 @@ scale = Vector2( 0.341037, 2.06761 )
 texture = ExtResource( 3 )
 
 [node name="3thing2" type="Sprite" parent="."]
+visible = false
 self_modulate = Color( 1, 1, 1, 0.588235 )
 position = Vector2( 1537.87, 537.736 )
 rotation = 1.57899
@@ -59,7 +62,7 @@ margin_left = 443.919
 margin_top = 68.0
 margin_right = -456.081
 margin_bottom = 0.179993
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "Not a CoD Zombies Copy"
 align = 1
@@ -81,7 +84,7 @@ margin_left = -6.32526
 margin_top = 663.109
 margin_right = 367.675
 margin_bottom = 800.109
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "Exit "
 flat = true
@@ -90,11 +93,12 @@ __meta__ = {
 }
 
 [node name="Button3" type="Button" parent="."]
-margin_left = 6.09494
-margin_top = 467.337
-margin_right = 378.095
-margin_bottom = 604.337
-custom_fonts/font = SubResource( 2 )
+visible = false
+margin_left = 1367.39
+margin_top = 390.72
+margin_right = 1739.39
+margin_bottom = 527.72
+custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "Credits"
 flat = true
@@ -103,11 +107,12 @@ __meta__ = {
 }
 
 [node name="Button4" type="Button" parent="."]
+visible = false
 margin_left = 1256.56
 margin_top = 465.449
 margin_right = 1813.56
 margin_bottom = 602.449
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "Highscore List"
 flat = true
@@ -120,7 +125,7 @@ margin_left = 1314.0
 margin_top = 819.0
 margin_right = 1773.0
 margin_bottom = 964.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "Controls"
 flat = true
@@ -152,9 +157,10 @@ scale = Vector2( 0.295987, 0.344817 )
 texture = ExtResource( 2 )
 
 [node name="2thing3" type="Sprite" parent="."]
+visible = false
 modulate = Color( 1, 1, 1, 0.486275 )
 show_behind_parent = true
-position = Vector2( 192.777, 544.86 )
+position = Vector2( 1550.51, 464.679 )
 rotation = 1.57899
 scale = Vector2( 0.274948, 0.554288 )
 texture = ExtResource( 2 )
@@ -166,3 +172,5 @@ position = Vector2( 1540.95, 891.449 )
 rotation = 1.57899
 scale = Vector2( 0.338742, 0.825354 )
 texture = ExtResource( 2 )
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_Button2_pressed"]

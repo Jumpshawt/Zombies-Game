@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Objects/ShotgunMachine.gd" type="Script" id=1]
 [ext_resource path="res://3D Model Imports/wallbuyforshotgun.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Guns/holoGoodShotgun.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Fonts/Black Ops One.theme" type="Theme" id=4]
+[ext_resource path="res://Sounds/Voice_lines/buys shotgun.wav" type="AudioStream" id=5]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 1.87937, 0.812289, 0.106545 )
@@ -21,3 +23,35 @@ collision_layer = 4
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 shape = SubResource( 1 )
+
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control"]
+margin_left = 690.927
+margin_top = 681.264
+margin_right = 1315.93
+margin_bottom = 800.264
+theme = ExtResource( 4 )
+text = "E to Buy Shotgun
+Price = 2000"
+
+[node name="Label2" type="Label" parent="Control"]
+margin_left = 687.917
+margin_top = 811.389
+margin_right = 877.917
+margin_bottom = 913.389
+theme = ExtResource( 4 )
+text = "Not Enough Money!"
+
+[node name="GoAwayTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="ILikeThisWeapon" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+[connection signal="timeout" from="GoAwayTimer" to="." method="_on_GoAwayTimer_timeout"]

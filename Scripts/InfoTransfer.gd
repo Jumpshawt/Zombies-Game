@@ -14,7 +14,7 @@ var gun_state = "unarmed"
 
 var pistol_activated = true
 var rifle_activated = false
-var shotgun_activated = true
+var shotgun_activated = false
 
 var gun_reloading = false
 

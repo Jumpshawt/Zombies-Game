@@ -35,7 +35,6 @@ func _on_Timer_timeout():
 	$Timer.start()
 
 func _process(delta):
-	print(infotransfer.changing_rounds)
 	if infotransfer.changing_rounds == true:
 		grace_period_over = false
 	check_activated()

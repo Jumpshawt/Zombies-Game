@@ -31,7 +31,7 @@ signal spin
 signal shoot
 
 func _ready():
-	var ammo_bought = get_tree().get_root().find_node("ShotgunShopScreen", true, false)
+	var ammo_bought = get_tree().get_root().find_node("ShotgunMachine", true, false)
 	ammo_bought.connect("shotgun_ammo_bought", self, "handle_ammo_bought")
 
 func handle_ammo_bought():
