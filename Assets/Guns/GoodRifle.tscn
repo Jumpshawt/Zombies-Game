@@ -102,12 +102,12 @@ bones/1/enabled = true
 bones/1/bound_children = [  ]
 
 [node name="Ak" type="MeshInstance" parent="Armature"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -276.742, -489.14, 0 )
 mesh = ExtResource( 2 )
 material/0 = null
 
 [node name="Sprite3D" type="Sprite3D" parent="Armature/Ak"]
 transform = Transform( 1.8469, 0.76743, 0, -0.767431, 1.8469, 0, 0, 0, 2, 9.80534, -4.37634, -0.0453703 )
-visible = false
 texture = ExtResource( 5 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

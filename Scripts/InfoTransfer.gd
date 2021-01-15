@@ -6,7 +6,7 @@ var ammo_box_collected : bool = false
 
 var pistol_reloading = false
 var pistol_ammo_loaded = 16
-var pistol_reserve_ammo = 48
+var pistol_reserve_ammo = 192
 
 #=====GUN_STUFF=====#
 var gun_state = "unarmed"
@@ -22,8 +22,8 @@ var gun_changing : bool = false
 
 #=====RifleStuff=====#
 var rifle_reloading = false
-var rifle_ammo_loaded = 30
-var rifle_reserve_ammo = 90
+var rifle_ammo_loaded = 50
+var rifle_reserve_ammo = 400
 var rifle_shooting = false
 
 #=====ShotgunStuff=====#

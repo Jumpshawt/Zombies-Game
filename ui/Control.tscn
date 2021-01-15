@@ -165,10 +165,11 @@ z_index = -1
 texture = ExtResource( 11 )
 
 [node name="Round" type="Label" parent="."]
-margin_left = 932.082
-margin_top = 42.2599
-margin_right = 1116.08
-margin_bottom = 143.26
+margin_left = 653.373
+margin_top = -10.5556
+margin_right = 969.373
+margin_bottom = 76.4444
+rect_scale = Vector2( 0.639855, 0.606059 )
 rect_pivot_offset = Vector2( 709.06, 196.362 )
 theme = ExtResource( 12 )
 text = "Round: 1"
