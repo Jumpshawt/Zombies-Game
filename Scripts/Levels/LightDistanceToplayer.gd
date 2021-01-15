@@ -17,7 +17,7 @@ func _ready():
 func _process(delta):
 	#P
 	if global_transform.origin.distance_to(Player.global_transform.origin) < distance_to_player_cutoff:
-		print("light visible")
+		#print("light visible")
 		self.visible = true 
 	else:
 		self.visible = false

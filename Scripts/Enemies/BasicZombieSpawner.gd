@@ -35,10 +35,9 @@ func _on_Timer_timeout():
 	$Timer.start()
 
 func _process(delta):
+	print(infotransfer.changing_rounds)
 	if infotransfer.changing_rounds == true:
 		grace_period_over = false
-	if grace_period_over == false and not $RoundTimer.is_stopped():
-		$RoundTimer.start()
 	check_activated()
 
 func check_activated():
@@ -63,9 +62,11 @@ func check_activated():
 		activated_areas += 1
 
 func _on_RoundTimer_timeout():
-	grace_period_over = true
 	$Timer.set_wait_time(rand_range(MINSPAWNTIME, MAXSPAWNTIME)* spawnTimeAmplifier)
 	$Timer.start()
 
 func _on_5_Second_Timer_timeout():
 	check_activated()
+	if grace_period_over == false:
+		yield(get_tree().create_timer(3), "timeout")
+		grace_period_over = true
