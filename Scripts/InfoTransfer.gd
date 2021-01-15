@@ -58,7 +58,7 @@ var shotgun_upgrade_cost : float = 2000
 var shotgun_increase_amount : float = 2000
 
 # warning-ignore:unused_class_variable
-var money = 100000
+var money = 0
 
 #=====Particles=====#
 var blood_splatter = false

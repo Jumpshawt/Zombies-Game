@@ -73,7 +73,7 @@ func _on_Button_pressed():
 	infotransfer.shotgun_activated = false
 	infotransfer.rifle_activated = false
 	infotransfer.pistol_ammo_loaded = 16
-	infotransfer.pistol_reserve_ammo = 48
+	infotransfer.pistol_reserve_ammo = 192
 	infotransfer.gun_state = "Pistol"
 	infotransfer.Room1Open = true
 	infotransfer.Room2Open = false

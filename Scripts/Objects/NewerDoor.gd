@@ -32,6 +32,7 @@ func handle_interacted(object):
 			$AudioStreamPlayer3D.play()
 			unlocked = true
 			infotransfer.money -= 1250
+			open_rooms()
 		else:
 			$Control/DoorPopup.visible = false
 			$Control/NotEnoughMoney.visible = true
