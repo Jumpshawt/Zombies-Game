@@ -1,5 +1,5 @@
 # Zombies-Game
-Zombies 
+Zombie shooter 
 
 # School Project
 This a godot zombies FPS game made in the godot game engine.
